@@ -3,8 +3,8 @@ title: Xud API Reference
 
 language_tabs:
   - shell
-  - python
   - javascript
+  - python
 
 toc_footers:
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
@@ -12,6 +12,187 @@ toc_footers:
 search: true
 ---
 # Introduction
+This is the API documentation for the xud gRPC service.
+Xud is a decentralized exchange built on the Lightning and Raiden networks to enable instant and trustless cryptocurrency swaps and order fulfillment between cryptocurrency exchanges. Exchanges participating in the network aggregate their liquidity and can provide deeper order books and new trading pairs to their users.
+# XudInit Service
+```javascript
+var fs = require('fs');
+var grpc = require('grpc');
+var options = {
+  convertFieldsToCamelCase: true,
+  longsAsStrings: true,
+};
+var xudinitProto = grpc.load('xudrpc.proto', 'proto', options);
+var tlsCert = fs.readFileSync('path/to/tls.cert');
+var sslCreds = grpc.credentials.createSsl(tlsCert);
+var xudinitClient = new xudinitProto.XudInit(host + ':' + port, sslCreds);
+```
+```python
+# Python requires you to generate static protobuf code, see the following guide:
+# https://grpc.io/docs/tutorials/basic/python.html#generating-client-and-server-code
+
+import grpc
+import xudrpc_pb2 as xudinit, xudrpc_pb2_grpc as xudinitrpc
+cert = open('path/to/tls.cert', 'rb').read()
+ssl_creds = grpc.ssl_channel_credentials(cert)
+channel = grpc.secure_channel(host + ':' + port, ssl_creds)
+xudinit_stub = xudrpc.XudInitStub(channel)
+```
+A service for interacting with a locked or uninitalized xud node.
+## CreateNode
+```javascript
+var request = {
+  password: <string>,
+};
+
+xudinitClient.createNode(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "seedMnemonic": <string[]>,
+//  "initializedLnds": <string[]>,
+//  "initializedRaiden": <bool>
+// }
+```
+```python
+request = xudinit.CreateNodeRequest(
+  password=<string>,
+)
+response = xudinitStub.CreateNode(request)
+print(response)
+# Output:
+# {
+#  "seed_mnemonic": <string[]>,
+#  "initialized_lnds": <string[]>,
+#  "initialized_raiden": <bool>
+# }
+```
+```shell
+xucli create
+```
+Creates an xud identity node key and underlying wallets. The node key and wallets are derived from a single seed and encrypted using a single password provided as a parameter to the call.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+password | string | The password in utf-8 with which to encrypt the new xud node key as well as any uninitialized underlying wallets.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+seed_mnemonic | string array | The 24 word mnemonic to recover the xud identity key and underlying wallets
+initialized_lnds | string array | The list of lnd clients that were initialized.
+initialized_raiden | bool | Whether raiden was initialized.
+## UnlockNode
+```javascript
+var request = {
+  password: <string>,
+};
+
+xudinitClient.unlockNode(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "unlockedLnds": <string[]>,
+//  "unlockedRaiden": <bool>,
+//  "lockedLnds": <string[]>
+// }
+```
+```python
+request = xudinit.UnlockNodeRequest(
+  password=<string>,
+)
+response = xudinitStub.UnlockNode(request)
+print(response)
+# Output:
+# {
+#  "unlocked_lnds": <string[]>,
+#  "unlocked_raiden": <bool>,
+#  "locked_lnds": <string[]>
+# }
+```
+```shell
+xucli unlock
+```
+Unlocks and decrypts the xud node key and any underlying wallets.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+password | string | The password in utf-8 with which to unlock an existing xud node key as well as underlying client wallets such as lnd.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+unlocked_lnds | string array | The list of lnd clients that were unlocked.
+unlocked_raiden | bool | Whether raiden was unlocked.
+locked_lnds | string array | The list of lnd clients that could not be unlocked.
+## RestoreNode
+```javascript
+var request = {
+  seedMnemonic: <string[]>,
+  password: <string>,
+  lndBackups: <bytes>,
+  raidenDatabase: <bytes>,
+  raidenDatabasePath: <string>,
+  xudDatabase: <bytes>,
+};
+
+xudinitClient.restoreNode(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "restoredLnds": <string[]>,
+//  "restoredRaiden": <bool>
+// }
+```
+```python
+request = xudinit.RestoreNodeRequest(
+  seed_mnemonic=<string[]>,
+  password=<string>,
+  lnd_backups=<bytes>,
+  raiden_database=<bytes>,
+  raiden_database_path=<string>,
+  xud_database=<bytes>,
+)
+response = xudinitStub.RestoreNode(request)
+print(response)
+# Output:
+# {
+#  "restored_lnds": <string[]>,
+#  "restored_raiden": <bool>
+# }
+```
+```shell
+xucli restore [backup_directory] [raiden_database_path]
+```
+Restores an xud instance and underlying wallets from a seed.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+seed_mnemonic | string array | The 24 word mnemonic to recover the xud identity key and underlying wallets
+password | string | The password in utf-8 with which to encrypt the restored xud node key as well as any restored underlying wallets.
+lnd_backups | map&lt;string, bytes&gt; | A map between the currency of the LND and its multi channel SCB
+raiden_database | bytes | The Raiden database backup
+raiden_database_path | string | Path to where the Raiden database backup should be written
+xud_database | bytes | The XUD database backup
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+restored_lnds | string array | The list of lnd clients that were initialized.
+restored_raiden | bool | Whether raiden was initialized.
+# Xud Service
 ```javascript
 var fs = require('fs');
 var grpc = require('grpc');
@@ -22,7 +203,7 @@ var options = {
 var xudProto = grpc.load('xudrpc.proto', 'proto', options);
 var tlsCert = fs.readFileSync('path/to/tls.cert');
 var sslCreds = grpc.credentials.createSsl(tlsCert);
-var xudClient = new xudProto.Xud('localhost:8886', sslCreds);
+var xudClient = new xudProto.Xud(host + ':' + port, sslCreds);
 ```
 ```python
 # Python requires you to generate static protobuf code, see the following guide:
@@ -32,12 +213,10 @@ import grpc
 import xudrpc_pb2 as xud, xudrpc_pb2_grpc as xudrpc
 cert = open('path/to/tls.cert', 'rb').read()
 ssl_creds = grpc.ssl_channel_credentials(cert)
-channel = grpc.secure_channel('localhost:8886', ssl_creds)
+channel = grpc.secure_channel(host + ':' + port, ssl_creds)
 xud_stub = xudrpc.XudStub(channel)
 ```
-This is the API documentation for the Xud gRPC service.
-Xud is a decentralized exchange built on the Lightning and Raiden networks to enable instant and trustless cryptocurrency swaps and order fulfillment between cryptocurrency exchanges. Exchanges participating in the network aggregate their liquidity and can provide deeper order books and new trading pairs to their users.
-# RPC Calls
+The primary service for interacting with a running xud node.
 ## AddCurrency
 ```javascript
 var request = {
@@ -46,6 +225,7 @@ var request = {
   tokenAddress: <string>,
   decimalPlaces: <uint32>,
 };
+
 xudClient.addCurrency(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -56,7 +236,7 @@ xudClient.addCurrency(request, function(err, response) {
 // Output: {}
 ```
 ```python
-request = xud.AddCurrencyRequest(
+request = xud.Currency(
   currency=<string>,
   swap_client=<SwapClient>,
   token_address=<string>,
@@ -85,6 +265,7 @@ var request = {
   baseCurrency: <string>,
   quoteCurrency: <string>,
 };
+
 xudClient.addPair(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -119,6 +300,7 @@ This response has no parameters.
 var request = {
   nodePubKey: <string>,
 };
+
 xudClient.ban(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -137,7 +319,7 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli ban <node_pub_key>
+xucli ban <node_key>
 ```
 Bans a node and immediately disconnects from it. This can be used to prevent any connections to a specific node.
 ### Request
@@ -146,51 +328,12 @@ Parameter | Type | Description
 node_pub_key | string | The node pub key of the node to ban.
 ### Response
 This response has no parameters.
-## ChannelBalance
-```javascript
-var request = {
-  currency: <string>,
-};
-xudClient.channelBalance(request, function(err, response) {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(response);
-  }
-});
-// Output:
-// {
-//  "balances": <ChannelBalance>
-// }
-```
-```python
-request = xud.ChannelBalanceRequest(
-  currency=<string>,
-)
-response = xudStub.ChannelBalance(request)
-print(response)
-# Output:
-# {
-#  "balances": <ChannelBalance>
-# }
-```
-```shell
-xucli channelbalance [currency]
-```
-Gets the total balance available across all payment channels for one or all currencies.
-### Request
-Parameter | Type | Description
---------- | ---- | -----------
-currency | string | The ticker symbol of the currency to query for, if unspecified then balances for all supported currencies are queried.
-### Response
-Parameter | Type | Description
---------- | ---- | -----------
-balances | map&lt;string, [ChannelBalance](#channelbalance)&gt; | A map between currency ticker symbols and their channel balances.
 ## Connect
 ```javascript
 var request = {
   nodeUri: <string>,
 };
+
 xudClient.connect(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -218,15 +361,13 @@ Parameter | Type | Description
 node_uri | string | The uri of the node to connect to in "[nodePubKey]@[host]:[port]" format.
 ### Response
 This response has no parameters.
-## ExecuteSwap
+## DiscoverNodes
 ```javascript
 var request = {
-  orderId: <string>,
-  pairId: <string>,
   peerPubKey: <string>,
-  quantity: <uint64>,
 };
-xudClient.executeSwap(request, function(err, response) {
+
+xudClient.discoverNodes(request, function(err, response) {
   if (err) {
     console.error(err);
   } else {
@@ -235,77 +376,74 @@ xudClient.executeSwap(request, function(err, response) {
 });
 // Output:
 // {
-//  "orderId": <string>,
-//  "localId": <string>,
-//  "pairId": <string>,
-//  "quantity": <uint64>,
-//  "rHash": <string>,
-//  "amountReceived": <int64>,
-//  "amountSent": <int64>,
-//  "peerPubKey": <string>,
-//  "role": <Role>,
-//  "currencyReceived": <string>,
-//  "currencySent": <string>,
-//  "rPreimage": <string>,
-//  "price": <double>
+//  "numNodes": <uint32>
 // }
 ```
 ```python
-request = xud.ExecuteSwapRequest(
-  order_id=<string>,
-  pair_id=<string>,
+request = xud.DiscoverNodesRequest(
   peer_pub_key=<string>,
-  quantity=<uint64>,
 )
-response = xudStub.ExecuteSwap(request)
+response = xudStub.DiscoverNodes(request)
 print(response)
 # Output:
 # {
-#  "order_id": <string>,
-#  "local_id": <string>,
-#  "pair_id": <string>,
-#  "quantity": <uint64>,
-#  "r_hash": <string>,
-#  "amount_received": <int64>,
-#  "amount_sent": <int64>,
-#  "peer_pub_key": <string>,
-#  "role": <Role>,
-#  "currency_received": <string>,
-#  "currency_sent": <string>,
-#  "r_preimage": <string>,
-#  "price": <double>
+#  "num_nodes": <uint32>
 # }
 ```
-```shell
-xucli executeswap <pair_id> <order_id> [quantity]
-```
-Executes a swap on a maker peer order.
+Discover nodes from a specific peer and apply new connections
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
-order_id | string | The order id of the maker order.
-pair_id | string | The trading pair of the swap orders.
-peer_pub_key | string | The node pub key of the peer which owns the maker order. This is optional but helps locate the order more quickly.
-quantity | uint64 | The quantity to swap. The whole order will be swapped if unspecified.
+peer_pub_key | string | The node pub key of the peer to discover nodes from.
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
-order_id | string | The global UUID for the order that was swapped.
-local_id | string | The local id for the order that was swapped.
-pair_id | string | The trading pair that the swap is for.
-quantity | uint64 | The order quantity that was swapped.
-r_hash | string | The hex-encoded payment hash for the swaps.
-amount_received | int64 | The amount of the smallest base unit of the currency (like satoshis or wei) received.
-amount_sent | int64 | The amount of the smallest base unit of the currency (like satoshis or wei) sent.
-peer_pub_key | string | The node pub key of the peer that executed this order.
-role | [Role](#role) | Our role in the swap, either MAKER or TAKER.
-currency_received | string | The ticker symbol of the currency received.
-currency_sent | string | The ticker symbol of the currency sent.
-r_preimage | string | The hex-encoded preimage.
-price | double | The price used for the swap.
+num_nodes | uint32 | 
+## GetBalance
+```javascript
+var request = {
+  currency: <string>,
+};
+
+xudClient.getBalance(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "balances": <Balance>
+// }
+```
+```python
+request = xud.GetBalanceRequest(
+  currency=<string>,
+)
+response = xudStub.GetBalance(request)
+print(response)
+# Output:
+# {
+#  "balances": <Balance>
+# }
+```
+```shell
+xucli getbalance [currency]
+```
+Gets the total balance available across all payment channels and wallets for one or all currencies.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+currency | string | The ticker symbol of the currency to query for, if unspecified then balances for all supported currencies are queried.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+balances | map&lt;string, [Balance](#balance)&gt; | A map between currency ticker symbols and their balances.
 ## GetInfo
 ```javascript
 var request = {};
+
 xudClient.getInfo(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -318,11 +456,14 @@ xudClient.getInfo(request, function(err, response) {
 //  "version": <string>,
 //  "nodePubKey": <string>,
 //  "uris": <string[]>,
-//  "numPeers": <int32>,
-//  "numPairs": <int32>,
+//  "numPeers": <uint32>,
+//  "numPairs": <uint32>,
 //  "orders": <OrdersCount>,
 //  "lnd": <LndInfo>,
-//  "raiden": <RaidenInfo>
+//  "raiden": <RaidenInfo>,
+//  "alias": <string>,
+//  "network": <string>,
+//  "pendingSwapHashes": <string[]>
 // }
 ```
 ```python
@@ -334,11 +475,14 @@ print(response)
 #  "version": <string>,
 #  "node_pub_key": <string>,
 #  "uris": <string[]>,
-#  "num_peers": <int32>,
-#  "num_pairs": <int32>,
+#  "num_peers": <uint32>,
+#  "num_pairs": <uint32>,
 #  "orders": <OrdersCount>,
 #  "lnd": <LndInfo>,
-#  "raiden": <RaidenInfo>
+#  "raiden": <RaidenInfo>,
+#  "alias": <string>,
+#  "network": <string>,
+#  "pending_swap_hashes": <string[]>
 # }
 ```
 ```shell
@@ -353,16 +497,20 @@ Parameter | Type | Description
 version | string | The version of this instance of xud.
 node_pub_key | string | The node pub key of this node.
 uris | string array | A list of uris that can be used to connect to this node. These are shared with peers.
-num_peers | int32 | The number of currently connected peers.
-num_pairs | int32 | The number of supported trading pairs.
+num_peers | uint32 | The number of currently connected peers.
+num_pairs | uint32 | The number of supported trading pairs.
 orders | [OrdersCount](#orderscount) | The number of active, standing orders in the order book.
-lnd | map&lt;string, [LndInfo](#lndinfo)&gt; |
-raiden | [RaidenInfo](#raideninfo) |
+lnd | map&lt;string, [LndInfo](#lndinfo)&gt; | 
+raiden | [RaidenInfo](#raideninfo) | 
+alias | string | The alias of this instance of xud.
+network | string | The network of this node.
+pending_swap_hashes | string array | 
 ## GetNodeInfo
 ```javascript
 var request = {
   nodePubKey: <string>,
 };
+
 xudClient.getNodeInfo(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -372,7 +520,7 @@ xudClient.getNodeInfo(request, function(err, response) {
 });
 // Output:
 // {
-//  "reputationScore": <int32>,
+//  "reputationScore": <sint32>,
 //  "banned": <bool>
 // }
 ```
@@ -384,12 +532,12 @@ response = xudStub.GetNodeInfo(request)
 print(response)
 # Output:
 # {
-#  "reputationScore": <int32>,
+#  "reputationScore": <sint32>,
 #  "banned": <bool>
 # }
 ```
 ```shell
-xucli getnodeinfo <node_pub_key>
+xucli getnodeinfo <node_key>
 ```
 Gets general information about a node.
 ### Request
@@ -399,14 +547,16 @@ node_pub_key | string | The node pub key of the node for which to get informatio
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
-reputationScore | int32 | The node's reputation score. Points are subtracted for unexpected or potentially malicious behavior. Points are added when swaps are successfully executed.
+reputationScore | sint32 | The node's reputation score. Points are subtracted for unexpected or potentially malicious behavior. Points are added when swaps are successfully executed.
 banned | bool | Whether the node is currently banned.
 ## ListOrders
 ```javascript
 var request = {
   pairId: <string>,
   includeOwnOrders: <bool>,
+  limit: <uint32>,
 };
+
 xudClient.listOrders(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -423,6 +573,7 @@ xudClient.listOrders(request, function(err, response) {
 request = xud.ListOrdersRequest(
   pair_id=<string>,
   include_own_orders=<bool>,
+  limit=<uint32>,
 )
 response = xudStub.ListOrders(request)
 print(response)
@@ -432,7 +583,7 @@ print(response)
 # }
 ```
 ```shell
-xucli listorders [pair_id]
+xucli listorders [pair_id] [include_own_orders] [limit]
 ```
 Gets orders from the order book. This call returns the state of the order book at a given point in time, although it is not guaranteed to still be vaild by the time a response is received and processed by a client. It accepts an optional trading pair id parameter. If specified, only orders for that particular trading pair are returned. Otherwise, all orders are returned. Orders are separated into buys and sells for each trading pair, but unsorted.
 ### Request
@@ -440,6 +591,7 @@ Parameter | Type | Description
 --------- | ---- | -----------
 pair_id | string | The trading pair for which to retrieve orders.
 include_own_orders | bool | Whether own orders should be included in result or not.
+limit | uint32 | The maximum number of orders to return from each side of the order book.
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -447,6 +599,7 @@ orders | map&lt;string, [Orders](#orders)&gt; | A map between pair ids and their
 ## ListCurrencies
 ```javascript
 var request = {};
+
 xudClient.listCurrencies(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -456,7 +609,7 @@ xudClient.listCurrencies(request, function(err, response) {
 });
 // Output:
 // {
-//  "currencies": <string[]>
+//  "currencies": <Currency[]>
 // }
 ```
 ```python
@@ -465,8 +618,11 @@ response = xudStub.ListCurrencies(request)
 print(response)
 # Output:
 # {
-#  "currencies": <string[]>
+#  "currencies": <Currency[]>
 # }
+```
+```shell
+xucli listcurrencies
 ```
 Gets a list of this node's supported currencies.
 ### Request
@@ -474,10 +630,11 @@ This request has no parameters.
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
-currencies | string array | A list of ticker symbols of the supported currencies.
+currencies | [Currency](#currency) array | The list of available currencies in the orderbook.
 ## ListPairs
 ```javascript
 var request = {};
+
 xudClient.listPairs(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -512,6 +669,7 @@ pairs | string array | The list of supported trading pair tickers in formats lik
 ## ListPeers
 ```javascript
 var request = {};
+
 xudClient.listPeers(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -543,6 +701,86 @@ This request has no parameters.
 Parameter | Type | Description
 --------- | ---- | -----------
 peers | [Peer](#peer) array | The list of connected peers.
+## ListTrades
+```javascript
+var request = {
+  limit: <int32>,
+};
+
+xudClient.listTrades(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "trades": <Trade[]>
+// }
+```
+```python
+request = xud.ListTradesRequest(
+  limit=<int32>,
+)
+response = xudStub.ListTrades(request)
+print(response)
+# Output:
+# {
+#  "trades": <Trade[]>
+# }
+```
+```shell
+xucli listtrades [limit]
+```
+Gets a list of completed trades.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+limit | int32 | The maximum number of trades to return
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+trades | [Trade](#trade) array | 
+## OpenChannel
+```javascript
+var request = {
+  nodePubKey: <string>,
+  currency: <string>,
+  amount: <int64>,
+};
+
+xudClient.openChannel(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output: {}
+```
+```python
+request = xud.OpenChannelRequest(
+  node_pub_key=<string>,
+  currency=<string>,
+  amount=<int64>,
+)
+response = xudStub.OpenChannel(request)
+print(response)
+# Output: {}
+```
+```shell
+xucli openchannel <node_key> <currency> <amount>
+```
+Opens a payment channel to a peer with the given node pub key for the specified amount and currency.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+node_pub_key | string | The node pub key of the peer with which to open channel with.
+currency | string | The ticker symbol of the currency to open the channel for.
+amount | int64 | The amount of the channel denominated in satoshis.
+### Response
+This response has no parameters.
 ## PlaceOrder
 ```javascript
 var request = {
@@ -551,7 +789,10 @@ var request = {
   pairId: <string>,
   orderId: <string>,
   side: <OrderSide>,
+  replaceOrderId: <string>,
+  immediateOrCancel: <bool>,
 };
+
 var call = xudClient.placeOrder(request);
 call.on('data', function (response) {
   console.log(response);
@@ -577,6 +818,8 @@ request = xud.PlaceOrderRequest(
   pair_id=<string>,
   order_id=<string>,
   side=<OrderSide>,
+  replace_order_id=<string>,
+  immediate_or_cancel=<bool>,
 )
 for response in stub.PlaceOrder(request):
   print(response)
@@ -593,10 +836,12 @@ Adds an order to the order book. If price is zero or unspecified a market order 
 Parameter | Type | Description
 --------- | ---- | -----------
 price | double | The price of the order.
-quantity | uint64 | The quantity of the order in satoshis.
+quantity | uint64 | The quantity of the order denominated in satoshis.
 pair_id | string | The trading pair that the order is for.
 order_id | string | The local id to assign to the order.
-side | [OrderSide](#orderside) | Whether the order is a Buy or Sell.
+side | [OrderSide](#orderside) | Whether the order is a buy or sell.
+replace_order_id | string | The local id of an existing order to be replaced. If provided, the order must be successfully found and removed before the new order is placed, otherwise an error is returned.
+immediate_or_cancel | bool | Whether the order must be filled immediately and not allowed to enter the order book.
 ### Response (Streaming)
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -612,7 +857,10 @@ var request = {
   pairId: <string>,
   orderId: <string>,
   side: <OrderSide>,
+  replaceOrderId: <string>,
+  immediateOrCancel: <bool>,
 };
+
 xudClient.placeOrderSync(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -635,6 +883,8 @@ request = xud.PlaceOrderRequest(
   pair_id=<string>,
   order_id=<string>,
   side=<OrderSide>,
+  replace_order_id=<string>,
+  immediate_or_cancel=<bool>,
 )
 response = xudStub.PlaceOrderSync(request)
 print(response)
@@ -655,10 +905,12 @@ The synchronous, non-streaming version of PlaceOrder.
 Parameter | Type | Description
 --------- | ---- | -----------
 price | double | The price of the order.
-quantity | uint64 | The quantity of the order in satoshis.
+quantity | uint64 | The quantity of the order denominated in satoshis.
 pair_id | string | The trading pair that the order is for.
 order_id | string | The local id to assign to the order.
-side | [OrderSide](#orderside) | Whether the order is a Buy or Sell.
+side | [OrderSide](#orderside) | Whether the order is a buy or sell.
+replace_order_id | string | The local id of an existing order to be replaced. If provided, the order must be successfully found and removed before the new order is placed, otherwise an error is returned.
+immediate_or_cancel | bool | Whether the order must be filled immediately and not allowed to enter the order book.
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -666,11 +918,95 @@ internal_matches | [Order](#order) array | A list of own orders (or portions the
 swap_successes | [SwapSuccess](#swapsuccess) array | A list of successful swaps of peer orders that matched the newly placed order.
 remaining_order | [Order](#order) | The remaining portion of the order, after matches, that enters the order book.
 swap_failures | [SwapFailure](#swapfailure) array | A list of swap attempts that failed.
+## ExecuteSwap
+```javascript
+var request = {
+  orderId: <string>,
+  pairId: <string>,
+  peerPubKey: <string>,
+  quantity: <uint64>,
+};
+
+xudClient.executeSwap(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "orderId": <string>,
+//  "localId": <string>,
+//  "pairId": <string>,
+//  "quantity": <uint64>,
+//  "rHash": <string>,
+//  "amountReceived": <uint64>,
+//  "amountSent": <uint64>,
+//  "peerPubKey": <string>,
+//  "role": <Role>,
+//  "currencyReceived": <string>,
+//  "currencySent": <string>,
+//  "rPreimage": <string>,
+//  "price": <double>
+// }
+```
+```python
+request = xud.ExecuteSwapRequest(
+  order_id=<string>,
+  pair_id=<string>,
+  peer_pub_key=<string>,
+  quantity=<uint64>,
+)
+response = xudStub.ExecuteSwap(request)
+print(response)
+# Output:
+# {
+#  "order_id": <string>,
+#  "local_id": <string>,
+#  "pair_id": <string>,
+#  "quantity": <uint64>,
+#  "r_hash": <string>,
+#  "amount_received": <uint64>,
+#  "amount_sent": <uint64>,
+#  "peer_pub_key": <string>,
+#  "role": <Role>,
+#  "currency_received": <string>,
+#  "currency_sent": <string>,
+#  "r_preimage": <string>,
+#  "price": <double>
+# }
+```
+Executes a swap on a maker peer order.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+order_id | string | The order id of the maker order.
+pair_id | string | The trading pair of the swap orders.
+peer_pub_key | string | The node pub key of the peer which owns the maker order. This is optional but helps locate the order more quickly.
+quantity | uint64 | The quantity to swap denominated in satoshis. The whole order will be swapped if unspecified.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+order_id | string | The global UUID for the order that was swapped.
+local_id | string | The local id for the order that was swapped.
+pair_id | string | The trading pair that the swap is for.
+quantity | uint64 | The order quantity that was swapped.
+r_hash | string | The hex-encoded payment hash for the swap.
+amount_received | uint64 | The amount received denominated in satoshis.
+amount_sent | uint64 | The amount sent denominated in satoshis.
+peer_pub_key | string | The node pub key of the peer that executed this order.
+role | [Role](#role) | Our role in the swap, either MAKER or TAKER.
+currency_received | string | The ticker symbol of the currency received.
+currency_sent | string | The ticker symbol of the currency sent.
+r_preimage | string | The hex-encoded preimage.
+price | double | The price used for the swap.
 ## RemoveCurrency
 ```javascript
 var request = {
   currency: <string>,
 };
+
 xudClient.removeCurrency(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -689,7 +1025,7 @@ print(response)
 # Output: {}
 ```
 ```shell
- xucli removecurrency <currency>
+xucli removecurrency <currency>
 ```
 Removes a currency from the list of supported currencies. Only currencies that are not in use for any currently supported trading pairs may be removed. Once removed, the currency can no longer be used for any supported trading pairs.
 ### Request
@@ -704,6 +1040,7 @@ var request = {
   orderId: <string>,
   quantity: <uint64>,
 };
+
 xudClient.removeOrder(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -736,7 +1073,7 @@ Removes an order from the order book by its local id. This should be called when
 Parameter | Type | Description
 --------- | ---- | -----------
 order_id | string | The local id of the order to remove.
-quantity | uint64 | The quantity to remove from the order. If zero or unspecified then entire order is removed.
+quantity | uint64 | The quantity to remove from the order denominated in satoshis. If zero or unspecified then the entire order is removed.
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -746,6 +1083,7 @@ quantity_on_hold | uint64 | Any portion of the order that was on hold due to ong
 var request = {
   pairId: <string>,
 };
+
 xudClient.removePair(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -776,6 +1114,7 @@ This response has no parameters.
 ## Shutdown
 ```javascript
 var request = {};
+
 xudClient.shutdown(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -799,12 +1138,13 @@ Begin gracefully shutting down xud.
 This request has no parameters.
 ### Response
 This response has no parameters.
-## SubscribeAddedOrders
+## SubscribeOrders
 ```javascript
 var request = {
   existing: <bool>,
 };
-var call = xudClient.subscribeAddedOrders(request);
+
+var call = xudClient.subscribeOrders(request);
 call.on('data', function (response) {
   console.log(response);
 });
@@ -816,39 +1156,23 @@ call.on('end', function () {
 });
 // Output:
 // {
-//  "price": <double>,
-//  "quantity": <uint64>,
-//  "pairId": <string>,
-//  "id": <string>,
-//  "peerPubKey": <string>,
-//  "localId": <string>,
-//  "createdAt": <int64>,
-//  "side": <OrderSide>,
-//  "isOwnOrder": <bool>,
-//  "hold": <uint64>
+//  "order": <Order>,
+//  "orderRemoval": <OrderRemoval>
 // }
 ```
 ```python
-request = xud.SubscribeAddedOrdersRequest(
+request = xud.SubscribeOrdersRequest(
   existing=<bool>,
 )
-for response in stub.SubscribeAddedOrders(request):
+for response in stub.SubscribeOrders(request):
   print(response)
 # Output:
 # {
-#  "price": <double>,
-#  "quantity": <uint64>,
-#  "pair_id": <string>,
-#  "id": <string>,
-#  "peer_pub_key": <string>,
-#  "local_id": <string>,
-#  "created_at": <int64>,
-#  "side": <OrderSide>,
-#  "is_own_order": <bool>,
-#  "hold": <uint64>
+#  "order": <Order>,
+#  "order_removal": <OrderRemoval>
 # }
 ```
-Subscribes to orders being added to the order book. This call, together with SubscribeRemovedOrders, allows the client to maintain an up-to-date view of the order book. For example, an exchange that wants to show its users a real time list of the orders available to them would subscribe to this streaming call to be alerted of new orders as they become available for trading.
+Subscribes to orders being added to and removed from the order book. This call allows the client to maintain an up-to-date view of the order book. For example, an exchange that wants to show its users a real time view of the orders available to them would subscribe to this streaming call to be alerted as new orders are added and expired orders are removed.
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -856,67 +1180,14 @@ existing | bool | Whether to transmit all existing active orders upon establishi
 ### Response (Streaming)
 Parameter | Type | Description
 --------- | ---- | -----------
-price | double | The price of the order.
-quantity | uint64 | The quantity of the order in satoshis.
-pair_id | string | The trading pair that this order is for.
-id | string | A UUID for this order.
-peer_pub_key | string | The node pub key of the peer that created this order.
-local_id | string | The local id for this order.
-created_at | int64 | The epoch time when this order was created.
-side | [OrderSide](#orderside) | Whether this order is a buy or sell
-is_own_order | bool | Whether this order is a local own order or a remote peer order.
-hold | uint64 | The quantity on hold pending swap exectuion.
-## SubscribeRemovedOrders
-```javascript
-var request = {};
-var call = xudClient.subscribeRemovedOrders(request);
-call.on('data', function (response) {
-  console.log(response);
-});
-call.on('error', function (err) {
-  console.error(err);
-});
-call.on('end', function () {
-  // the streaming call has been ended by the server
-});
-// Output:
-// {
-//  "quantity": <uint64>,
-//  "pairId": <string>,
-//  "orderId": <string>,
-//  "localId": <string>,
-//  "isOwnOrder": <bool>
-// }
-```
-```python
-request = xud.SubscribeRemovedOrdersRequest()
-for response in stub.SubscribeRemovedOrders(request):
-  print(response)
-# Output:
-# {
-#  "quantity": <uint64>,
-#  "pair_id": <string>,
-#  "order_id": <string>,
-#  "local_id": <string>,
-#  "is_own_order": <bool>
-# }
-```
-Subscribes to orders being removed - either in full or in part - from the order book. This call, together with SubscribeAddedOrders, allows the client to maintain an up-to-date view of the order book. For example, an exchange that wants to show its users a real time list of the orders available to them would subscribe to this streaming call to be alerted when part or all of an existing order is no longer available for trading.
-### Request
-This request has no parameters.
-### Response (Streaming)
-Parameter | Type | Description
---------- | ---- | -----------
-quantity | uint64 | The quantity of the order being removed.
-pair_id | string | The trading pair that the order is for.
-order_id | string | The global UUID for the order.
-local_id | string | The local id for the order, if applicable.
-is_own_order | bool | Whether the order being removed is a local own order or a remote peer order.
+order | [Order](#order) | An order that was added to the order book.
+order_removal | [OrderRemoval](#orderremoval) | An order (or portion thereof) that was removed from the order book.
 ## SubscribeSwaps
 ```javascript
 var request = {
   includeTaker: <bool>,
 };
+
 var call = xudClient.subscribeSwaps(request);
 call.on('data', function (response) {
   console.log(response);
@@ -934,8 +1205,8 @@ call.on('end', function () {
 //  "pairId": <string>,
 //  "quantity": <uint64>,
 //  "rHash": <string>,
-//  "amountReceived": <int64>,
-//  "amountSent": <int64>,
+//  "amountReceived": <uint64>,
+//  "amountSent": <uint64>,
 //  "peerPubKey": <string>,
 //  "role": <Role>,
 //  "currencyReceived": <string>,
@@ -957,8 +1228,8 @@ for response in stub.SubscribeSwaps(request):
 #  "pair_id": <string>,
 #  "quantity": <uint64>,
 #  "r_hash": <string>,
-#  "amount_received": <int64>,
-#  "amount_sent": <int64>,
+#  "amount_received": <uint64>,
+#  "amount_sent": <uint64>,
 #  "peer_pub_key": <string>,
 #  "role": <Role>,
 #  "currency_received": <string>,
@@ -979,9 +1250,9 @@ order_id | string | The global UUID for the order that was swapped.
 local_id | string | The local id for the order that was swapped.
 pair_id | string | The trading pair that the swap is for.
 quantity | uint64 | The order quantity that was swapped.
-r_hash | string | The hex-encoded payment hash for the swaps.
-amount_received | int64 | The amount of the smallest base unit of the currency (like satoshis or wei) received.
-amount_sent | int64 | The amount of the smallest base unit of the currency (like satoshis or wei) sent.
+r_hash | string | The hex-encoded payment hash for the swap.
+amount_received | uint64 | The amount received denominated in satoshis.
+amount_sent | uint64 | The amount sent denominated in satoshis.
 peer_pub_key | string | The node pub key of the peer that executed this order.
 role | [Role](#role) | Our role in the swap, either MAKER or TAKER.
 currency_received | string | The ticker symbol of the currency received.
@@ -993,6 +1264,7 @@ price | double | The price used for the swap.
 var request = {
   includeTaker: <bool>,
 };
+
 var call = xudClient.subscribeSwapFailures(request);
 call.on('data', function (response) {
   console.log(response);
@@ -1040,12 +1312,54 @@ pair_id | string | The trading pair that the swap is for.
 quantity | uint64 | The order quantity that was attempted to be swapped.
 peer_pub_key | string | The node pub key of the peer that we attempted to swap with.
 failure_reason | string | The reason why the swap failed.
+## TradingLimits
+```javascript
+var request = {
+  currency: <string>,
+};
+
+xudClient.tradingLimits(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "limits": <TradingLimits>
+// }
+```
+```python
+request = xud.TradingLimitsRequest(
+  currency=<string>,
+)
+response = xudStub.TradingLimits(request)
+print(response)
+# Output:
+# {
+#  "limits": <TradingLimits>
+# }
+```
+```shell
+xucli tradinglimits [currency]
+```
+Gets the trading limits for one or all currencies.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+currency | string | The ticker symbol of the currency to query for, if unspecified then trading limits for all supported currencies are queried.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+limits | map&lt;string, [TradingLimits](#tradinglimits)&gt; | A map between currency ticker symbols and their trading limits.
 ## Unban
 ```javascript
 var request = {
   nodePubKey: <string>,
   reconnect: <bool>,
 };
+
 xudClient.unban(request, function(err, response) {
   if (err) {
     console.error(err);
@@ -1065,7 +1379,7 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli unban <node_pub_key> [reconnect]
+xucli unban <node_key> [reconnect]
 ```
 Removes a ban from a node manually and, optionally, attempts to connect to it.
 ### Request
@@ -1076,13 +1390,6 @@ reconnect | bool | Whether to attempt to connect to the peer after it is unbanne
 ### Response
 This response has no parameters.
 # Messages
-## AddCurrencyRequest
-Parameter | Type | Description
---------- | ---- | -----------
-currency | string | The ticker symbol for this currency such as BTC, LTC, ETH, etc...
-swap_client | [SwapClient](#swapclient) | The payment channel network client to use for executing swaps.
-token_address | string | The contract address for layered tokens such as ERC20.
-decimal_places | uint32 | The number of places to the right of the decimal point of the smallest subunit of the currency. For example, BTC, LTC, and others where the smallest subunits (satoshis) are 0.00000001 full units (bitcoins) have 8 decimal places. ETH has 18. This can be thought of as the base 10 exponent of the smallest subunit expressed as a positive integer. A default value of 8 is used if unspecified.
 ## AddCurrencyResponse
 This message has no parameters.
 ## AddPairRequest
@@ -1092,46 +1399,79 @@ base_currency | string | The base currency that is bought and sold for this trad
 quote_currency | string | The currency used to quote a price for the base currency.
 ## AddPairResponse
 This message has no parameters.
+## Balance
+Parameter | Type | Description
+--------- | ---- | -----------
+total_balance | uint64 | Total balance denominated in satoshis.
+channel_balance | uint64 | Sum of confirmed channel balances denominated in satoshis.
+pending_channel_balance | uint64 | Sum of pending channel balances denominated in satoshis.
+inactive_channel_balance | uint64 | Sum of inactive channel balances denominated in satoshis.
+wallet_balance | uint64 | Confirmed wallet balance in satoshis.
+unconfirmed_wallet_balance | uint64 | Unconfirmed wallet balance in satoshis.
 ## BanRequest
 Parameter | Type | Description
 --------- | ---- | -----------
 node_pub_key | string | The node pub key of the node to ban.
 ## BanResponse
 This message has no parameters.
-## ChannelBalance
+## Chain
 Parameter | Type | Description
 --------- | ---- | -----------
-balance | int64 | Sum of channels balances denominated in satoshis or equivalent.
-pending_open_balance | int64 | Sum of channels pending balances denominated in satoshis or equivalent.
-## ChannelBalanceRequest
+chain | string | The blockchain the swap client is on (eg bitcoin, litecoin)
+network | string | The network the swap client is on (eg regtest, testnet, mainnet)
+## Channels
 Parameter | Type | Description
 --------- | ---- | -----------
-currency | string | The ticker symbol of the currency to query for, if unspecified then balances for all supported currencies are queried.
-## ChannelBalanceResponse
-Parameter | Type | Description
---------- | ---- | -----------
-balances | map&lt;string, [ChannelBalance](#channelbalance)&gt; | A map between currency ticker symbols and their channel balances.
+active | uint32 | The number of active/online channels for this lnd instance that can be used for swaps.
+inactive | uint32 | The number of inactive/offline channels for this lnd instance.
+pending | uint32 | The number of channels that are pending on-chain confirmation before they can be used.
+closed | uint32 | The number of channels that have been closed.
 ## ConnectRequest
 Parameter | Type | Description
 --------- | ---- | -----------
 node_uri | string | The uri of the node to connect to in "[nodePubKey]@[host]:[port]" format.
 ## ConnectResponse
 This message has no parameters.
+## CreateNodeRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+password | string | The password in utf-8 with which to encrypt the new xud node key as well as any uninitialized underlying wallets.
+## CreateNodeResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+seed_mnemonic | string array | The 24 word mnemonic to recover the xud identity key and underlying wallets
+initialized_lnds | string array | The list of lnd clients that were initialized.
+initialized_raiden | bool | Whether raiden was initialized.
+## Currency
+Parameter | Type | Description
+--------- | ---- | -----------
+currency | string | The ticker symbol for this currency such as BTC, LTC, ETH, etc...
+swap_client | [SwapClient](#swapclient) | The payment channel network client to use for executing swaps.
+token_address | string | The contract address for layered tokens such as ERC20.
+decimal_places | uint32 | The number of places to the right of the decimal point of the smallest subunit of the currency. For example, BTC, LTC, and others where the smallest subunits (satoshis) are 0.00000001 full units (bitcoins) have 8 decimal places. ETH has 18. This can be thought of as the base 10 exponent of the smallest subunit expressed as a positive integer. A default value of 8 is used if unspecified.
+## DiscoverNodesRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+peer_pub_key | string | The node pub key of the peer to discover nodes from.
+## DiscoverNodesResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+num_nodes | uint32 | 
 ## ExecuteSwapRequest
 Parameter | Type | Description
 --------- | ---- | -----------
 order_id | string | The order id of the maker order.
 pair_id | string | The trading pair of the swap orders.
 peer_pub_key | string | The node pub key of the peer which owns the maker order. This is optional but helps locate the order more quickly.
-quantity | uint64 | The quantity to swap. The whole order will be swapped if unspecified.
-## SwapFailure
+quantity | uint64 | The quantity to swap denominated in satoshis. The whole order will be swapped if unspecified.
+## GetBalanceRequest
 Parameter | Type | Description
 --------- | ---- | -----------
-order_id | string | The global UUID for the order that failed the swap.
-pair_id | string | The trading pair that the swap is for.
-quantity | uint64 | The order quantity that was attempted to be swapped.
-peer_pub_key | string | The node pub key of the peer that we attempted to swap with.
-failure_reason | string | The reason why the swap failed.
+currency | string | The ticker symbol of the currency to query for, if unspecified then balances for all supported currencies are queried.
+## GetBalanceResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+balances | map&lt;string, [Balance](#balance)&gt; | A map between currency ticker symbols and their balances.
 ## GetInfoRequest
 This message has no parameters.
 ## GetInfoResponse
@@ -1140,11 +1480,14 @@ Parameter | Type | Description
 version | string | The version of this instance of xud.
 node_pub_key | string | The node pub key of this node.
 uris | string array | A list of uris that can be used to connect to this node. These are shared with peers.
-num_peers | int32 | The number of currently connected peers.
-num_pairs | int32 | The number of supported trading pairs.
+num_peers | uint32 | The number of currently connected peers.
+num_pairs | uint32 | The number of supported trading pairs.
 orders | [OrdersCount](#orderscount) | The number of active, standing orders in the order book.
-lnd | map&lt;string, [LndInfo](#lndinfo)&gt; |
-raiden | [RaidenInfo](#raideninfo) |
+lnd | map&lt;string, [LndInfo](#lndinfo)&gt; | 
+raiden | [RaidenInfo](#raideninfo) | 
+alias | string | The alias of this instance of xud.
+network | string | The network of this node.
+pending_swap_hashes | string array | 
 ## GetNodeInfoRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1152,23 +1495,24 @@ node_pub_key | string | The node pub key of the node for which to get informatio
 ## GetNodeInfoResponse
 Parameter | Type | Description
 --------- | ---- | -----------
-reputationScore | int32 | The node's reputation score. Points are subtracted for unexpected or potentially malicious behavior. Points are added when swaps are successfully executed.
+reputationScore | sint32 | The node's reputation score. Points are subtracted for unexpected or potentially malicious behavior. Points are added when swaps are successfully executed.
 banned | bool | Whether the node is currently banned.
-## ListOrdersRequest
-Parameter | Type | Description
---------- | ---- | -----------
-pair_id | string | The trading pair for which to retrieve orders.
-include_own_orders | bool | Whether own orders should be included in result or not.
-## ListOrdersResponse
-Parameter | Type | Description
---------- | ---- | -----------
-orders | map&lt;string, [Orders](#orders)&gt; | A map between pair ids and their buy and sell orders.
 ## ListCurrenciesRequest
 This message has no parameters.
 ## ListCurrenciesResponse
 Parameter | Type | Description
 --------- | ---- | -----------
-currencies | string array | A list of ticker symbols of the supported currencies.
+currencies | [Currency](#currency) array | The list of available currencies in the orderbook.
+## ListOrdersRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+pair_id | string | The trading pair for which to retrieve orders.
+include_own_orders | bool | Whether own orders should be included in result or not.
+limit | uint32 | The maximum number of orders to return from each side of the order book.
+## ListOrdersResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+orders | map&lt;string, [Orders](#orders)&gt; | A map between pair ids and their buy and sell orders.
 ## ListPairsRequest
 This message has no parameters.
 ## ListPairsResponse
@@ -1181,22 +1525,32 @@ This message has no parameters.
 Parameter | Type | Description
 --------- | ---- | -----------
 peers | [Peer](#peer) array | The list of connected peers.
-## LndChannels
+## ListTradesRequest
 Parameter | Type | Description
 --------- | ---- | -----------
-active | int32 | The number of active/online channels for this lnd instance that can be used for swaps.
-inactive | int32 | The number of inactive/offline channels for this lnd instance.
-pending | int32 | The number of channels that are pending on-chain confirmation before they can be used.
+limit | int32 | The maximum number of trades to return
+## ListTradesResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+trades | [Trade](#trade) array | 
 ## LndInfo
 Parameter | Type | Description
 --------- | ---- | -----------
-error | string |
-channels | [LndChannels](#lndchannels) |
-chains | string array |
-blockheight | int32 |
-uris | string array |
-version | string |
-alias | string |
+status | string | 
+channels | [Channels](#channels) | 
+chains | [Chain](#chain) array | 
+blockheight | uint32 | 
+uris | string array | 
+version | string | 
+alias | string | 
+## OpenChannelRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+node_pub_key | string | The node pub key of the peer with which to open channel with.
+currency | string | The ticker symbol of the currency to open the channel for.
+amount | int64 | The amount of the channel denominated in satoshis.
+## OpenChannelResponse
+This message has no parameters.
 ## Order
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1206,14 +1560,14 @@ pair_id | string | The trading pair that this order is for.
 id | string | A UUID for this order.
 peer_pub_key | string | The node pub key of the peer that created this order.
 local_id | string | The local id for this order.
-created_at | int64 | The epoch time when this order was created.
+created_at | uint64 | The epoch time when this order was created.
 side | [OrderSide](#orderside) | Whether this order is a buy or sell
 is_own_order | bool | Whether this order is a local own order or a remote peer order.
-hold | uint64 | The quantity on hold pending swap exectuion.
+hold | uint64 | The quantity on hold pending swap execution.
 ## OrderRemoval
 Parameter | Type | Description
 --------- | ---- | -----------
-quantity | uint64 | The quantity of the order being removed.
+quantity | uint64 | The quantity removed from the order.
 pair_id | string | The trading pair that the order is for.
 order_id | string | The global UUID for the order.
 local_id | string | The local id for the order, if applicable.
@@ -1226,8 +1580,13 @@ sell_orders | [Order](#order) array | A list of sell orders sorted by ascending 
 ## OrdersCount
 Parameter | Type | Description
 --------- | ---- | -----------
-peer | int32 | The number of orders belonging to remote xud nodes.
-own | int32 | The number of orders belonging to our local xud node.
+peer | uint32 | The number of orders belonging to remote xud nodes.
+own | uint32 | The number of orders belonging to our local xud node.
+## OrderUpdate
+Parameter | Type | Description
+--------- | ---- | -----------
+order | [Order](#order) | An order that was added to the order book.
+order_removal | [OrderRemoval](#orderremoval) | An order (or portion thereof) that was removed from the order book.
 ## Peer
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1237,16 +1596,18 @@ lnd_pub_keys | map&lt;string, string&gt; | A map of ticker symbols to lnd pub ke
 inbound | bool | Indicates whether this peer was connected inbound.
 pairs | string array | A list of trading pair tickers supported by this peer.
 xud_version | string | The version of xud being used by the peer.
-seconds_connected | int32 | The time in seconds that we have been connected to this peer.
+seconds_connected | uint32 | The time in seconds that we have been connected to this peer.
 raiden_address | string | The raiden address for this peer
 ## PlaceOrderRequest
 Parameter | Type | Description
 --------- | ---- | -----------
 price | double | The price of the order.
-quantity | uint64 | The quantity of the order in satoshis.
+quantity | uint64 | The quantity of the order denominated in satoshis.
 pair_id | string | The trading pair that the order is for.
 order_id | string | The local id to assign to the order.
-side | [OrderSide](#orderside) | Whether the order is a Buy or Sell.
+side | [OrderSide](#orderside) | Whether the order is a buy or sell.
+replace_order_id | string | The local id of an existing order to be replaced. If provided, the order must be successfully found and removed before the new order is placed, otherwise an error is returned.
+immediate_or_cancel | bool | Whether the order must be filled immediately and not allowed to enter the order book.
 ## PlaceOrderResponse
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1264,10 +1625,11 @@ swap_failure | [SwapFailure](#swapfailure) | A swap attempt that failed.
 ## RaidenInfo
 Parameter | Type | Description
 --------- | ---- | -----------
-error | string |
-address | string |
-channels | int32 |
-version | string |
+status | string | 
+address | string | 
+channels | [Channels](#channels) | 
+version | string | 
+chain | string | 
 ## RemoveCurrencyRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1278,7 +1640,7 @@ This message has no parameters.
 Parameter | Type | Description
 --------- | ---- | -----------
 order_id | string | The local id of the order to remove.
-quantity | uint64 | The quantity to remove from the order. If zero or unspecified then entire order is removed.
+quantity | uint64 | The quantity to remove from the order denominated in satoshis. If zero or unspecified then the entire order is removed.
 ## RemoveOrderResponse
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1289,20 +1651,40 @@ Parameter | Type | Description
 pair_id | string | The trading pair ticker to remove in a format such as "LTC/BTC".
 ## RemovePairResponse
 This message has no parameters.
+## RestoreNodeRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+seed_mnemonic | string array | The 24 word mnemonic to recover the xud identity key and underlying wallets
+password | string | The password in utf-8 with which to encrypt the restored xud node key as well as any restored underlying wallets.
+lnd_backups | map&lt;string, bytes&gt; | A map between the currency of the LND and its multi channel SCB
+raiden_database | bytes | The Raiden database backup
+raiden_database_path | string | Path to where the Raiden database backup should be written
+xud_database | bytes | The XUD database backup
+## RestoreNodeResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+restored_lnds | string array | The list of lnd clients that were initialized.
+restored_raiden | bool | Whether raiden was initialized.
 ## ShutdownRequest
 This message has no parameters.
 ## ShutdownResponse
 This message has no parameters.
-## SubscribeAddedOrdersRequest
+## SubscribeOrdersRequest
 Parameter | Type | Description
 --------- | ---- | -----------
 existing | bool | Whether to transmit all existing active orders upon establishing the stream.
-## SubscribeRemovedOrdersRequest
-This message has no parameters.
 ## SubscribeSwapsRequest
 Parameter | Type | Description
 --------- | ---- | -----------
 include_taker | bool | Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.
+## SwapFailure
+Parameter | Type | Description
+--------- | ---- | -----------
+order_id | string | The global UUID for the order that failed the swap.
+pair_id | string | The trading pair that the swap is for.
+quantity | uint64 | The order quantity that was attempted to be swapped.
+peer_pub_key | string | The node pub key of the peer that we attempted to swap with.
+failure_reason | string | The reason why the swap failed.
 ## SwapSuccess
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1310,15 +1692,36 @@ order_id | string | The global UUID for the order that was swapped.
 local_id | string | The local id for the order that was swapped.
 pair_id | string | The trading pair that the swap is for.
 quantity | uint64 | The order quantity that was swapped.
-r_hash | string | The hex-encoded payment hash for the swaps.
-amount_received | int64 | The amount of the smallest base unit of the currency (like satoshis or wei) received.
-amount_sent | int64 | The amount of the smallest base unit of the currency (like satoshis or wei) sent.
+r_hash | string | The hex-encoded payment hash for the swap.
+amount_received | uint64 | The amount received denominated in satoshis.
+amount_sent | uint64 | The amount sent denominated in satoshis.
 peer_pub_key | string | The node pub key of the peer that executed this order.
 role | [Role](#role) | Our role in the swap, either MAKER or TAKER.
 currency_received | string | The ticker symbol of the currency received.
 currency_sent | string | The ticker symbol of the currency sent.
 r_preimage | string | The hex-encoded preimage.
 price | double | The price used for the swap.
+## TradingLimits
+Parameter | Type | Description
+--------- | ---- | -----------
+MaxSell | uint64 | Max outbound capacity for a distinct channel denominated in satoshis.
+MaxBuy | uint64 | Max inbound capacity for a distinct channel denominated in satoshis.
+## Trade
+Parameter | Type | Description
+--------- | ---- | -----------
+maker_order | [Order](#order) | The maker order involved in this trade.
+taker_order | [Order](#order) | The taker order involved in this trade.
+r_hash | string | The payment hash involved in this trade.
+quantity | int64 | The quantity transacted in this trade.
+pair_id | string | The trading pair for this trade.
+## TradingLimitsRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+currency | string | The ticker symbol of the currency to query for, if unspecified then trading limits for all supported currencies are queried.
+## TradingLimitsResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+limits | map&lt;string, [TradingLimits](#tradinglimits)&gt; | A map between currency ticker symbols and their trading limits.
 ## UnbanRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1326,17 +1729,27 @@ node_pub_key | string | The node pub key of the peer to unban.
 reconnect | bool | Whether to attempt to connect to the peer after it is unbanned.
 ## UnbanResponse
 This message has no parameters.
+## UnlockNodeRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+password | string | The password in utf-8 with which to unlock an existing xud node key as well as underlying client wallets such as lnd.
+## UnlockNodeResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+unlocked_lnds | string array | The list of lnd clients that were unlocked.
+unlocked_raiden | bool | Whether raiden was unlocked.
+locked_lnds | string array | The list of lnd clients that could not be unlocked.
 # Enums
-## SwapClient
-Enumeration | Value | Description
------------ | ----- | -----------
-LND | 0 |
-RAIDEN | 1 |
 ## OrderSide
 Enumeration | Value | Description
 ----------- | ----- | -----------
 BUY | 0 |
 SELL | 1 |
+## SwapClient
+Enumeration | Value | Description
+----------- | ----- | -----------
+LND | 0 |
+RAIDEN | 1 |
 ## Role
 Enumeration | Value | Description
 ----------- | ----- | -----------
