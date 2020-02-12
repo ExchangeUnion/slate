@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;,&quot;python&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -212,8 +212,8 @@
       <img src="logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="python">python</a>
               <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="python">python</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -224,7 +224,21 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
-            <a href="#rpc-calls" class="toc-h1 toc-link" data-title="RPC Calls">RPC Calls</a>
+            <a href="#xudinit-service" class="toc-h1 toc-link" data-title="XudInit Service">XudInit Service</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#createnode" class="toc-h2 toc-link" data-title="CreateNode">CreateNode</a>
+                  </li>
+                  <li>
+                    <a href="#unlocknode" class="toc-h2 toc-link" data-title="UnlockNode">UnlockNode</a>
+                  </li>
+                  <li>
+                    <a href="#restorenode" class="toc-h2 toc-link" data-title="RestoreNode">RestoreNode</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#xud-service" class="toc-h1 toc-link" data-title="Xud Service">Xud Service</a>
               <ul class="toc-list-h2">
                   <li>
                     <a href="#addcurrency" class="toc-h2 toc-link" data-title="AddCurrency">AddCurrency</a>
@@ -236,13 +250,13 @@
                     <a href="#ban" class="toc-h2 toc-link" data-title="Ban">Ban</a>
                   </li>
                   <li>
-                    <a href="#channelbalance" class="toc-h2 toc-link" data-title="ChannelBalance">ChannelBalance</a>
-                  </li>
-                  <li>
                     <a href="#connect" class="toc-h2 toc-link" data-title="Connect">Connect</a>
                   </li>
                   <li>
-                    <a href="#executeswap" class="toc-h2 toc-link" data-title="ExecuteSwap">ExecuteSwap</a>
+                    <a href="#discovernodes" class="toc-h2 toc-link" data-title="DiscoverNodes">DiscoverNodes</a>
+                  </li>
+                  <li>
+                    <a href="#getbalance" class="toc-h2 toc-link" data-title="GetBalance">GetBalance</a>
                   </li>
                   <li>
                     <a href="#getinfo" class="toc-h2 toc-link" data-title="GetInfo">GetInfo</a>
@@ -263,10 +277,19 @@
                     <a href="#listpeers" class="toc-h2 toc-link" data-title="ListPeers">ListPeers</a>
                   </li>
                   <li>
+                    <a href="#listtrades" class="toc-h2 toc-link" data-title="ListTrades">ListTrades</a>
+                  </li>
+                  <li>
+                    <a href="#openchannel" class="toc-h2 toc-link" data-title="OpenChannel">OpenChannel</a>
+                  </li>
+                  <li>
                     <a href="#placeorder" class="toc-h2 toc-link" data-title="PlaceOrder">PlaceOrder</a>
                   </li>
                   <li>
                     <a href="#placeordersync" class="toc-h2 toc-link" data-title="PlaceOrderSync">PlaceOrderSync</a>
+                  </li>
+                  <li>
+                    <a href="#executeswap" class="toc-h2 toc-link" data-title="ExecuteSwap">ExecuteSwap</a>
                   </li>
                   <li>
                     <a href="#removecurrency" class="toc-h2 toc-link" data-title="RemoveCurrency">RemoveCurrency</a>
@@ -281,16 +304,16 @@
                     <a href="#shutdown" class="toc-h2 toc-link" data-title="Shutdown">Shutdown</a>
                   </li>
                   <li>
-                    <a href="#subscribeaddedorders" class="toc-h2 toc-link" data-title="SubscribeAddedOrders">SubscribeAddedOrders</a>
-                  </li>
-                  <li>
-                    <a href="#subscriberemovedorders" class="toc-h2 toc-link" data-title="SubscribeRemovedOrders">SubscribeRemovedOrders</a>
+                    <a href="#subscribeorders" class="toc-h2 toc-link" data-title="SubscribeOrders">SubscribeOrders</a>
                   </li>
                   <li>
                     <a href="#subscribeswaps" class="toc-h2 toc-link" data-title="SubscribeSwaps">SubscribeSwaps</a>
                   </li>
                   <li>
                     <a href="#subscribeswapfailures" class="toc-h2 toc-link" data-title="SubscribeSwapFailures">SubscribeSwapFailures</a>
+                  </li>
+                  <li>
+                    <a href="#tradinglimits" class="toc-h2 toc-link" data-title="TradingLimits">TradingLimits</a>
                   </li>
                   <li>
                     <a href="#unban" class="toc-h2 toc-link" data-title="Unban">Unban</a>
@@ -301,9 +324,6 @@
             <a href="#messages" class="toc-h1 toc-link" data-title="Messages">Messages</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#addcurrencyrequest" class="toc-h2 toc-link" data-title="AddCurrencyRequest">AddCurrencyRequest</a>
-                  </li>
-                  <li>
                     <a href="#addcurrencyresponse" class="toc-h2 toc-link" data-title="AddCurrencyResponse">AddCurrencyResponse</a>
                   </li>
                   <li>
@@ -313,19 +333,19 @@
                     <a href="#addpairresponse" class="toc-h2 toc-link" data-title="AddPairResponse">AddPairResponse</a>
                   </li>
                   <li>
+                    <a href="#balance" class="toc-h2 toc-link" data-title="Balance">Balance</a>
+                  </li>
+                  <li>
                     <a href="#banrequest" class="toc-h2 toc-link" data-title="BanRequest">BanRequest</a>
                   </li>
                   <li>
                     <a href="#banresponse" class="toc-h2 toc-link" data-title="BanResponse">BanResponse</a>
                   </li>
                   <li>
-                    <a href="#channelbalance-2" class="toc-h2 toc-link" data-title="ChannelBalance">ChannelBalance</a>
+                    <a href="#chain" class="toc-h2 toc-link" data-title="Chain">Chain</a>
                   </li>
                   <li>
-                    <a href="#channelbalancerequest" class="toc-h2 toc-link" data-title="ChannelBalanceRequest">ChannelBalanceRequest</a>
-                  </li>
-                  <li>
-                    <a href="#channelbalanceresponse" class="toc-h2 toc-link" data-title="ChannelBalanceResponse">ChannelBalanceResponse</a>
+                    <a href="#channels" class="toc-h2 toc-link" data-title="Channels">Channels</a>
                   </li>
                   <li>
                     <a href="#connectrequest" class="toc-h2 toc-link" data-title="ConnectRequest">ConnectRequest</a>
@@ -334,10 +354,28 @@
                     <a href="#connectresponse" class="toc-h2 toc-link" data-title="ConnectResponse">ConnectResponse</a>
                   </li>
                   <li>
+                    <a href="#createnoderequest" class="toc-h2 toc-link" data-title="CreateNodeRequest">CreateNodeRequest</a>
+                  </li>
+                  <li>
+                    <a href="#createnoderesponse" class="toc-h2 toc-link" data-title="CreateNodeResponse">CreateNodeResponse</a>
+                  </li>
+                  <li>
+                    <a href="#currency" class="toc-h2 toc-link" data-title="Currency">Currency</a>
+                  </li>
+                  <li>
+                    <a href="#discovernodesrequest" class="toc-h2 toc-link" data-title="DiscoverNodesRequest">DiscoverNodesRequest</a>
+                  </li>
+                  <li>
+                    <a href="#discovernodesresponse" class="toc-h2 toc-link" data-title="DiscoverNodesResponse">DiscoverNodesResponse</a>
+                  </li>
+                  <li>
                     <a href="#executeswaprequest" class="toc-h2 toc-link" data-title="ExecuteSwapRequest">ExecuteSwapRequest</a>
                   </li>
                   <li>
-                    <a href="#swapfailure" class="toc-h2 toc-link" data-title="SwapFailure">SwapFailure</a>
+                    <a href="#getbalancerequest" class="toc-h2 toc-link" data-title="GetBalanceRequest">GetBalanceRequest</a>
+                  </li>
+                  <li>
+                    <a href="#getbalanceresponse" class="toc-h2 toc-link" data-title="GetBalanceResponse">GetBalanceResponse</a>
                   </li>
                   <li>
                     <a href="#getinforequest" class="toc-h2 toc-link" data-title="GetInfoRequest">GetInfoRequest</a>
@@ -352,16 +390,16 @@
                     <a href="#getnodeinforesponse" class="toc-h2 toc-link" data-title="GetNodeInfoResponse">GetNodeInfoResponse</a>
                   </li>
                   <li>
-                    <a href="#listordersrequest" class="toc-h2 toc-link" data-title="ListOrdersRequest">ListOrdersRequest</a>
-                  </li>
-                  <li>
-                    <a href="#listordersresponse" class="toc-h2 toc-link" data-title="ListOrdersResponse">ListOrdersResponse</a>
-                  </li>
-                  <li>
                     <a href="#listcurrenciesrequest" class="toc-h2 toc-link" data-title="ListCurrenciesRequest">ListCurrenciesRequest</a>
                   </li>
                   <li>
                     <a href="#listcurrenciesresponse" class="toc-h2 toc-link" data-title="ListCurrenciesResponse">ListCurrenciesResponse</a>
+                  </li>
+                  <li>
+                    <a href="#listordersrequest" class="toc-h2 toc-link" data-title="ListOrdersRequest">ListOrdersRequest</a>
+                  </li>
+                  <li>
+                    <a href="#listordersresponse" class="toc-h2 toc-link" data-title="ListOrdersResponse">ListOrdersResponse</a>
                   </li>
                   <li>
                     <a href="#listpairsrequest" class="toc-h2 toc-link" data-title="ListPairsRequest">ListPairsRequest</a>
@@ -376,10 +414,19 @@
                     <a href="#listpeersresponse" class="toc-h2 toc-link" data-title="ListPeersResponse">ListPeersResponse</a>
                   </li>
                   <li>
-                    <a href="#lndchannels" class="toc-h2 toc-link" data-title="LndChannels">LndChannels</a>
+                    <a href="#listtradesrequest" class="toc-h2 toc-link" data-title="ListTradesRequest">ListTradesRequest</a>
+                  </li>
+                  <li>
+                    <a href="#listtradesresponse" class="toc-h2 toc-link" data-title="ListTradesResponse">ListTradesResponse</a>
                   </li>
                   <li>
                     <a href="#lndinfo" class="toc-h2 toc-link" data-title="LndInfo">LndInfo</a>
+                  </li>
+                  <li>
+                    <a href="#openchannelrequest" class="toc-h2 toc-link" data-title="OpenChannelRequest">OpenChannelRequest</a>
+                  </li>
+                  <li>
+                    <a href="#openchannelresponse" class="toc-h2 toc-link" data-title="OpenChannelResponse">OpenChannelResponse</a>
                   </li>
                   <li>
                     <a href="#order" class="toc-h2 toc-link" data-title="Order">Order</a>
@@ -392,6 +439,9 @@
                   </li>
                   <li>
                     <a href="#orderscount" class="toc-h2 toc-link" data-title="OrdersCount">OrdersCount</a>
+                  </li>
+                  <li>
+                    <a href="#orderupdate" class="toc-h2 toc-link" data-title="OrderUpdate">OrderUpdate</a>
                   </li>
                   <li>
                     <a href="#peer" class="toc-h2 toc-link" data-title="Peer">Peer</a>
@@ -427,22 +477,40 @@
                     <a href="#removepairresponse" class="toc-h2 toc-link" data-title="RemovePairResponse">RemovePairResponse</a>
                   </li>
                   <li>
+                    <a href="#restorenoderequest" class="toc-h2 toc-link" data-title="RestoreNodeRequest">RestoreNodeRequest</a>
+                  </li>
+                  <li>
+                    <a href="#restorenoderesponse" class="toc-h2 toc-link" data-title="RestoreNodeResponse">RestoreNodeResponse</a>
+                  </li>
+                  <li>
                     <a href="#shutdownrequest" class="toc-h2 toc-link" data-title="ShutdownRequest">ShutdownRequest</a>
                   </li>
                   <li>
                     <a href="#shutdownresponse" class="toc-h2 toc-link" data-title="ShutdownResponse">ShutdownResponse</a>
                   </li>
                   <li>
-                    <a href="#subscribeaddedordersrequest" class="toc-h2 toc-link" data-title="SubscribeAddedOrdersRequest">SubscribeAddedOrdersRequest</a>
-                  </li>
-                  <li>
-                    <a href="#subscriberemovedordersrequest" class="toc-h2 toc-link" data-title="SubscribeRemovedOrdersRequest">SubscribeRemovedOrdersRequest</a>
+                    <a href="#subscribeordersrequest" class="toc-h2 toc-link" data-title="SubscribeOrdersRequest">SubscribeOrdersRequest</a>
                   </li>
                   <li>
                     <a href="#subscribeswapsrequest" class="toc-h2 toc-link" data-title="SubscribeSwapsRequest">SubscribeSwapsRequest</a>
                   </li>
                   <li>
+                    <a href="#swapfailure" class="toc-h2 toc-link" data-title="SwapFailure">SwapFailure</a>
+                  </li>
+                  <li>
                     <a href="#swapsuccess" class="toc-h2 toc-link" data-title="SwapSuccess">SwapSuccess</a>
+                  </li>
+                  <li>
+                    <a href="#tradinglimits-2" class="toc-h2 toc-link" data-title="TradingLimits">TradingLimits</a>
+                  </li>
+                  <li>
+                    <a href="#trade" class="toc-h2 toc-link" data-title="Trade">Trade</a>
+                  </li>
+                  <li>
+                    <a href="#tradinglimitsrequest" class="toc-h2 toc-link" data-title="TradingLimitsRequest">TradingLimitsRequest</a>
+                  </li>
+                  <li>
+                    <a href="#tradinglimitsresponse" class="toc-h2 toc-link" data-title="TradingLimitsResponse">TradingLimitsResponse</a>
                   </li>
                   <li>
                     <a href="#unbanrequest" class="toc-h2 toc-link" data-title="UnbanRequest">UnbanRequest</a>
@@ -450,16 +518,22 @@
                   <li>
                     <a href="#unbanresponse" class="toc-h2 toc-link" data-title="UnbanResponse">UnbanResponse</a>
                   </li>
+                  <li>
+                    <a href="#unlocknoderequest" class="toc-h2 toc-link" data-title="UnlockNodeRequest">UnlockNodeRequest</a>
+                  </li>
+                  <li>
+                    <a href="#unlocknoderesponse" class="toc-h2 toc-link" data-title="UnlockNodeResponse">UnlockNodeResponse</a>
+                  </li>
               </ul>
           </li>
           <li>
             <a href="#enums" class="toc-h1 toc-link" data-title="Enums">Enums</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#swapclient" class="toc-h2 toc-link" data-title="SwapClient">SwapClient</a>
+                    <a href="#orderside" class="toc-h2 toc-link" data-title="OrderSide">OrderSide</a>
                   </li>
                   <li>
-                    <a href="#orderside" class="toc-h2 toc-link" data-title="OrderSide">OrderSide</a>
+                    <a href="#swapclient" class="toc-h2 toc-link" data-title="SwapClient">SwapClient</a>
                   </li>
                   <li>
                     <a href="#role" class="toc-h2 toc-link" data-title="Role">Role</a>
@@ -474,7 +548,266 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introduction'>Introduction</h1><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+        <h1 id='introduction'>Introduction</h1>
+<p>This is the API documentation for the xud gRPC service.
+Xud is a decentralized exchange built on the Lightning and Raiden networks to enable instant and trustless cryptocurrency swaps and order fulfillment between cryptocurrency exchanges. Exchanges participating in the network aggregate their liquidity and can provide deeper order books and new trading pairs to their users.</p>
+<h1 id='xudinit-service'>XudInit Service</h1><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">grpc</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'grpc'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">convertFieldsToCamelCase</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="na">longsAsStrings</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">xudinitProto</span> <span class="o">=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s1">'xudrpc.proto'</span><span class="p">,</span> <span class="s1">'proto'</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tlsCert</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s1">'path/to/tls.cert'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">sslCreds</span> <span class="o">=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">credentials</span><span class="p">.</span><span class="nx">createSsl</span><span class="p">(</span><span class="nx">tlsCert</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">xudinitClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">xudinitProto</span><span class="p">.</span><span class="nx">XudInit</span><span class="p">(</span><span class="nx">host</span> <span class="o">+</span> <span class="s1">':'</span> <span class="o">+</span> <span class="nx">port</span><span class="p">,</span> <span class="nx">sslCreds</span><span class="p">);</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="c"># Python requires you to generate static protobuf code, see the following guide:</span>
+<span class="c"># https://grpc.io/docs/tutorials/basic/python.html#generating-client-and-server-code</span>
+
+<span class="kn">import</span> <span class="nn">grpc</span>
+<span class="kn">import</span> <span class="nn">xudrpc_pb2</span> <span class="k">as</span> <span class="n">xudinit</span><span class="p">,</span> <span class="n">xudrpc_pb2_grpc</span> <span class="k">as</span> <span class="n">xudinitrpc</span>
+<span class="n">cert</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'path/to/tls.cert'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">ssl_creds</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ssl_channel_credentials</span><span class="p">(</span><span class="n">cert</span><span class="p">)</span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">secure_channel</span><span class="p">(</span><span class="n">host</span> <span class="o">+</span> <span class="s">':'</span> <span class="o">+</span> <span class="n">port</span><span class="p">,</span> <span class="n">ssl_creds</span><span class="p">)</span>
+<span class="n">xudinit_stub</span> <span class="o">=</span> <span class="n">xudrpc</span><span class="o">.</span><span class="n">XudInitStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+</code></pre>
+<p>A service for interacting with a locked or uninitalized xud node.</p>
+<h2 id='createnode'>CreateNode</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudinitClient</span><span class="p">.</span><span class="nx">createNode</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "seedMnemonic": &lt;string[]&gt;,</span>
+<span class="c1">//  "initializedLnds": &lt;string[]&gt;,</span>
+<span class="c1">//  "initializedRaiden": &lt;bool&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xudinit</span><span class="o">.</span><span class="n">CreateNodeRequest</span><span class="p">(</span>
+  <span class="n">password</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudinitStub</span><span class="o">.</span><span class="n">CreateNode</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "seed_mnemonic": &lt;string[]&gt;,</span>
+<span class="c">#  "initialized_lnds": &lt;string[]&gt;,</span>
+<span class="c">#  "initialized_raiden": &lt;bool&gt;</span>
+<span class="c"># }</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli create
+</code></pre>
+<p>Creates an xud identity node key and underlying wallets. The node key and wallets are derived from a single seed and encrypted using a single password provided as a parameter to the call.</p>
+<h3 id='request'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>The password in utf-8 with which to encrypt the new xud node key as well as any uninitialized underlying wallets.</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>seed_mnemonic</td>
+<td>string array</td>
+<td>The 24 word mnemonic to recover the xud identity key and underlying wallets</td>
+</tr>
+<tr>
+<td>initialized_lnds</td>
+<td>string array</td>
+<td>The list of lnd clients that were initialized.</td>
+</tr>
+<tr>
+<td>initialized_raiden</td>
+<td>bool</td>
+<td>Whether raiden was initialized.</td>
+</tr>
+</tbody></table>
+<h2 id='unlocknode'>UnlockNode</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudinitClient</span><span class="p">.</span><span class="nx">unlockNode</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "unlockedLnds": &lt;string[]&gt;,</span>
+<span class="c1">//  "unlockedRaiden": &lt;bool&gt;,</span>
+<span class="c1">//  "lockedLnds": &lt;string[]&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xudinit</span><span class="o">.</span><span class="n">UnlockNodeRequest</span><span class="p">(</span>
+  <span class="n">password</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudinitStub</span><span class="o">.</span><span class="n">UnlockNode</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "unlocked_lnds": &lt;string[]&gt;,</span>
+<span class="c">#  "unlocked_raiden": &lt;bool&gt;,</span>
+<span class="c">#  "locked_lnds": &lt;string[]&gt;</span>
+<span class="c"># }</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli unlock
+</code></pre>
+<p>Unlocks and decrypts the xud node key and any underlying wallets.</p>
+<h3 id='request-2'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>The password in utf-8 with which to unlock an existing xud node key as well as underlying client wallets such as lnd.</td>
+</tr>
+</tbody></table>
+<h3 id='response-2'>Response</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>unlocked_lnds</td>
+<td>string array</td>
+<td>The list of lnd clients that were unlocked.</td>
+</tr>
+<tr>
+<td>unlocked_raiden</td>
+<td>bool</td>
+<td>Whether raiden was unlocked.</td>
+</tr>
+<tr>
+<td>locked_lnds</td>
+<td>string array</td>
+<td>The list of lnd clients that could not be unlocked.</td>
+</tr>
+</tbody></table>
+<h2 id='restorenode'>RestoreNode</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">seedMnemonic</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">lndBackups</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bytes</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">raidenDatabase</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bytes</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">raidenDatabasePath</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">xudDatabase</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bytes</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudinitClient</span><span class="p">.</span><span class="nx">restoreNode</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "restoredLnds": &lt;string[]&gt;,</span>
+<span class="c1">//  "restoredRaiden": &lt;bool&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xudinit</span><span class="o">.</span><span class="n">RestoreNodeRequest</span><span class="p">(</span>
+  <span class="n">seed_mnemonic</span><span class="o">=&lt;</span><span class="n">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">password</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">lnd_backups</span><span class="o">=&lt;</span><span class="nb">bytes</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">raiden_database</span><span class="o">=&lt;</span><span class="nb">bytes</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">raiden_database_path</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">xud_database</span><span class="o">=&lt;</span><span class="nb">bytes</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudinitStub</span><span class="o">.</span><span class="n">RestoreNode</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "restored_lnds": &lt;string[]&gt;,</span>
+<span class="c">#  "restored_raiden": &lt;bool&gt;</span>
+<span class="c"># }</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli restore <span class="o">[</span>backup_directory] <span class="o">[</span>raiden_database_path]
+</code></pre>
+<p>Restores an xud instance and underlying wallets from a seed.</p>
+<h3 id='request-3'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>seed_mnemonic</td>
+<td>string array</td>
+<td>The 24 word mnemonic to recover the xud identity key and underlying wallets</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>The password in utf-8 with which to encrypt the restored xud node key as well as any restored underlying wallets.</td>
+</tr>
+<tr>
+<td>lnd_backups</td>
+<td>map&lt;string, bytes&gt;</td>
+<td>A map between the currency of the LND and its multi channel SCB</td>
+</tr>
+<tr>
+<td>raiden_database</td>
+<td>bytes</td>
+<td>The Raiden database backup</td>
+</tr>
+<tr>
+<td>raiden_database_path</td>
+<td>string</td>
+<td>Path to where the Raiden database backup should be written</td>
+</tr>
+<tr>
+<td>xud_database</td>
+<td>bytes</td>
+<td>The XUD database backup</td>
+</tr>
+</tbody></table>
+<h3 id='response-3'>Response</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>restored_lnds</td>
+<td>string array</td>
+<td>The list of lnd clients that were initialized.</td>
+</tr>
+<tr>
+<td>restored_raiden</td>
+<td>bool</td>
+<td>Whether raiden was initialized.</td>
+</tr>
+</tbody></table>
+<h1 id='xud-service'>Xud Service</h1><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'fs'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">grpc</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'grpc'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">convertFieldsToCamelCase</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -483,7 +816,7 @@
 <span class="kd">var</span> <span class="nx">xudProto</span> <span class="o">=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="s1">'xudrpc.proto'</span><span class="p">,</span> <span class="s1">'proto'</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">tlsCert</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s1">'path/to/tls.cert'</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">sslCreds</span> <span class="o">=</span> <span class="nx">grpc</span><span class="p">.</span><span class="nx">credentials</span><span class="p">.</span><span class="nx">createSsl</span><span class="p">(</span><span class="nx">tlsCert</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">xudClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">xudProto</span><span class="p">.</span><span class="nx">Xud</span><span class="p">(</span><span class="s1">'localhost:8886'</span><span class="p">,</span> <span class="nx">sslCreds</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">xudClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">xudProto</span><span class="p">.</span><span class="nx">Xud</span><span class="p">(</span><span class="nx">host</span> <span class="o">+</span> <span class="s1">':'</span> <span class="o">+</span> <span class="nx">port</span><span class="p">,</span> <span class="nx">sslCreds</span><span class="p">);</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="c"># Python requires you to generate static protobuf code, see the following guide:</span>
 <span class="c"># https://grpc.io/docs/tutorials/basic/python.html#generating-client-and-server-code</span>
 
@@ -491,17 +824,17 @@
 <span class="kn">import</span> <span class="nn">xudrpc_pb2</span> <span class="k">as</span> <span class="n">xud</span><span class="p">,</span> <span class="n">xudrpc_pb2_grpc</span> <span class="k">as</span> <span class="n">xudrpc</span>
 <span class="n">cert</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">'path/to/tls.cert'</span><span class="p">,</span> <span class="s">'rb'</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 <span class="n">ssl_creds</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ssl_channel_credentials</span><span class="p">(</span><span class="n">cert</span><span class="p">)</span>
-<span class="n">channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">secure_channel</span><span class="p">(</span><span class="s">'localhost:8886'</span><span class="p">,</span> <span class="n">ssl_creds</span><span class="p">)</span>
+<span class="n">channel</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">secure_channel</span><span class="p">(</span><span class="n">host</span> <span class="o">+</span> <span class="s">':'</span> <span class="o">+</span> <span class="n">port</span><span class="p">,</span> <span class="n">ssl_creds</span><span class="p">)</span>
 <span class="n">xud_stub</span> <span class="o">=</span> <span class="n">xudrpc</span><span class="o">.</span><span class="n">XudStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
 </code></pre>
-<p>This is the API documentation for the Xud gRPC service.
-Xud is a decentralized exchange built on the Lightning and Raiden networks to enable instant and trustless cryptocurrency swaps and order fulfillment between cryptocurrency exchanges. Exchanges participating in the network aggregate their liquidity and can provide deeper order books and new trading pairs to their users.</p>
-<h1 id='rpc-calls'>RPC Calls</h1><h2 id='addcurrency'>AddCurrency</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+<p>The primary service for interacting with a running xud node.</p>
+<h2 id='addcurrency'>AddCurrency</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">swapClient</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">SwapClient</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">tokenAddress</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">decimalPlaces</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">uint32</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">addCurrency</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -510,7 +843,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
   <span class="p">}</span>
 <span class="p">});</span>
 <span class="c1">// Output: {}</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">AddCurrencyRequest</span><span class="p">(</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">Currency</span><span class="p">(</span>
   <span class="n">currency</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">swap_client</span><span class="o">=&lt;</span><span class="n">SwapClient</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">token_address</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
@@ -522,7 +855,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </code></pre><pre class="highlight shell tab-shell"><code>xucli addcurrency &lt;currency&gt; &lt;swap_client&gt; <span class="o">[</span>decimal_places] <span class="o">[</span>token_address]
 </code></pre>
 <p>Adds a currency to the list of supported currencies. Once added, the currency may be used for new trading pairs.</p>
-<h3 id='request'>Request</h3>
+<h3 id='request-4'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -551,12 +884,13 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <td>The number of places to the right of the decimal point of the smallest subunit of the currency. For example, BTC, LTC, and others where the smallest subunits (satoshis) are 0.00000001 full units (bitcoins) have 8 decimal places. ETH has 18. This can be thought of as the base 10 exponent of the smallest subunit expressed as a positive integer. A default value of 8 is used if unspecified.</td>
 </tr>
 </tbody></table>
-<h3 id='response'>Response</h3>
+<h3 id='response-4'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='addpair'>AddPair</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">baseCurrency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">quoteCurrency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">addPair</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -575,7 +909,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </code></pre><pre class="highlight shell tab-shell"><code>xucli addpair &lt;base_currency&gt; &lt;quote_currency&gt;
 </code></pre>
 <p>Adds a trading pair to the list of supported trading pairs. The newly supported pair is advertised to peers so they may begin sending orders for it.</p>
-<h3 id='request-2'>Request</h3>
+<h3 id='request-5'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -594,11 +928,12 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <td>The currency used to quote a price for the base currency.</td>
 </tr>
 </tbody></table>
-<h3 id='response-2'>Response</h3>
+<h3 id='response-5'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='ban'>Ban</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">nodePubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">ban</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -613,10 +948,10 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">Ban</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="c"># Output: {}</span>
-</code></pre><pre class="highlight shell tab-shell"><code>xucli ban &lt;node_pub_key&gt;
+</code></pre><pre class="highlight shell tab-shell"><code>xucli ban &lt;node_key&gt;
 </code></pre>
 <p>Bans a node and immediately disconnects from it. This can be used to prevent any connections to a specific node.</p>
-<h3 id='request-3'>Request</h3>
+<h3 id='request-6'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -630,65 +965,12 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <td>The node pub key of the node to ban.</td>
 </tr>
 </tbody></table>
-<h3 id='response-3'>Response</h3>
+<h3 id='response-6'>Response</h3>
 <p>This response has no parameters.</p>
-<h2 id='channelbalance'>ChannelBalance</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">};</span>
-<span class="nx">xudClient</span><span class="p">.</span><span class="nx">channelBalance</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-<span class="c1">// Output:</span>
-<span class="c1">// {</span>
-<span class="c1">//  "balances": &lt;ChannelBalance&gt;</span>
-<span class="c1">// }</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">ChannelBalanceRequest</span><span class="p">(</span>
-  <span class="n">currency</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">ChannelBalance</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="c"># Output:</span>
-<span class="c"># {</span>
-<span class="c">#  "balances": &lt;ChannelBalance&gt;</span>
-<span class="c"># }</span>
-</code></pre><pre class="highlight shell tab-shell"><code>xucli channelbalance <span class="o">[</span>currency]
-</code></pre>
-<p>Gets the total balance available across all payment channels for one or all currencies.</p>
-<h3 id='request-4'>Request</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>currency</td>
-<td>string</td>
-<td>The ticker symbol of the currency to query for, if unspecified then balances for all supported currencies are queried.</td>
-</tr>
-</tbody></table>
-<h3 id='response-4'>Response</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>balances</td>
-<td>map&lt;string, <a href="#channelbalance">ChannelBalance</a>&gt;</td>
-<td>A map between currency ticker symbols and their channel balances.</td>
-</tr>
-</tbody></table>
 <h2 id='connect'>Connect</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">nodeUri</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -706,7 +988,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </code></pre><pre class="highlight shell tab-shell"><code>xucli connect &lt;node_uri&gt;
 </code></pre>
 <p>Attempts to connect to a node. Once connected, the node is added to the list of peers and becomes available for swaps and trading. A handshake exchanges information about the peer&#39;s supported trading and swap clients. Orders will be shared with the peer upon connection and upon new order placements.</p>
-<h3 id='request-5'>Request</h3>
+<h3 id='request-7'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -720,15 +1002,13 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <td>The uri of the node to connect to in &quot;[nodePubKey]@[host]:[port]&quot; format.</td>
 </tr>
 </tbody></table>
-<h3 id='response-5'>Response</h3>
+<h3 id='response-7'>Response</h3>
 <p>This response has no parameters.</p>
-<h2 id='executeswap'>ExecuteSwap</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">orderId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="na">pairId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+<h2 id='discovernodes'>DiscoverNodes</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">peerPubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="na">quantity</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">uint64</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
-<span class="nx">xudClient</span><span class="p">.</span><span class="nx">executeSwap</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">discoverNodes</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -737,48 +1017,20 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <span class="p">});</span>
 <span class="c1">// Output:</span>
 <span class="c1">// {</span>
-<span class="c1">//  "orderId": &lt;string&gt;,</span>
-<span class="c1">//  "localId": &lt;string&gt;,</span>
-<span class="c1">//  "pairId": &lt;string&gt;,</span>
-<span class="c1">//  "quantity": &lt;uint64&gt;,</span>
-<span class="c1">//  "rHash": &lt;string&gt;,</span>
-<span class="c1">//  "amountReceived": &lt;int64&gt;,</span>
-<span class="c1">//  "amountSent": &lt;int64&gt;,</span>
-<span class="c1">//  "peerPubKey": &lt;string&gt;,</span>
-<span class="c1">//  "role": &lt;Role&gt;,</span>
-<span class="c1">//  "currencyReceived": &lt;string&gt;,</span>
-<span class="c1">//  "currencySent": &lt;string&gt;,</span>
-<span class="c1">//  "rPreimage": &lt;string&gt;,</span>
-<span class="c1">//  "price": &lt;double&gt;</span>
+<span class="c1">//  "numNodes": &lt;uint32&gt;</span>
 <span class="c1">// }</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">ExecuteSwapRequest</span><span class="p">(</span>
-  <span class="n">order_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="n">pair_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">DiscoverNodesRequest</span><span class="p">(</span>
   <span class="n">peer_pub_key</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="n">quantity</span><span class="o">=&lt;</span><span class="n">uint64</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">ExecuteSwap</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">DiscoverNodes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="c"># Output:</span>
 <span class="c"># {</span>
-<span class="c">#  "order_id": &lt;string&gt;,</span>
-<span class="c">#  "local_id": &lt;string&gt;,</span>
-<span class="c">#  "pair_id": &lt;string&gt;,</span>
-<span class="c">#  "quantity": &lt;uint64&gt;,</span>
-<span class="c">#  "r_hash": &lt;string&gt;,</span>
-<span class="c">#  "amount_received": &lt;int64&gt;,</span>
-<span class="c">#  "amount_sent": &lt;int64&gt;,</span>
-<span class="c">#  "peer_pub_key": &lt;string&gt;,</span>
-<span class="c">#  "role": &lt;Role&gt;,</span>
-<span class="c">#  "currency_received": &lt;string&gt;,</span>
-<span class="c">#  "currency_sent": &lt;string&gt;,</span>
-<span class="c">#  "r_preimage": &lt;string&gt;,</span>
-<span class="c">#  "price": &lt;double&gt;</span>
+<span class="c">#  "num_nodes": &lt;uint32&gt;</span>
 <span class="c"># }</span>
-</code></pre><pre class="highlight shell tab-shell"><code>xucli executeswap &lt;pair_id&gt; &lt;order_id&gt; <span class="o">[</span>quantity]
 </code></pre>
-<p>Executes a swap on a maker peer order.</p>
-<h3 id='request-6'>Request</h3>
+<p>Discover nodes from a specific peer and apply new connections</p>
+<h3 id='request-8'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -787,27 +1039,12 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </tr>
 </thead><tbody>
 <tr>
-<td>order_id</td>
-<td>string</td>
-<td>The order id of the maker order.</td>
-</tr>
-<tr>
-<td>pair_id</td>
-<td>string</td>
-<td>The trading pair of the swap orders.</td>
-</tr>
-<tr>
 <td>peer_pub_key</td>
 <td>string</td>
-<td>The node pub key of the peer which owns the maker order. This is optional but helps locate the order more quickly.</td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>uint64</td>
-<td>The quantity to swap. The whole order will be swapped if unspecified.</td>
+<td>The node pub key of the peer to discover nodes from.</td>
 </tr>
 </tbody></table>
-<h3 id='response-6'>Response</h3>
+<h3 id='response-8'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -816,72 +1053,68 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </tr>
 </thead><tbody>
 <tr>
-<td>order_id</td>
+<td>num_nodes</td>
+<td>uint32</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='getbalance'>GetBalance</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "balances": &lt;Balance&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">GetBalanceRequest</span><span class="p">(</span>
+  <span class="n">currency</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">GetBalance</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "balances": &lt;Balance&gt;</span>
+<span class="c"># }</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli getbalance <span class="o">[</span>currency]
+</code></pre>
+<p>Gets the total balance available across all payment channels and wallets for one or all currencies.</p>
+<h3 id='request-9'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>currency</td>
 <td>string</td>
-<td>The global UUID for the order that was swapped.</td>
+<td>The ticker symbol of the currency to query for, if unspecified then balances for all supported currencies are queried.</td>
 </tr>
+</tbody></table>
+<h3 id='response-9'>Response</h3>
+<table><thead>
 <tr>
-<td>local_id</td>
-<td>string</td>
-<td>The local id for the order that was swapped.</td>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
+</thead><tbody>
 <tr>
-<td>pair_id</td>
-<td>string</td>
-<td>The trading pair that the swap is for.</td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>uint64</td>
-<td>The order quantity that was swapped.</td>
-</tr>
-<tr>
-<td>r_hash</td>
-<td>string</td>
-<td>The hex-encoded payment hash for the swaps.</td>
-</tr>
-<tr>
-<td>amount_received</td>
-<td>int64</td>
-<td>The amount of the smallest base unit of the currency (like satoshis or wei) received.</td>
-</tr>
-<tr>
-<td>amount_sent</td>
-<td>int64</td>
-<td>The amount of the smallest base unit of the currency (like satoshis or wei) sent.</td>
-</tr>
-<tr>
-<td>peer_pub_key</td>
-<td>string</td>
-<td>The node pub key of the peer that executed this order.</td>
-</tr>
-<tr>
-<td>role</td>
-<td><a href="#role">Role</a></td>
-<td>Our role in the swap, either MAKER or TAKER.</td>
-</tr>
-<tr>
-<td>currency_received</td>
-<td>string</td>
-<td>The ticker symbol of the currency received.</td>
-</tr>
-<tr>
-<td>currency_sent</td>
-<td>string</td>
-<td>The ticker symbol of the currency sent.</td>
-</tr>
-<tr>
-<td>r_preimage</td>
-<td>string</td>
-<td>The hex-encoded preimage.</td>
-</tr>
-<tr>
-<td>price</td>
-<td>double</td>
-<td>The price used for the swap.</td>
+<td>balances</td>
+<td>map&lt;string, <a href="#balance">Balance</a>&gt;</td>
+<td>A map between currency ticker symbols and their balances.</td>
 </tr>
 </tbody></table>
 <h2 id='getinfo'>GetInfo</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">getInfo</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -894,11 +1127,14 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <span class="c1">//  "version": &lt;string&gt;,</span>
 <span class="c1">//  "nodePubKey": &lt;string&gt;,</span>
 <span class="c1">//  "uris": &lt;string[]&gt;,</span>
-<span class="c1">//  "numPeers": &lt;int32&gt;,</span>
-<span class="c1">//  "numPairs": &lt;int32&gt;,</span>
+<span class="c1">//  "numPeers": &lt;uint32&gt;,</span>
+<span class="c1">//  "numPairs": &lt;uint32&gt;,</span>
 <span class="c1">//  "orders": &lt;OrdersCount&gt;,</span>
 <span class="c1">//  "lnd": &lt;LndInfo&gt;,</span>
-<span class="c1">//  "raiden": &lt;RaidenInfo&gt;</span>
+<span class="c1">//  "raiden": &lt;RaidenInfo&gt;,</span>
+<span class="c1">//  "alias": &lt;string&gt;,</span>
+<span class="c1">//  "network": &lt;string&gt;,</span>
+<span class="c1">//  "pendingSwapHashes": &lt;string[]&gt;</span>
 <span class="c1">// }</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">GetInfoRequest</span><span class="p">()</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">GetInfo</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
@@ -908,18 +1144,21 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <span class="c">#  "version": &lt;string&gt;,</span>
 <span class="c">#  "node_pub_key": &lt;string&gt;,</span>
 <span class="c">#  "uris": &lt;string[]&gt;,</span>
-<span class="c">#  "num_peers": &lt;int32&gt;,</span>
-<span class="c">#  "num_pairs": &lt;int32&gt;,</span>
+<span class="c">#  "num_peers": &lt;uint32&gt;,</span>
+<span class="c">#  "num_pairs": &lt;uint32&gt;,</span>
 <span class="c">#  "orders": &lt;OrdersCount&gt;,</span>
 <span class="c">#  "lnd": &lt;LndInfo&gt;,</span>
-<span class="c">#  "raiden": &lt;RaidenInfo&gt;</span>
+<span class="c">#  "raiden": &lt;RaidenInfo&gt;,</span>
+<span class="c">#  "alias": &lt;string&gt;,</span>
+<span class="c">#  "network": &lt;string&gt;,</span>
+<span class="c">#  "pending_swap_hashes": &lt;string[]&gt;</span>
 <span class="c"># }</span>
 </code></pre><pre class="highlight shell tab-shell"><code>xucli getinfo
 </code></pre>
 <p>Gets general information about this node.</p>
-<h3 id='request-7'>Request</h3>
+<h3 id='request-10'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-7'>Response</h3>
+<h3 id='response-10'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -944,12 +1183,12 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </tr>
 <tr>
 <td>num_peers</td>
-<td>int32</td>
+<td>uint32</td>
 <td>The number of currently connected peers.</td>
 </tr>
 <tr>
 <td>num_pairs</td>
-<td>int32</td>
+<td>uint32</td>
 <td>The number of supported trading pairs.</td>
 </tr>
 <tr>
@@ -967,10 +1206,26 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <td><a href="#raideninfo">RaidenInfo</a></td>
 <td></td>
 </tr>
+<tr>
+<td>alias</td>
+<td>string</td>
+<td>The alias of this instance of xud.</td>
+</tr>
+<tr>
+<td>network</td>
+<td>string</td>
+<td>The network of this node.</td>
+</tr>
+<tr>
+<td>pending_swap_hashes</td>
+<td>string array</td>
+<td></td>
+</tr>
 </tbody></table>
 <h2 id='getnodeinfo'>GetNodeInfo</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">nodePubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">getNodeInfo</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -980,7 +1235,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <span class="p">});</span>
 <span class="c1">// Output:</span>
 <span class="c1">// {</span>
-<span class="c1">//  "reputationScore": &lt;int32&gt;,</span>
+<span class="c1">//  "reputationScore": &lt;sint32&gt;,</span>
 <span class="c1">//  "banned": &lt;bool&gt;</span>
 <span class="c1">// }</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">GetNodeInfoRequest</span><span class="p">(</span>
@@ -990,13 +1245,13 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="c"># Output:</span>
 <span class="c"># {</span>
-<span class="c">#  "reputationScore": &lt;int32&gt;,</span>
+<span class="c">#  "reputationScore": &lt;sint32&gt;,</span>
 <span class="c">#  "banned": &lt;bool&gt;</span>
 <span class="c"># }</span>
-</code></pre><pre class="highlight shell tab-shell"><code>xucli getnodeinfo &lt;node_pub_key&gt;
+</code></pre><pre class="highlight shell tab-shell"><code>xucli getnodeinfo &lt;node_key&gt;
 </code></pre>
 <p>Gets general information about a node.</p>
-<h3 id='request-8'>Request</h3>
+<h3 id='request-11'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1010,7 +1265,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <td>The node pub key of the node for which to get information.</td>
 </tr>
 </tbody></table>
-<h3 id='response-8'>Response</h3>
+<h3 id='response-11'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1020,7 +1275,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </thead><tbody>
 <tr>
 <td>reputationScore</td>
-<td>int32</td>
+<td>sint32</td>
 <td>The node&#39;s reputation score. Points are subtracted for unexpected or potentially malicious behavior. Points are added when swaps are successfully executed.</td>
 </tr>
 <tr>
@@ -1032,7 +1287,9 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <h2 id='listorders'>ListOrders</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">pairId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">includeOwnOrders</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">limit</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">uint32</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">listOrders</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -1047,6 +1304,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">ListOrdersRequest</span><span class="p">(</span>
   <span class="n">pair_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">include_own_orders</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">limit</span><span class="o">=&lt;</span><span class="n">uint32</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">ListOrders</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
@@ -1054,10 +1312,10 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <span class="c"># {</span>
 <span class="c">#  "orders": &lt;Orders&gt;</span>
 <span class="c"># }</span>
-</code></pre><pre class="highlight shell tab-shell"><code>xucli listorders <span class="o">[</span>pair_id]
+</code></pre><pre class="highlight shell tab-shell"><code>xucli listorders <span class="o">[</span>pair_id] <span class="o">[</span>include_own_orders] <span class="o">[</span>limit]
 </code></pre>
 <p>Gets orders from the order book. This call returns the state of the order book at a given point in time, although it is not guaranteed to still be vaild by the time a response is received and processed by a client. It accepts an optional trading pair id parameter. If specified, only orders for that particular trading pair are returned. Otherwise, all orders are returned. Orders are separated into buys and sells for each trading pair, but unsorted.</p>
-<h3 id='request-9'>Request</h3>
+<h3 id='request-12'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1075,8 +1333,13 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <td>bool</td>
 <td>Whether own orders should be included in result or not.</td>
 </tr>
+<tr>
+<td>limit</td>
+<td>uint32</td>
+<td>The maximum number of orders to return from each side of the order book.</td>
+</tr>
 </tbody></table>
-<h3 id='response-9'>Response</h3>
+<h3 id='response-12'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1091,6 +1354,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </tr>
 </tbody></table>
 <h2 id='listcurrencies'>ListCurrencies</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">listCurrencies</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -1100,20 +1364,21 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <span class="p">});</span>
 <span class="c1">// Output:</span>
 <span class="c1">// {</span>
-<span class="c1">//  "currencies": &lt;string[]&gt;</span>
+<span class="c1">//  "currencies": &lt;Currency[]&gt;</span>
 <span class="c1">// }</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">ListCurrenciesRequest</span><span class="p">()</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">ListCurrencies</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="c"># Output:</span>
 <span class="c"># {</span>
-<span class="c">#  "currencies": &lt;string[]&gt;</span>
+<span class="c">#  "currencies": &lt;Currency[]&gt;</span>
 <span class="c"># }</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli listcurrencies
 </code></pre>
 <p>Gets a list of this node&#39;s supported currencies.</p>
-<h3 id='request-10'>Request</h3>
+<h3 id='request-13'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-10'>Response</h3>
+<h3 id='response-13'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1123,11 +1388,12 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </thead><tbody>
 <tr>
 <td>currencies</td>
-<td>string array</td>
-<td>A list of ticker symbols of the supported currencies.</td>
+<td><a href="#currency">Currency</a> array</td>
+<td>The list of available currencies in the orderbook.</td>
 </tr>
 </tbody></table>
 <h2 id='listpairs'>ListPairs</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">listPairs</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -1149,9 +1415,9 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </code></pre><pre class="highlight shell tab-shell"><code>xucli listpairs
 </code></pre>
 <p>Gets a list of this nodes suported trading pairs.</p>
-<h3 id='request-11'>Request</h3>
+<h3 id='request-14'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-11'>Response</h3>
+<h3 id='response-14'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1166,6 +1432,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </tr>
 </tbody></table>
 <h2 id='listpeers'>ListPeers</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">listPeers</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -1187,9 +1454,9 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 </code></pre><pre class="highlight shell tab-shell"><code>xucli listpeers
 </code></pre>
 <p>Gets a list of connected peers.</p>
-<h3 id='request-12'>Request</h3>
+<h3 id='request-15'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-12'>Response</h3>
+<h3 id='response-15'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1203,13 +1470,122 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <td>The list of connected peers.</td>
 </tr>
 </tbody></table>
+<h2 id='listtrades'>ListTrades</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">limit</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">int32</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">listTrades</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "trades": &lt;Trade[]&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">ListTradesRequest</span><span class="p">(</span>
+  <span class="n">limit</span><span class="o">=&lt;</span><span class="n">int32</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">ListTrades</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "trades": &lt;Trade[]&gt;</span>
+<span class="c"># }</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli listtrades <span class="o">[</span>limit]
+</code></pre>
+<p>Gets a list of completed trades.</p>
+<h3 id='request-16'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>int32</td>
+<td>The maximum number of trades to return</td>
+</tr>
+</tbody></table>
+<h3 id='response-16'>Response</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>trades</td>
+<td><a href="#trade">Trade</a> array</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='openchannel'>OpenChannel</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">nodePubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">amount</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">int64</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">openChannel</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output: {}</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">OpenChannelRequest</span><span class="p">(</span>
+  <span class="n">node_pub_key</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">currency</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">amount</span><span class="o">=&lt;</span><span class="n">int64</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">OpenChannel</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output: {}</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli openchannel &lt;node_key&gt; &lt;currency&gt; &lt;amount&gt;
+</code></pre>
+<p>Opens a payment channel to a peer with the given node pub key for the specified amount and currency.</p>
+<h3 id='request-17'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>node_pub_key</td>
+<td>string</td>
+<td>The node pub key of the peer with which to open channel with.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>The ticker symbol of the currency to open the channel for.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>int64</td>
+<td>The amount of the channel denominated in satoshis.</td>
+</tr>
+</tbody></table>
+<h3 id='response-17'>Response</h3>
+<p>This response has no parameters.</p>
 <h2 id='placeorder'>PlaceOrder</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">price</span><span class="p">:</span> <span class="o">&lt;</span><span class="kr">double</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">quantity</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">uint64</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">pairId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">orderId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">side</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">OrderSide</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">replaceOrderId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">immediateOrCancel</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">placeOrder</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
 <span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
@@ -1233,6 +1609,8 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
   <span class="n">pair_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">order_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">side</span><span class="o">=&lt;</span><span class="n">OrderSide</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">replace_order_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">immediate_or_cancel</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">stub</span><span class="o">.</span><span class="n">PlaceOrder</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
   <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
@@ -1245,7 +1623,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <span class="c"># }</span>
 </code></pre>
 <p>Adds an order to the order book. If price is zero or unspecified a market order will get added.</p>
-<h3 id='request-13'>Request</h3>
+<h3 id='request-18'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1261,7 +1639,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <tr>
 <td>quantity</td>
 <td>uint64</td>
-<td>The quantity of the order in satoshis.</td>
+<td>The quantity of the order denominated in satoshis.</td>
 </tr>
 <tr>
 <td>pair_id</td>
@@ -1276,7 +1654,17 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 <tr>
 <td>side</td>
 <td><a href="#orderside">OrderSide</a></td>
-<td>Whether the order is a Buy or Sell.</td>
+<td>Whether the order is a buy or sell.</td>
+</tr>
+<tr>
+<td>replace_order_id</td>
+<td>string</td>
+<td>The local id of an existing order to be replaced. If provided, the order must be successfully found and removed before the new order is placed, otherwise an error is returned.</td>
+</tr>
+<tr>
+<td>immediate_or_cancel</td>
+<td>bool</td>
+<td>Whether the order must be filled immediately and not allowed to enter the order book.</td>
 </tr>
 </tbody></table>
 <h3 id='response-streaming'>Response (Streaming)</h3>
@@ -1314,7 +1702,10 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
   <span class="na">pairId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">orderId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">side</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">OrderSide</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">replaceOrderId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">immediateOrCancel</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">placeOrderSync</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -1335,6 +1726,8 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
   <span class="n">pair_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">order_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">side</span><span class="o">=&lt;</span><span class="n">OrderSide</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">replace_order_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">immediate_or_cancel</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">PlaceOrderSync</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
@@ -1349,7 +1742,7 @@ Xud is a decentralized exchange built on the Lightning and Raiden networks to en
 xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</span>order_id] <span class="o">[</span>stream]
 </code></pre>
 <p>The synchronous, non-streaming version of PlaceOrder.</p>
-<h3 id='request-14'>Request</h3>
+<h3 id='request-19'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1365,7 +1758,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>quantity</td>
 <td>uint64</td>
-<td>The quantity of the order in satoshis.</td>
+<td>The quantity of the order denominated in satoshis.</td>
 </tr>
 <tr>
 <td>pair_id</td>
@@ -1380,10 +1773,20 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>side</td>
 <td><a href="#orderside">OrderSide</a></td>
-<td>Whether the order is a Buy or Sell.</td>
+<td>Whether the order is a buy or sell.</td>
+</tr>
+<tr>
+<td>replace_order_id</td>
+<td>string</td>
+<td>The local id of an existing order to be replaced. If provided, the order must be successfully found and removed before the new order is placed, otherwise an error is returned.</td>
+</tr>
+<tr>
+<td>immediate_or_cancel</td>
+<td>bool</td>
+<td>Whether the order must be filled immediately and not allowed to enter the order book.</td>
 </tr>
 </tbody></table>
-<h3 id='response-13'>Response</h3>
+<h3 id='response-18'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1412,358 +1815,19 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>A list of swap attempts that failed.</td>
 </tr>
 </tbody></table>
-<h2 id='removecurrency'>RemoveCurrency</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">};</span>
-<span class="nx">xudClient</span><span class="p">.</span><span class="nx">removeCurrency</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-<span class="c1">// Output: {}</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">RemoveCurrencyRequest</span><span class="p">(</span>
-  <span class="n">currency</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">RemoveCurrency</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="c"># Output: {}</span>
-</code></pre><pre class="highlight shell tab-shell"><code> xucli removecurrency &lt;currency&gt;
-</code></pre>
-<p>Removes a currency from the list of supported currencies. Only currencies that are not in use for any currently supported trading pairs may be removed. Once removed, the currency can no longer be used for any supported trading pairs.</p>
-<h3 id='request-15'>Request</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>currency</td>
-<td>string</td>
-<td>The ticker symbol for this currency such as BTC, LTC, ETH, etc...</td>
-</tr>
-</tbody></table>
-<h3 id='response-14'>Response</h3>
-<p>This response has no parameters.</p>
-<h2 id='removeorder'>RemoveOrder</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+<h2 id='executeswap'>ExecuteSwap</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">orderId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">pairId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">peerPubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">quantity</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">uint64</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
-<span class="nx">xudClient</span><span class="p">.</span><span class="nx">removeOrder</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">executeSwap</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">});</span>
-<span class="c1">// Output:</span>
-<span class="c1">// {</span>
-<span class="c1">//  "quantityOnHold": &lt;uint64&gt;</span>
-<span class="c1">// }</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">RemoveOrderRequest</span><span class="p">(</span>
-  <span class="n">order_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="n">quantity</span><span class="o">=&lt;</span><span class="n">uint64</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">RemoveOrder</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="c"># Output:</span>
-<span class="c"># {</span>
-<span class="c">#  "quantity_on_hold": &lt;uint64&gt;</span>
-<span class="c"># }</span>
-</code></pre><pre class="highlight shell tab-shell"><code>xucli removeorder &lt;order_id&gt; <span class="o">[</span>quantity]
-</code></pre>
-<p>Removes an order from the order book by its local id. This should be called when an order is canceled or filled outside of xud. Removed orders become immediately unavailable for swaps, and peers are notified that the order is no longer valid. Any portion of the order that is on hold due to ongoing swaps will not be removed until after the swap attempts complete.</p>
-<h3 id='request-16'>Request</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>order_id</td>
-<td>string</td>
-<td>The local id of the order to remove.</td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>uint64</td>
-<td>The quantity to remove from the order. If zero or unspecified then entire order is removed.</td>
-</tr>
-</tbody></table>
-<h3 id='response-15'>Response</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>quantity_on_hold</td>
-<td>uint64</td>
-<td>Any portion of the order that was on hold due to ongoing swaps at the time of the request and could not be removed until after the swaps finish.</td>
-</tr>
-</tbody></table>
-<h2 id='removepair'>RemovePair</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">pairId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">};</span>
-<span class="nx">xudClient</span><span class="p">.</span><span class="nx">removePair</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-<span class="c1">// Output: {}</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">RemovePairRequest</span><span class="p">(</span>
-  <span class="n">pair_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">RemovePair</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="c"># Output: {}</span>
-</code></pre><pre class="highlight shell tab-shell"><code>xucli removepair &lt;pair_id&gt;
-</code></pre>
-<p>Removes a trading pair from the list of currently supported trading pair. This call will effectively cancel any standing orders for that trading pair. Peers are informed when a pair is no longer supported so that they will know to stop sending orders for it.</p>
-<h3 id='request-17'>Request</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>pair_id</td>
-<td>string</td>
-<td>The trading pair ticker to remove in a format such as &quot;LTC/BTC&quot;.</td>
-</tr>
-</tbody></table>
-<h3 id='response-16'>Response</h3>
-<p>This response has no parameters.</p>
-<h2 id='shutdown'>Shutdown</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{};</span>
-<span class="nx">xudClient</span><span class="p">.</span><span class="nx">shutdown</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">});</span>
-<span class="c1">// Output: {}</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">ShutdownRequest</span><span class="p">()</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">Shutdown</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="c"># Output: {}</span>
-</code></pre><pre class="highlight shell tab-shell"><code>xucli shutdown
-</code></pre>
-<p>Begin gracefully shutting down xud.</p>
-<h3 id='request-18'>Request</h3>
-<p>This request has no parameters.</p>
-<h3 id='response-17'>Response</h3>
-<p>This response has no parameters.</p>
-<h2 id='subscribeaddedorders'>SubscribeAddedOrders</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">existing</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">};</span>
-<span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">subscribeAddedOrders</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
-<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="c1">// the streaming call has been ended by the server</span>
-<span class="p">});</span>
-<span class="c1">// Output:</span>
-<span class="c1">// {</span>
-<span class="c1">//  "price": &lt;double&gt;,</span>
-<span class="c1">//  "quantity": &lt;uint64&gt;,</span>
-<span class="c1">//  "pairId": &lt;string&gt;,</span>
-<span class="c1">//  "id": &lt;string&gt;,</span>
-<span class="c1">//  "peerPubKey": &lt;string&gt;,</span>
-<span class="c1">//  "localId": &lt;string&gt;,</span>
-<span class="c1">//  "createdAt": &lt;int64&gt;,</span>
-<span class="c1">//  "side": &lt;OrderSide&gt;,</span>
-<span class="c1">//  "isOwnOrder": &lt;bool&gt;,</span>
-<span class="c1">//  "hold": &lt;uint64&gt;</span>
-<span class="c1">// }</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">SubscribeAddedOrdersRequest</span><span class="p">(</span>
-  <span class="n">existing</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">stub</span><span class="o">.</span><span class="n">SubscribeAddedOrders</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-  <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="c"># Output:</span>
-<span class="c"># {</span>
-<span class="c">#  "price": &lt;double&gt;,</span>
-<span class="c">#  "quantity": &lt;uint64&gt;,</span>
-<span class="c">#  "pair_id": &lt;string&gt;,</span>
-<span class="c">#  "id": &lt;string&gt;,</span>
-<span class="c">#  "peer_pub_key": &lt;string&gt;,</span>
-<span class="c">#  "local_id": &lt;string&gt;,</span>
-<span class="c">#  "created_at": &lt;int64&gt;,</span>
-<span class="c">#  "side": &lt;OrderSide&gt;,</span>
-<span class="c">#  "is_own_order": &lt;bool&gt;,</span>
-<span class="c">#  "hold": &lt;uint64&gt;</span>
-<span class="c"># }</span>
-</code></pre>
-<p>Subscribes to orders being added to the order book. This call, together with SubscribeRemovedOrders, allows the client to maintain an up-to-date view of the order book. For example, an exchange that wants to show its users a real time list of the orders available to them would subscribe to this streaming call to be alerted of new orders as they become available for trading.</p>
-<h3 id='request-19'>Request</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>existing</td>
-<td>bool</td>
-<td>Whether to transmit all existing active orders upon establishing the stream.</td>
-</tr>
-</tbody></table>
-<h3 id='response-streaming-2'>Response (Streaming)</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>price</td>
-<td>double</td>
-<td>The price of the order.</td>
-</tr>
-<tr>
-<td>quantity</td>
-<td>uint64</td>
-<td>The quantity of the order in satoshis.</td>
-</tr>
-<tr>
-<td>pair_id</td>
-<td>string</td>
-<td>The trading pair that this order is for.</td>
-</tr>
-<tr>
-<td>id</td>
-<td>string</td>
-<td>A UUID for this order.</td>
-</tr>
-<tr>
-<td>peer_pub_key</td>
-<td>string</td>
-<td>The node pub key of the peer that created this order.</td>
-</tr>
-<tr>
-<td>local_id</td>
-<td>string</td>
-<td>The local id for this order.</td>
-</tr>
-<tr>
-<td>created_at</td>
-<td>int64</td>
-<td>The epoch time when this order was created.</td>
-</tr>
-<tr>
-<td>side</td>
-<td><a href="#orderside">OrderSide</a></td>
-<td>Whether this order is a buy or sell</td>
-</tr>
-<tr>
-<td>is_own_order</td>
-<td>bool</td>
-<td>Whether this order is a local own order or a remote peer order.</td>
-</tr>
-<tr>
-<td>hold</td>
-<td>uint64</td>
-<td>The quantity on hold pending swap exectuion.</td>
-</tr>
-</tbody></table>
-<h2 id='subscriberemovedorders'>SubscribeRemovedOrders</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{};</span>
-<span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">subscribeRemovedOrders</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
-<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="c1">// the streaming call has been ended by the server</span>
-<span class="p">});</span>
-<span class="c1">// Output:</span>
-<span class="c1">// {</span>
-<span class="c1">//  "quantity": &lt;uint64&gt;,</span>
-<span class="c1">//  "pairId": &lt;string&gt;,</span>
-<span class="c1">//  "orderId": &lt;string&gt;,</span>
-<span class="c1">//  "localId": &lt;string&gt;,</span>
-<span class="c1">//  "isOwnOrder": &lt;bool&gt;</span>
-<span class="c1">// }</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">SubscribeRemovedOrdersRequest</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">stub</span><span class="o">.</span><span class="n">SubscribeRemovedOrders</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-  <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="c"># Output:</span>
-<span class="c"># {</span>
-<span class="c">#  "quantity": &lt;uint64&gt;,</span>
-<span class="c">#  "pair_id": &lt;string&gt;,</span>
-<span class="c">#  "order_id": &lt;string&gt;,</span>
-<span class="c">#  "local_id": &lt;string&gt;,</span>
-<span class="c">#  "is_own_order": &lt;bool&gt;</span>
-<span class="c"># }</span>
-</code></pre>
-<p>Subscribes to orders being removed - either in full or in part - from the order book. This call, together with SubscribeAddedOrders, allows the client to maintain an up-to-date view of the order book. For example, an exchange that wants to show its users a real time list of the orders available to them would subscribe to this streaming call to be alerted when part or all of an existing order is no longer available for trading.</p>
-<h3 id='request-20'>Request</h3>
-<p>This request has no parameters.</p>
-<h3 id='response-streaming-3'>Response (Streaming)</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>quantity</td>
-<td>uint64</td>
-<td>The quantity of the order being removed.</td>
-</tr>
-<tr>
-<td>pair_id</td>
-<td>string</td>
-<td>The trading pair that the order is for.</td>
-</tr>
-<tr>
-<td>order_id</td>
-<td>string</td>
-<td>The global UUID for the order.</td>
-</tr>
-<tr>
-<td>local_id</td>
-<td>string</td>
-<td>The local id for the order, if applicable.</td>
-</tr>
-<tr>
-<td>is_own_order</td>
-<td>bool</td>
-<td>Whether the order being removed is a local own order or a remote peer order.</td>
-</tr>
-</tbody></table>
-<h2 id='subscribeswaps'>SubscribeSwaps</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">includeTaker</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">};</span>
-<span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">subscribeSwaps</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
-<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
-<span class="p">});</span>
-<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-  <span class="c1">// the streaming call has been ended by the server</span>
 <span class="p">});</span>
 <span class="c1">// Output:</span>
 <span class="c1">// {</span>
@@ -1772,8 +1836,8 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c1">//  "pairId": &lt;string&gt;,</span>
 <span class="c1">//  "quantity": &lt;uint64&gt;,</span>
 <span class="c1">//  "rHash": &lt;string&gt;,</span>
-<span class="c1">//  "amountReceived": &lt;int64&gt;,</span>
-<span class="c1">//  "amountSent": &lt;int64&gt;,</span>
+<span class="c1">//  "amountReceived": &lt;uint64&gt;,</span>
+<span class="c1">//  "amountSent": &lt;uint64&gt;,</span>
 <span class="c1">//  "peerPubKey": &lt;string&gt;,</span>
 <span class="c1">//  "role": &lt;Role&gt;,</span>
 <span class="c1">//  "currencyReceived": &lt;string&gt;,</span>
@@ -1781,11 +1845,14 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c1">//  "rPreimage": &lt;string&gt;,</span>
 <span class="c1">//  "price": &lt;double&gt;</span>
 <span class="c1">// }</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">SubscribeSwapsRequest</span><span class="p">(</span>
-  <span class="n">include_taker</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">ExecuteSwapRequest</span><span class="p">(</span>
+  <span class="n">order_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">pair_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">peer_pub_key</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">quantity</span><span class="o">=&lt;</span><span class="n">uint64</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">stub</span><span class="o">.</span><span class="n">SubscribeSwaps</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-  <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">ExecuteSwap</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="c"># Output:</span>
 <span class="c"># {</span>
 <span class="c">#  "order_id": &lt;string&gt;,</span>
@@ -1793,8 +1860,8 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c">#  "pair_id": &lt;string&gt;,</span>
 <span class="c">#  "quantity": &lt;uint64&gt;,</span>
 <span class="c">#  "r_hash": &lt;string&gt;,</span>
-<span class="c">#  "amount_received": &lt;int64&gt;,</span>
-<span class="c">#  "amount_sent": &lt;int64&gt;,</span>
+<span class="c">#  "amount_received": &lt;uint64&gt;,</span>
+<span class="c">#  "amount_sent": &lt;uint64&gt;,</span>
 <span class="c">#  "peer_pub_key": &lt;string&gt;,</span>
 <span class="c">#  "role": &lt;Role&gt;,</span>
 <span class="c">#  "currency_received": &lt;string&gt;,</span>
@@ -1803,8 +1870,8 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c">#  "price": &lt;double&gt;</span>
 <span class="c"># }</span>
 </code></pre>
-<p>Subscribes to completed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when its orders are filled by a peer. It can be used for tracking order executions, updating balances, and informing a trader when one of their orders is settled through the Exchange Union network.</p>
-<h3 id='request-21'>Request</h3>
+<p>Executes a swap on a maker peer order.</p>
+<h3 id='request-20'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1813,12 +1880,27 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>include_taker</td>
-<td>bool</td>
-<td>Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.</td>
+<td>order_id</td>
+<td>string</td>
+<td>The order id of the maker order.</td>
+</tr>
+<tr>
+<td>pair_id</td>
+<td>string</td>
+<td>The trading pair of the swap orders.</td>
+</tr>
+<tr>
+<td>peer_pub_key</td>
+<td>string</td>
+<td>The node pub key of the peer which owns the maker order. This is optional but helps locate the order more quickly.</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>uint64</td>
+<td>The quantity to swap denominated in satoshis. The whole order will be swapped if unspecified.</td>
 </tr>
 </tbody></table>
-<h3 id='response-streaming-4'>Response (Streaming)</h3>
+<h3 id='response-19'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1849,17 +1931,379 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>r_hash</td>
 <td>string</td>
-<td>The hex-encoded payment hash for the swaps.</td>
+<td>The hex-encoded payment hash for the swap.</td>
 </tr>
 <tr>
 <td>amount_received</td>
-<td>int64</td>
-<td>The amount of the smallest base unit of the currency (like satoshis or wei) received.</td>
+<td>uint64</td>
+<td>The amount received denominated in satoshis.</td>
 </tr>
 <tr>
 <td>amount_sent</td>
-<td>int64</td>
-<td>The amount of the smallest base unit of the currency (like satoshis or wei) sent.</td>
+<td>uint64</td>
+<td>The amount sent denominated in satoshis.</td>
+</tr>
+<tr>
+<td>peer_pub_key</td>
+<td>string</td>
+<td>The node pub key of the peer that executed this order.</td>
+</tr>
+<tr>
+<td>role</td>
+<td><a href="#role">Role</a></td>
+<td>Our role in the swap, either MAKER or TAKER.</td>
+</tr>
+<tr>
+<td>currency_received</td>
+<td>string</td>
+<td>The ticker symbol of the currency received.</td>
+</tr>
+<tr>
+<td>currency_sent</td>
+<td>string</td>
+<td>The ticker symbol of the currency sent.</td>
+</tr>
+<tr>
+<td>r_preimage</td>
+<td>string</td>
+<td>The hex-encoded preimage.</td>
+</tr>
+<tr>
+<td>price</td>
+<td>double</td>
+<td>The price used for the swap.</td>
+</tr>
+</tbody></table>
+<h2 id='removecurrency'>RemoveCurrency</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">removeCurrency</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output: {}</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">RemoveCurrencyRequest</span><span class="p">(</span>
+  <span class="n">currency</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">RemoveCurrency</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output: {}</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli removecurrency &lt;currency&gt;
+</code></pre>
+<p>Removes a currency from the list of supported currencies. Only currencies that are not in use for any currently supported trading pairs may be removed. Once removed, the currency can no longer be used for any supported trading pairs.</p>
+<h3 id='request-21'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>The ticker symbol for this currency such as BTC, LTC, ETH, etc...</td>
+</tr>
+</tbody></table>
+<h3 id='response-20'>Response</h3>
+<p>This response has no parameters.</p>
+<h2 id='removeorder'>RemoveOrder</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">orderId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">quantity</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">uint64</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">removeOrder</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "quantityOnHold": &lt;uint64&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">RemoveOrderRequest</span><span class="p">(</span>
+  <span class="n">order_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">quantity</span><span class="o">=&lt;</span><span class="n">uint64</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">RemoveOrder</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "quantity_on_hold": &lt;uint64&gt;</span>
+<span class="c"># }</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli removeorder &lt;order_id&gt; <span class="o">[</span>quantity]
+</code></pre>
+<p>Removes an order from the order book by its local id. This should be called when an order is canceled or filled outside of xud. Removed orders become immediately unavailable for swaps, and peers are notified that the order is no longer valid. Any portion of the order that is on hold due to ongoing swaps will not be removed until after the swap attempts complete.</p>
+<h3 id='request-22'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>The local id of the order to remove.</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>uint64</td>
+<td>The quantity to remove from the order denominated in satoshis. If zero or unspecified then the entire order is removed.</td>
+</tr>
+</tbody></table>
+<h3 id='response-21'>Response</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>quantity_on_hold</td>
+<td>uint64</td>
+<td>Any portion of the order that was on hold due to ongoing swaps at the time of the request and could not be removed until after the swaps finish.</td>
+</tr>
+</tbody></table>
+<h2 id='removepair'>RemovePair</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">pairId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">removePair</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output: {}</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">RemovePairRequest</span><span class="p">(</span>
+  <span class="n">pair_id</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">RemovePair</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output: {}</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli removepair &lt;pair_id&gt;
+</code></pre>
+<p>Removes a trading pair from the list of currently supported trading pair. This call will effectively cancel any standing orders for that trading pair. Peers are informed when a pair is no longer supported so that they will know to stop sending orders for it.</p>
+<h3 id='request-23'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pair_id</td>
+<td>string</td>
+<td>The trading pair ticker to remove in a format such as &quot;LTC/BTC&quot;.</td>
+</tr>
+</tbody></table>
+<h3 id='response-22'>Response</h3>
+<p>This response has no parameters.</p>
+<h2 id='shutdown'>Shutdown</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">shutdown</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output: {}</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">ShutdownRequest</span><span class="p">()</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">Shutdown</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output: {}</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli shutdown
+</code></pre>
+<p>Begin gracefully shutting down xud.</p>
+<h3 id='request-24'>Request</h3>
+<p>This request has no parameters.</p>
+<h3 id='response-23'>Response</h3>
+<p>This response has no parameters.</p>
+<h2 id='subscribeorders'>SubscribeOrders</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">existing</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">subscribeOrders</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// the streaming call has been ended by the server</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "order": &lt;Order&gt;,</span>
+<span class="c1">//  "orderRemoval": &lt;OrderRemoval&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">SubscribeOrdersRequest</span><span class="p">(</span>
+  <span class="n">existing</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">stub</span><span class="o">.</span><span class="n">SubscribeOrders</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "order": &lt;Order&gt;,</span>
+<span class="c">#  "order_removal": &lt;OrderRemoval&gt;</span>
+<span class="c"># }</span>
+</code></pre>
+<p>Subscribes to orders being added to and removed from the order book. This call allows the client to maintain an up-to-date view of the order book. For example, an exchange that wants to show its users a real time view of the orders available to them would subscribe to this streaming call to be alerted as new orders are added and expired orders are removed.</p>
+<h3 id='request-25'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>existing</td>
+<td>bool</td>
+<td>Whether to transmit all existing active orders upon establishing the stream.</td>
+</tr>
+</tbody></table>
+<h3 id='response-streaming-2'>Response (Streaming)</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order</td>
+<td><a href="#order">Order</a></td>
+<td>An order that was added to the order book.</td>
+</tr>
+<tr>
+<td>order_removal</td>
+<td><a href="#orderremoval">OrderRemoval</a></td>
+<td>An order (or portion thereof) that was removed from the order book.</td>
+</tr>
+</tbody></table>
+<h2 id='subscribeswaps'>SubscribeSwaps</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">includeTaker</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">subscribeSwaps</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// the streaming call has been ended by the server</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "orderId": &lt;string&gt;,</span>
+<span class="c1">//  "localId": &lt;string&gt;,</span>
+<span class="c1">//  "pairId": &lt;string&gt;,</span>
+<span class="c1">//  "quantity": &lt;uint64&gt;,</span>
+<span class="c1">//  "rHash": &lt;string&gt;,</span>
+<span class="c1">//  "amountReceived": &lt;uint64&gt;,</span>
+<span class="c1">//  "amountSent": &lt;uint64&gt;,</span>
+<span class="c1">//  "peerPubKey": &lt;string&gt;,</span>
+<span class="c1">//  "role": &lt;Role&gt;,</span>
+<span class="c1">//  "currencyReceived": &lt;string&gt;,</span>
+<span class="c1">//  "currencySent": &lt;string&gt;,</span>
+<span class="c1">//  "rPreimage": &lt;string&gt;,</span>
+<span class="c1">//  "price": &lt;double&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">SubscribeSwapsRequest</span><span class="p">(</span>
+  <span class="n">include_taker</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">stub</span><span class="o">.</span><span class="n">SubscribeSwaps</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "order_id": &lt;string&gt;,</span>
+<span class="c">#  "local_id": &lt;string&gt;,</span>
+<span class="c">#  "pair_id": &lt;string&gt;,</span>
+<span class="c">#  "quantity": &lt;uint64&gt;,</span>
+<span class="c">#  "r_hash": &lt;string&gt;,</span>
+<span class="c">#  "amount_received": &lt;uint64&gt;,</span>
+<span class="c">#  "amount_sent": &lt;uint64&gt;,</span>
+<span class="c">#  "peer_pub_key": &lt;string&gt;,</span>
+<span class="c">#  "role": &lt;Role&gt;,</span>
+<span class="c">#  "currency_received": &lt;string&gt;,</span>
+<span class="c">#  "currency_sent": &lt;string&gt;,</span>
+<span class="c">#  "r_preimage": &lt;string&gt;,</span>
+<span class="c">#  "price": &lt;double&gt;</span>
+<span class="c"># }</span>
+</code></pre>
+<p>Subscribes to completed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when its orders are filled by a peer. It can be used for tracking order executions, updating balances, and informing a trader when one of their orders is settled through the Exchange Union network.</p>
+<h3 id='request-26'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>include_taker</td>
+<td>bool</td>
+<td>Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.</td>
+</tr>
+</tbody></table>
+<h3 id='response-streaming-3'>Response (Streaming)</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>The global UUID for the order that was swapped.</td>
+</tr>
+<tr>
+<td>local_id</td>
+<td>string</td>
+<td>The local id for the order that was swapped.</td>
+</tr>
+<tr>
+<td>pair_id</td>
+<td>string</td>
+<td>The trading pair that the swap is for.</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>uint64</td>
+<td>The order quantity that was swapped.</td>
+</tr>
+<tr>
+<td>r_hash</td>
+<td>string</td>
+<td>The hex-encoded payment hash for the swap.</td>
+</tr>
+<tr>
+<td>amount_received</td>
+<td>uint64</td>
+<td>The amount received denominated in satoshis.</td>
+</tr>
+<tr>
+<td>amount_sent</td>
+<td>uint64</td>
+<td>The amount sent denominated in satoshis.</td>
 </tr>
 <tr>
 <td>peer_pub_key</td>
@@ -1895,6 +2339,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <h2 id='subscribeswapfailures'>SubscribeSwapFailures</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">includeTaker</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">subscribeSwapFailures</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
 <span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
@@ -1928,7 +2373,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c"># }</span>
 </code></pre>
 <p>Subscribes to failed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when swap attempts are failing. It can be used for status monitoring, debugging, and testing purposes.</p>
-<h3 id='request-22'>Request</h3>
+<h3 id='request-27'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1942,7 +2387,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.</td>
 </tr>
 </tbody></table>
-<h3 id='response-streaming-5'>Response (Streaming)</h3>
+<h3 id='response-streaming-4'>Response (Streaming)</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1976,10 +2421,66 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The reason why the swap failed.</td>
 </tr>
 </tbody></table>
+<h2 id='tradinglimits'>TradingLimits</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">tradingLimits</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "limits": &lt;TradingLimits&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">TradingLimitsRequest</span><span class="p">(</span>
+  <span class="n">currency</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">TradingLimits</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "limits": &lt;TradingLimits&gt;</span>
+<span class="c"># }</span>
+</code></pre><pre class="highlight shell tab-shell"><code>xucli tradinglimits <span class="o">[</span>currency]
+</code></pre>
+<p>Gets the trading limits for one or all currencies.</p>
+<h3 id='request-28'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>The ticker symbol of the currency to query for, if unspecified then trading limits for all supported currencies are queried.</td>
+</tr>
+</tbody></table>
+<h3 id='response-24'>Response</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limits</td>
+<td>map&lt;string, <a href="#tradinglimits">TradingLimits</a>&gt;</td>
+<td>A map between currency ticker symbols and their trading limits.</td>
+</tr>
+</tbody></table>
 <h2 id='unban'>Unban</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">nodePubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">reconnect</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
+
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">unban</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
@@ -1995,10 +2496,10 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">Unban</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="c"># Output: {}</span>
-</code></pre><pre class="highlight shell tab-shell"><code>xucli unban &lt;node_pub_key&gt; <span class="o">[</span>reconnect]
+</code></pre><pre class="highlight shell tab-shell"><code>xucli unban &lt;node_key&gt; <span class="o">[</span>reconnect]
 </code></pre>
 <p>Removes a ban from a node manually and, optionally, attempts to connect to it.</p>
-<h3 id='request-23'>Request</h3>
+<h3 id='request-29'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2017,9 +2518,189 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>Whether to attempt to connect to the peer after it is unbanned.</td>
 </tr>
 </tbody></table>
-<h3 id='response-18'>Response</h3>
+<h3 id='response-25'>Response</h3>
 <p>This response has no parameters.</p>
-<h1 id='messages'>Messages</h1><h2 id='addcurrencyrequest'>AddCurrencyRequest</h2>
+<h1 id='messages'>Messages</h1><h2 id='addcurrencyresponse'>AddCurrencyResponse</h2>
+<p>This message has no parameters.</p>
+<h2 id='addpairrequest'>AddPairRequest</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>base_currency</td>
+<td>string</td>
+<td>The base currency that is bought and sold for this trading pair.</td>
+</tr>
+<tr>
+<td>quote_currency</td>
+<td>string</td>
+<td>The currency used to quote a price for the base currency.</td>
+</tr>
+</tbody></table>
+<h2 id='addpairresponse'>AddPairResponse</h2>
+<p>This message has no parameters.</p>
+<h2 id='balance'>Balance</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total_balance</td>
+<td>uint64</td>
+<td>Total balance denominated in satoshis.</td>
+</tr>
+<tr>
+<td>channel_balance</td>
+<td>uint64</td>
+<td>Sum of confirmed channel balances denominated in satoshis.</td>
+</tr>
+<tr>
+<td>pending_channel_balance</td>
+<td>uint64</td>
+<td>Sum of pending channel balances denominated in satoshis.</td>
+</tr>
+<tr>
+<td>inactive_channel_balance</td>
+<td>uint64</td>
+<td>Sum of inactive channel balances denominated in satoshis.</td>
+</tr>
+<tr>
+<td>wallet_balance</td>
+<td>uint64</td>
+<td>Confirmed wallet balance in satoshis.</td>
+</tr>
+<tr>
+<td>unconfirmed_wallet_balance</td>
+<td>uint64</td>
+<td>Unconfirmed wallet balance in satoshis.</td>
+</tr>
+</tbody></table>
+<h2 id='banrequest'>BanRequest</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>node_pub_key</td>
+<td>string</td>
+<td>The node pub key of the node to ban.</td>
+</tr>
+</tbody></table>
+<h2 id='banresponse'>BanResponse</h2>
+<p>This message has no parameters.</p>
+<h2 id='chain'>Chain</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>chain</td>
+<td>string</td>
+<td>The blockchain the swap client is on (eg bitcoin, litecoin)</td>
+</tr>
+<tr>
+<td>network</td>
+<td>string</td>
+<td>The network the swap client is on (eg regtest, testnet, mainnet)</td>
+</tr>
+</tbody></table>
+<h2 id='channels'>Channels</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>active</td>
+<td>uint32</td>
+<td>The number of active/online channels for this lnd instance that can be used for swaps.</td>
+</tr>
+<tr>
+<td>inactive</td>
+<td>uint32</td>
+<td>The number of inactive/offline channels for this lnd instance.</td>
+</tr>
+<tr>
+<td>pending</td>
+<td>uint32</td>
+<td>The number of channels that are pending on-chain confirmation before they can be used.</td>
+</tr>
+<tr>
+<td>closed</td>
+<td>uint32</td>
+<td>The number of channels that have been closed.</td>
+</tr>
+</tbody></table>
+<h2 id='connectrequest'>ConnectRequest</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>node_uri</td>
+<td>string</td>
+<td>The uri of the node to connect to in &quot;[nodePubKey]@[host]:[port]&quot; format.</td>
+</tr>
+</tbody></table>
+<h2 id='connectresponse'>ConnectResponse</h2>
+<p>This message has no parameters.</p>
+<h2 id='createnoderequest'>CreateNodeRequest</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>The password in utf-8 with which to encrypt the new xud node key as well as any uninitialized underlying wallets.</td>
+</tr>
+</tbody></table>
+<h2 id='createnoderesponse'>CreateNodeResponse</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>seed_mnemonic</td>
+<td>string array</td>
+<td>The 24 word mnemonic to recover the xud identity key and underlying wallets</td>
+</tr>
+<tr>
+<td>initialized_lnds</td>
+<td>string array</td>
+<td>The list of lnd clients that were initialized.</td>
+</tr>
+<tr>
+<td>initialized_raiden</td>
+<td>bool</td>
+<td>Whether raiden was initialized.</td>
+</tr>
+</tbody></table>
+<h2 id='currency'>Currency</h2>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2048,9 +2729,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The number of places to the right of the decimal point of the smallest subunit of the currency. For example, BTC, LTC, and others where the smallest subunits (satoshis) are 0.00000001 full units (bitcoins) have 8 decimal places. ETH has 18. This can be thought of as the base 10 exponent of the smallest subunit expressed as a positive integer. A default value of 8 is used if unspecified.</td>
 </tr>
 </tbody></table>
-<h2 id='addcurrencyresponse'>AddCurrencyResponse</h2>
-<p>This message has no parameters.</p>
-<h2 id='addpairrequest'>AddPairRequest</h2>
+<h2 id='discovernodesrequest'>DiscoverNodesRequest</h2>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2059,19 +2738,12 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>base_currency</td>
+<td>peer_pub_key</td>
 <td>string</td>
-<td>The base currency that is bought and sold for this trading pair.</td>
-</tr>
-<tr>
-<td>quote_currency</td>
-<td>string</td>
-<td>The currency used to quote a price for the base currency.</td>
+<td>The node pub key of the peer to discover nodes from.</td>
 </tr>
 </tbody></table>
-<h2 id='addpairresponse'>AddPairResponse</h2>
-<p>This message has no parameters.</p>
-<h2 id='banrequest'>BanRequest</h2>
+<h2 id='discovernodesresponse'>DiscoverNodesResponse</h2>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2080,76 +2752,11 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>node_pub_key</td>
-<td>string</td>
-<td>The node pub key of the node to ban.</td>
+<td>num_nodes</td>
+<td>uint32</td>
+<td></td>
 </tr>
 </tbody></table>
-<h2 id='banresponse'>BanResponse</h2>
-<p>This message has no parameters.</p>
-<h2 id='channelbalance-2'>ChannelBalance</h2>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>balance</td>
-<td>int64</td>
-<td>Sum of channels balances denominated in satoshis or equivalent.</td>
-</tr>
-<tr>
-<td>pending_open_balance</td>
-<td>int64</td>
-<td>Sum of channels pending balances denominated in satoshis or equivalent.</td>
-</tr>
-</tbody></table>
-<h2 id='channelbalancerequest'>ChannelBalanceRequest</h2>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>currency</td>
-<td>string</td>
-<td>The ticker symbol of the currency to query for, if unspecified then balances for all supported currencies are queried.</td>
-</tr>
-</tbody></table>
-<h2 id='channelbalanceresponse'>ChannelBalanceResponse</h2>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>balances</td>
-<td>map&lt;string, <a href="#channelbalance">ChannelBalance</a>&gt;</td>
-<td>A map between currency ticker symbols and their channel balances.</td>
-</tr>
-</tbody></table>
-<h2 id='connectrequest'>ConnectRequest</h2>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>node_uri</td>
-<td>string</td>
-<td>The uri of the node to connect to in &quot;[nodePubKey]@[host]:[port]&quot; format.</td>
-</tr>
-</tbody></table>
-<h2 id='connectresponse'>ConnectResponse</h2>
-<p>This message has no parameters.</p>
 <h2 id='executeswaprequest'>ExecuteSwapRequest</h2>
 <table><thead>
 <tr>
@@ -2176,10 +2783,10 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>quantity</td>
 <td>uint64</td>
-<td>The quantity to swap. The whole order will be swapped if unspecified.</td>
+<td>The quantity to swap denominated in satoshis. The whole order will be swapped if unspecified.</td>
 </tr>
 </tbody></table>
-<h2 id='swapfailure'>SwapFailure</h2>
+<h2 id='getbalancerequest'>GetBalanceRequest</h2>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2188,29 +2795,23 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>order_id</td>
+<td>currency</td>
 <td>string</td>
-<td>The global UUID for the order that failed the swap.</td>
+<td>The ticker symbol of the currency to query for, if unspecified then balances for all supported currencies are queried.</td>
 </tr>
+</tbody></table>
+<h2 id='getbalanceresponse'>GetBalanceResponse</h2>
+<table><thead>
 <tr>
-<td>pair_id</td>
-<td>string</td>
-<td>The trading pair that the swap is for.</td>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
+</thead><tbody>
 <tr>
-<td>quantity</td>
-<td>uint64</td>
-<td>The order quantity that was attempted to be swapped.</td>
-</tr>
-<tr>
-<td>peer_pub_key</td>
-<td>string</td>
-<td>The node pub key of the peer that we attempted to swap with.</td>
-</tr>
-<tr>
-<td>failure_reason</td>
-<td>string</td>
-<td>The reason why the swap failed.</td>
+<td>balances</td>
+<td>map&lt;string, <a href="#balance">Balance</a>&gt;</td>
+<td>A map between currency ticker symbols and their balances.</td>
 </tr>
 </tbody></table>
 <h2 id='getinforequest'>GetInfoRequest</h2>
@@ -2240,12 +2841,12 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 <tr>
 <td>num_peers</td>
-<td>int32</td>
+<td>uint32</td>
 <td>The number of currently connected peers.</td>
 </tr>
 <tr>
 <td>num_pairs</td>
-<td>int32</td>
+<td>uint32</td>
 <td>The number of supported trading pairs.</td>
 </tr>
 <tr>
@@ -2261,6 +2862,21 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>raiden</td>
 <td><a href="#raideninfo">RaidenInfo</a></td>
+<td></td>
+</tr>
+<tr>
+<td>alias</td>
+<td>string</td>
+<td>The alias of this instance of xud.</td>
+</tr>
+<tr>
+<td>network</td>
+<td>string</td>
+<td>The network of this node.</td>
+</tr>
+<tr>
+<td>pending_swap_hashes</td>
+<td>string array</td>
 <td></td>
 </tr>
 </tbody></table>
@@ -2288,13 +2904,29 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </thead><tbody>
 <tr>
 <td>reputationScore</td>
-<td>int32</td>
+<td>sint32</td>
 <td>The node&#39;s reputation score. Points are subtracted for unexpected or potentially malicious behavior. Points are added when swaps are successfully executed.</td>
 </tr>
 <tr>
 <td>banned</td>
 <td>bool</td>
 <td>Whether the node is currently banned.</td>
+</tr>
+</tbody></table>
+<h2 id='listcurrenciesrequest'>ListCurrenciesRequest</h2>
+<p>This message has no parameters.</p>
+<h2 id='listcurrenciesresponse'>ListCurrenciesResponse</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>currencies</td>
+<td><a href="#currency">Currency</a> array</td>
+<td>The list of available currencies in the orderbook.</td>
 </tr>
 </tbody></table>
 <h2 id='listordersrequest'>ListOrdersRequest</h2>
@@ -2315,6 +2947,11 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>bool</td>
 <td>Whether own orders should be included in result or not.</td>
 </tr>
+<tr>
+<td>limit</td>
+<td>uint32</td>
+<td>The maximum number of orders to return from each side of the order book.</td>
+</tr>
 </tbody></table>
 <h2 id='listordersresponse'>ListOrdersResponse</h2>
 <table><thead>
@@ -2328,22 +2965,6 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>orders</td>
 <td>map&lt;string, <a href="#orders">Orders</a>&gt;</td>
 <td>A map between pair ids and their buy and sell orders.</td>
-</tr>
-</tbody></table>
-<h2 id='listcurrenciesrequest'>ListCurrenciesRequest</h2>
-<p>This message has no parameters.</p>
-<h2 id='listcurrenciesresponse'>ListCurrenciesResponse</h2>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>currencies</td>
-<td>string array</td>
-<td>A list of ticker symbols of the supported currencies.</td>
 </tr>
 </tbody></table>
 <h2 id='listpairsrequest'>ListPairsRequest</h2>
@@ -2378,7 +2999,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The list of connected peers.</td>
 </tr>
 </tbody></table>
-<h2 id='lndchannels'>LndChannels</h2>
+<h2 id='listtradesrequest'>ListTradesRequest</h2>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2387,19 +3008,23 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>active</td>
+<td>limit</td>
 <td>int32</td>
-<td>The number of active/online channels for this lnd instance that can be used for swaps.</td>
+<td>The maximum number of trades to return</td>
 </tr>
+</tbody></table>
+<h2 id='listtradesresponse'>ListTradesResponse</h2>
+<table><thead>
 <tr>
-<td>inactive</td>
-<td>int32</td>
-<td>The number of inactive/offline channels for this lnd instance.</td>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
 </tr>
+</thead><tbody>
 <tr>
-<td>pending</td>
-<td>int32</td>
-<td>The number of channels that are pending on-chain confirmation before they can be used.</td>
+<td>trades</td>
+<td><a href="#trade">Trade</a> array</td>
+<td></td>
 </tr>
 </tbody></table>
 <h2 id='lndinfo'>LndInfo</h2>
@@ -2411,23 +3036,23 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>error</td>
+<td>status</td>
 <td>string</td>
 <td></td>
 </tr>
 <tr>
 <td>channels</td>
-<td><a href="#lndchannels">LndChannels</a></td>
+<td><a href="#channels">Channels</a></td>
 <td></td>
 </tr>
 <tr>
 <td>chains</td>
-<td>string array</td>
+<td><a href="#chain">Chain</a> array</td>
 <td></td>
 </tr>
 <tr>
 <td>blockheight</td>
-<td>int32</td>
+<td>uint32</td>
 <td></td>
 </tr>
 <tr>
@@ -2446,6 +3071,32 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td></td>
 </tr>
 </tbody></table>
+<h2 id='openchannelrequest'>OpenChannelRequest</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>node_pub_key</td>
+<td>string</td>
+<td>The node pub key of the peer with which to open channel with.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>The ticker symbol of the currency to open the channel for.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>int64</td>
+<td>The amount of the channel denominated in satoshis.</td>
+</tr>
+</tbody></table>
+<h2 id='openchannelresponse'>OpenChannelResponse</h2>
+<p>This message has no parameters.</p>
 <h2 id='order'>Order</h2>
 <table><thead>
 <tr>
@@ -2486,7 +3137,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 <tr>
 <td>created_at</td>
-<td>int64</td>
+<td>uint64</td>
 <td>The epoch time when this order was created.</td>
 </tr>
 <tr>
@@ -2502,7 +3153,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>hold</td>
 <td>uint64</td>
-<td>The quantity on hold pending swap exectuion.</td>
+<td>The quantity on hold pending swap execution.</td>
 </tr>
 </tbody></table>
 <h2 id='orderremoval'>OrderRemoval</h2>
@@ -2516,7 +3167,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>quantity</td>
 <td>uint64</td>
-<td>The quantity of the order being removed.</td>
+<td>The quantity removed from the order.</td>
 </tr>
 <tr>
 <td>pair_id</td>
@@ -2568,13 +3219,32 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </thead><tbody>
 <tr>
 <td>peer</td>
-<td>int32</td>
+<td>uint32</td>
 <td>The number of orders belonging to remote xud nodes.</td>
 </tr>
 <tr>
 <td>own</td>
-<td>int32</td>
+<td>uint32</td>
 <td>The number of orders belonging to our local xud node.</td>
+</tr>
+</tbody></table>
+<h2 id='orderupdate'>OrderUpdate</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order</td>
+<td><a href="#order">Order</a></td>
+<td>An order that was added to the order book.</td>
+</tr>
+<tr>
+<td>order_removal</td>
+<td><a href="#orderremoval">OrderRemoval</a></td>
+<td>An order (or portion thereof) that was removed from the order book.</td>
 </tr>
 </tbody></table>
 <h2 id='peer'>Peer</h2>
@@ -2617,7 +3287,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 <tr>
 <td>seconds_connected</td>
-<td>int32</td>
+<td>uint32</td>
 <td>The time in seconds that we have been connected to this peer.</td>
 </tr>
 <tr>
@@ -2642,7 +3312,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>quantity</td>
 <td>uint64</td>
-<td>The quantity of the order in satoshis.</td>
+<td>The quantity of the order denominated in satoshis.</td>
 </tr>
 <tr>
 <td>pair_id</td>
@@ -2657,7 +3327,17 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>side</td>
 <td><a href="#orderside">OrderSide</a></td>
-<td>Whether the order is a Buy or Sell.</td>
+<td>Whether the order is a buy or sell.</td>
+</tr>
+<tr>
+<td>replace_order_id</td>
+<td>string</td>
+<td>The local id of an existing order to be replaced. If provided, the order must be successfully found and removed before the new order is placed, otherwise an error is returned.</td>
+</tr>
+<tr>
+<td>immediate_or_cancel</td>
+<td>bool</td>
+<td>Whether the order must be filled immediately and not allowed to enter the order book.</td>
 </tr>
 </tbody></table>
 <h2 id='placeorderresponse'>PlaceOrderResponse</h2>
@@ -2727,7 +3407,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>error</td>
+<td>status</td>
 <td>string</td>
 <td></td>
 </tr>
@@ -2738,11 +3418,16 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 <tr>
 <td>channels</td>
-<td>int32</td>
+<td><a href="#channels">Channels</a></td>
 <td></td>
 </tr>
 <tr>
 <td>version</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>chain</td>
 <td>string</td>
 <td></td>
 </tr>
@@ -2779,7 +3464,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>quantity</td>
 <td>uint64</td>
-<td>The quantity to remove from the order. If zero or unspecified then entire order is removed.</td>
+<td>The quantity to remove from the order denominated in satoshis. If zero or unspecified then the entire order is removed.</td>
 </tr>
 </tbody></table>
 <h2 id='removeorderresponse'>RemoveOrderResponse</h2>
@@ -2812,11 +3497,69 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tbody></table>
 <h2 id='removepairresponse'>RemovePairResponse</h2>
 <p>This message has no parameters.</p>
+<h2 id='restorenoderequest'>RestoreNodeRequest</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>seed_mnemonic</td>
+<td>string array</td>
+<td>The 24 word mnemonic to recover the xud identity key and underlying wallets</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>The password in utf-8 with which to encrypt the restored xud node key as well as any restored underlying wallets.</td>
+</tr>
+<tr>
+<td>lnd_backups</td>
+<td>map&lt;string, bytes&gt;</td>
+<td>A map between the currency of the LND and its multi channel SCB</td>
+</tr>
+<tr>
+<td>raiden_database</td>
+<td>bytes</td>
+<td>The Raiden database backup</td>
+</tr>
+<tr>
+<td>raiden_database_path</td>
+<td>string</td>
+<td>Path to where the Raiden database backup should be written</td>
+</tr>
+<tr>
+<td>xud_database</td>
+<td>bytes</td>
+<td>The XUD database backup</td>
+</tr>
+</tbody></table>
+<h2 id='restorenoderesponse'>RestoreNodeResponse</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>restored_lnds</td>
+<td>string array</td>
+<td>The list of lnd clients that were initialized.</td>
+</tr>
+<tr>
+<td>restored_raiden</td>
+<td>bool</td>
+<td>Whether raiden was initialized.</td>
+</tr>
+</tbody></table>
 <h2 id='shutdownrequest'>ShutdownRequest</h2>
 <p>This message has no parameters.</p>
 <h2 id='shutdownresponse'>ShutdownResponse</h2>
 <p>This message has no parameters.</p>
-<h2 id='subscribeaddedordersrequest'>SubscribeAddedOrdersRequest</h2>
+<h2 id='subscribeordersrequest'>SubscribeOrdersRequest</h2>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2830,8 +3573,6 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>Whether to transmit all existing active orders upon establishing the stream.</td>
 </tr>
 </tbody></table>
-<h2 id='subscriberemovedordersrequest'>SubscribeRemovedOrdersRequest</h2>
-<p>This message has no parameters.</p>
 <h2 id='subscribeswapsrequest'>SubscribeSwapsRequest</h2>
 <table><thead>
 <tr>
@@ -2844,6 +3585,40 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>include_taker</td>
 <td>bool</td>
 <td>Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.</td>
+</tr>
+</tbody></table>
+<h2 id='swapfailure'>SwapFailure</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>The global UUID for the order that failed the swap.</td>
+</tr>
+<tr>
+<td>pair_id</td>
+<td>string</td>
+<td>The trading pair that the swap is for.</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>uint64</td>
+<td>The order quantity that was attempted to be swapped.</td>
+</tr>
+<tr>
+<td>peer_pub_key</td>
+<td>string</td>
+<td>The node pub key of the peer that we attempted to swap with.</td>
+</tr>
+<tr>
+<td>failure_reason</td>
+<td>string</td>
+<td>The reason why the swap failed.</td>
 </tr>
 </tbody></table>
 <h2 id='swapsuccess'>SwapSuccess</h2>
@@ -2877,17 +3652,17 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>r_hash</td>
 <td>string</td>
-<td>The hex-encoded payment hash for the swaps.</td>
+<td>The hex-encoded payment hash for the swap.</td>
 </tr>
 <tr>
 <td>amount_received</td>
-<td>int64</td>
-<td>The amount of the smallest base unit of the currency (like satoshis or wei) received.</td>
+<td>uint64</td>
+<td>The amount received denominated in satoshis.</td>
 </tr>
 <tr>
 <td>amount_sent</td>
-<td>int64</td>
-<td>The amount of the smallest base unit of the currency (like satoshis or wei) sent.</td>
+<td>uint64</td>
+<td>The amount sent denominated in satoshis.</td>
 </tr>
 <tr>
 <td>peer_pub_key</td>
@@ -2920,6 +3695,87 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The price used for the swap.</td>
 </tr>
 </tbody></table>
+<h2 id='tradinglimits-2'>TradingLimits</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>MaxSell</td>
+<td>uint64</td>
+<td>Max outbound capacity for a distinct channel denominated in satoshis.</td>
+</tr>
+<tr>
+<td>MaxBuy</td>
+<td>uint64</td>
+<td>Max inbound capacity for a distinct channel denominated in satoshis.</td>
+</tr>
+</tbody></table>
+<h2 id='trade'>Trade</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>maker_order</td>
+<td><a href="#order">Order</a></td>
+<td>The maker order involved in this trade.</td>
+</tr>
+<tr>
+<td>taker_order</td>
+<td><a href="#order">Order</a></td>
+<td>The taker order involved in this trade.</td>
+</tr>
+<tr>
+<td>r_hash</td>
+<td>string</td>
+<td>The payment hash involved in this trade.</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>int64</td>
+<td>The quantity transacted in this trade.</td>
+</tr>
+<tr>
+<td>pair_id</td>
+<td>string</td>
+<td>The trading pair for this trade.</td>
+</tr>
+</tbody></table>
+<h2 id='tradinglimitsrequest'>TradingLimitsRequest</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>The ticker symbol of the currency to query for, if unspecified then trading limits for all supported currencies are queried.</td>
+</tr>
+</tbody></table>
+<h2 id='tradinglimitsresponse'>TradingLimitsResponse</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limits</td>
+<td>map&lt;string, <a href="#tradinglimits">TradingLimits</a>&gt;</td>
+<td>A map between currency ticker symbols and their trading limits.</td>
+</tr>
+</tbody></table>
 <h2 id='unbanrequest'>UnbanRequest</h2>
 <table><thead>
 <tr>
@@ -2941,26 +3797,45 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tbody></table>
 <h2 id='unbanresponse'>UnbanResponse</h2>
 <p>This message has no parameters.</p>
-<h1 id='enums'>Enums</h1><h2 id='swapclient'>SwapClient</h2>
+<h2 id='unlocknoderequest'>UnlockNodeRequest</h2>
 <table><thead>
 <tr>
-<th>Enumeration</th>
-<th>Value</th>
+<th>Parameter</th>
+<th>Type</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>LND</td>
-<td>0</td>
-<td></td>
-</tr>
-<tr>
-<td>RAIDEN</td>
-<td>1</td>
-<td></td>
+<td>password</td>
+<td>string</td>
+<td>The password in utf-8 with which to unlock an existing xud node key as well as underlying client wallets such as lnd.</td>
 </tr>
 </tbody></table>
-<h2 id='orderside'>OrderSide</h2>
+<h2 id='unlocknoderesponse'>UnlockNodeResponse</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>unlocked_lnds</td>
+<td>string array</td>
+<td>The list of lnd clients that were unlocked.</td>
+</tr>
+<tr>
+<td>unlocked_raiden</td>
+<td>bool</td>
+<td>Whether raiden was unlocked.</td>
+</tr>
+<tr>
+<td>locked_lnds</td>
+<td>string array</td>
+<td>The list of lnd clients that could not be unlocked.</td>
+</tr>
+</tbody></table>
+<h1 id='enums'>Enums</h1><h2 id='orderside'>OrderSide</h2>
 <table><thead>
 <tr>
 <th>Enumeration</th>
@@ -2975,6 +3850,25 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 <tr>
 <td>SELL</td>
+<td>1</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='swapclient'>SwapClient</h2>
+<table><thead>
+<tr>
+<th>Enumeration</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>LND</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>RAIDEN</td>
 <td>1</td>
 <td></td>
 </tr>
@@ -3003,8 +3897,8 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="python">python</a>
                 <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="python">python</a>
           </div>
       </div>
     </div>
