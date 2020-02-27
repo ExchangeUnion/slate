@@ -1,5 +1,5 @@
 ---
-title: Xud API Reference
+title: API Reference
 
 language_tabs:
   - shell
@@ -11,9 +11,6 @@ toc_footers:
 
 search: true
 ---
-# Introduction
-This is the API documentation for the xud gRPC service.
-Xud is a decentralized exchange built on the Lightning and Raiden networks to enable instant and trustless cryptocurrency swaps and order fulfillment between cryptocurrency exchanges. Exchanges participating in the network aggregate their liquidity and can provide deeper order books and new trading pairs to their users.
 # XudInit Service
 ```javascript
 var fs = require('fs');
@@ -73,8 +70,8 @@ print(response)
 # }
 ```
 ```shell
-xucli create
-```
+  xucli create
+  ```
 Creates an xud identity node key and underlying wallets. The node key and wallets are derived from a single seed and encrypted using a single password provided as a parameter to the call.
 ### Request
 Parameter | Type | Description
@@ -86,53 +83,6 @@ Parameter | Type | Description
 seed_mnemonic | string array | The 24 word mnemonic to recover the xud identity key and underlying wallets
 initialized_lnds | string array | The list of lnd clients that were initialized.
 initialized_raiden | bool | Whether raiden was initialized.
-## UnlockNode
-```javascript
-var request = {
-  password: <string>,
-};
-
-xudinitClient.unlockNode(request, function(err, response) {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(response);
-  }
-});
-// Output:
-// {
-//  "unlockedLnds": <string[]>,
-//  "unlockedRaiden": <bool>,
-//  "lockedLnds": <string[]>
-// }
-```
-```python
-request = xudinit.UnlockNodeRequest(
-  password=<string>,
-)
-response = xudinitStub.UnlockNode(request)
-print(response)
-# Output:
-# {
-#  "unlocked_lnds": <string[]>,
-#  "unlocked_raiden": <bool>,
-#  "locked_lnds": <string[]>
-# }
-```
-```shell
-xucli unlock
-```
-Unlocks and decrypts the xud node key and any underlying wallets.
-### Request
-Parameter | Type | Description
---------- | ---- | -----------
-password | string | The password in utf-8 with which to unlock an existing xud node key as well as underlying client wallets such as lnd.
-### Response
-Parameter | Type | Description
---------- | ---- | -----------
-unlocked_lnds | string array | The list of lnd clients that were unlocked.
-unlocked_raiden | bool | Whether raiden was unlocked.
-locked_lnds | string array | The list of lnd clients that could not be unlocked.
 ## RestoreNode
 ```javascript
 var request = {
@@ -175,8 +125,8 @@ print(response)
 # }
 ```
 ```shell
-xucli restore [backup_directory] [raiden_database_path]
-```
+  xucli restore [backup_directory] [raiden_database_path]
+  ```
 Restores an xud instance and underlying wallets from a seed.
 ### Request
 Parameter | Type | Description
@@ -192,6 +142,53 @@ Parameter | Type | Description
 --------- | ---- | -----------
 restored_lnds | string array | The list of lnd clients that were initialized.
 restored_raiden | bool | Whether raiden was initialized.
+## UnlockNode
+```javascript
+var request = {
+  password: <string>,
+};
+
+xudinitClient.unlockNode(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "unlockedLnds": <string[]>,
+//  "unlockedRaiden": <bool>,
+//  "lockedLnds": <string[]>
+// }
+```
+```python
+request = xudinit.UnlockNodeRequest(
+  password=<string>,
+)
+response = xudinitStub.UnlockNode(request)
+print(response)
+# Output:
+# {
+#  "unlocked_lnds": <string[]>,
+#  "unlocked_raiden": <bool>,
+#  "locked_lnds": <string[]>
+# }
+```
+```shell
+  xucli unlock
+  ```
+Unlocks and decrypts the xud node key and any underlying wallets.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+password | string | The password in utf-8 with which to unlock an existing xud node key as well as underlying client wallets such as lnd.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+unlocked_lnds | string array | The list of lnd clients that were unlocked.
+unlocked_raiden | bool | Whether raiden was unlocked.
+locked_lnds | string array | The list of lnd clients that could not be unlocked.
 # Xud Service
 ```javascript
 var fs = require('fs');
@@ -247,8 +244,8 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli addcurrency <currency> <swap_client> [decimal_places] [token_address]
-```
+  xucli addcurrency <currency> <swap_client> [decimal_places] [token_address]
+  ```
 Adds a currency to the list of supported currencies. Once added, the currency may be used for new trading pairs.
 ### Request
 Parameter | Type | Description
@@ -285,8 +282,8 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli addpair <base_currency> <quote_currency>
-```
+  xucli addpair <base_currency> <quote_currency>
+  ```
 Adds a trading pair to the list of supported trading pairs. The newly supported pair is advertised to peers so they may begin sending orders for it.
 ### Request
 Parameter | Type | Description
@@ -319,8 +316,8 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli ban <node_key>
-```
+  xucli ban <node_key>
+  ```
 Bans a node and immediately disconnects from it. This can be used to prevent any connections to a specific node.
 ### Request
 Parameter | Type | Description
@@ -352,8 +349,8 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli connect <node_uri>
-```
+  xucli connect <node_uri>
+  ```
 Attempts to connect to a node. Once connected, the node is added to the list of peers and becomes available for swaps and trading. A handshake exchanges information about the peer's supported trading and swap clients. Orders will be shared with the peer upon connection and upon new order placements.
 ### Request
 Parameter | Type | Description
@@ -429,8 +426,8 @@ print(response)
 # }
 ```
 ```shell
-xucli getbalance [currency]
-```
+  xucli getbalance [currency]
+  ```
 Gets the total balance available across all payment channels and wallets for one or all currencies.
 ### Request
 Parameter | Type | Description
@@ -486,8 +483,8 @@ print(response)
 # }
 ```
 ```shell
-xucli getinfo
-```
+  xucli getinfo
+  ```
 Gets general information about this node.
 ### Request
 This request has no parameters.
@@ -537,8 +534,8 @@ print(response)
 # }
 ```
 ```shell
-xucli getnodeinfo <node_key>
-```
+  xucli getnodeinfo <node_key>
+  ```
 Gets general information about a node.
 ### Request
 Parameter | Type | Description
@@ -553,7 +550,7 @@ banned | bool | Whether the node is currently banned.
 ```javascript
 var request = {
   pairId: <string>,
-  includeOwnOrders: <bool>,
+  owner: <Owner>,
   limit: <uint32>,
 };
 
@@ -572,7 +569,7 @@ xudClient.listOrders(request, function(err, response) {
 ```python
 request = xud.ListOrdersRequest(
   pair_id=<string>,
-  include_own_orders=<bool>,
+  owner=<Owner>,
   limit=<uint32>,
 )
 response = xudStub.ListOrders(request)
@@ -583,14 +580,14 @@ print(response)
 # }
 ```
 ```shell
-xucli listorders [pair_id] [include_own_orders] [limit]
-```
+  xucli listorders [pair_id] [include_own_orders] [limit]
+  ```
 Gets orders from the order book. This call returns the state of the order book at a given point in time, although it is not guaranteed to still be vaild by the time a response is received and processed by a client. It accepts an optional trading pair id parameter. If specified, only orders for that particular trading pair are returned. Otherwise, all orders are returned. Orders are separated into buys and sells for each trading pair, but unsorted.
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
 pair_id | string | The trading pair for which to retrieve orders.
-include_own_orders | bool | Whether own orders should be included in result or not.
+owner | [Owner](#owner) | Whether only own, only peer or both orders should be included in result.
 limit | uint32 | The maximum number of orders to return from each side of the order book.
 ### Response
 Parameter | Type | Description
@@ -622,8 +619,8 @@ print(response)
 # }
 ```
 ```shell
-xucli listcurrencies
-```
+  xucli listcurrencies
+  ```
 Gets a list of this node's supported currencies.
 ### Request
 This request has no parameters.
@@ -657,8 +654,8 @@ print(response)
 # }
 ```
 ```shell
-xucli listpairs
-```
+  xucli listpairs
+  ```
 Gets a list of this nodes suported trading pairs.
 ### Request
 This request has no parameters.
@@ -692,8 +689,8 @@ print(response)
 # }
 ```
 ```shell
-xucli listpeers
-```
+  xucli listpeers
+  ```
 Gets a list of connected peers.
 ### Request
 This request has no parameters.
@@ -731,8 +728,8 @@ print(response)
 # }
 ```
 ```shell
-xucli listtrades [limit]
-```
+  xucli listtrades [limit]
+  ```
 Gets a list of completed trades.
 ### Request
 Parameter | Type | Description
@@ -770,8 +767,8 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli openchannel <node_key> <currency> <amount>
-```
+  xucli openchannel <node_key> <currency> <amount>
+  ```
 Opens a payment channel to a peer with the given node pub key for the specified amount and currency.
 ### Request
 Parameter | Type | Description
@@ -897,9 +894,9 @@ print(response)
 # }
 ```
 ```shell
-xucli buy <quantity> <pair_id> <price> [order_id] [stream]
+  xucli buy <quantity> <pair_id> <price> [order_id] [stream]
 xucli sell <quantity> <pair_id> <price> [order_id] [stream]
-```
+  ```
 The synchronous, non-streaming version of PlaceOrder.
 ### Request
 Parameter | Type | Description
@@ -1025,8 +1022,8 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli removecurrency <currency>
-```
+  xucli removecurrency <currency>
+  ```
 Removes a currency from the list of supported currencies. Only currencies that are not in use for any currently supported trading pairs may be removed. Once removed, the currency can no longer be used for any supported trading pairs.
 ### Request
 Parameter | Type | Description
@@ -1066,8 +1063,8 @@ print(response)
 # }
 ```
 ```shell
-xucli removeorder <order_id> [quantity]
-```
+  xucli removeorder <order_id> [quantity]
+  ```
 Removes an order from the order book by its local id. This should be called when an order is canceled or filled outside of xud. Removed orders become immediately unavailable for swaps, and peers are notified that the order is no longer valid. Any portion of the order that is on hold due to ongoing swaps will not be removed until after the swap attempts complete.
 ### Request
 Parameter | Type | Description
@@ -1102,8 +1099,8 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli removepair <pair_id>
-```
+  xucli removepair <pair_id>
+  ```
 Removes a trading pair from the list of currently supported trading pair. This call will effectively cancel any standing orders for that trading pair. Peers are informed when a pair is no longer supported so that they will know to stop sending orders for it.
 ### Request
 Parameter | Type | Description
@@ -1131,8 +1128,8 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli shutdown
-```
+  xucli shutdown
+  ```
 Begin gracefully shutting down xud.
 ### Request
 This request has no parameters.
@@ -1342,8 +1339,8 @@ print(response)
 # }
 ```
 ```shell
-xucli tradinglimits [currency]
-```
+  xucli tradinglimits [currency]
+  ```
 Gets the trading limits for one or all currencies.
 ### Request
 Parameter | Type | Description
@@ -1379,8 +1376,8 @@ print(response)
 # Output: {}
 ```
 ```shell
-xucli unban <node_key> [reconnect]
-```
+  xucli unban <node_key> [reconnect]
+  ```
 Removes a ban from a node manually and, optionally, attempts to connect to it.
 ### Request
 Parameter | Type | Description
@@ -1507,7 +1504,7 @@ currencies | [Currency](#currency) array | The list of available currencies in t
 Parameter | Type | Description
 --------- | ---- | -----------
 pair_id | string | The trading pair for which to retrieve orders.
-include_own_orders | bool | Whether own orders should be included in result or not.
+owner | [Owner](#owner) | Whether only own, only peer or both orders should be included in result.
 limit | uint32 | The maximum number of orders to return from each side of the order book.
 ## ListOrdersResponse
 Parameter | Type | Description
@@ -1750,6 +1747,12 @@ Enumeration | Value | Description
 ----------- | ----- | -----------
 LND | 0 |
 RAIDEN | 1 |
+## Owner
+Enumeration | Value | Description
+----------- | ----- | -----------
+BOTH | 0 |
+OWN | 1 |
+PEER | 2 |
 ## Role
 Enumeration | Value | Description
 ----------- | ----- | -----------
