@@ -295,7 +295,7 @@ This response has no parameters.
 ## Ban
 ```javascript
 var request = {
-  nodePubKey: <string>,
+  nodeIdentifier: <string>,
 };
 
 xudClient.ban(request, function(err, response) {
@@ -309,7 +309,7 @@ xudClient.ban(request, function(err, response) {
 ```
 ```python
 request = xud.BanRequest(
-  node_pub_key=<string>,
+  node_identifier=<string>,
 )
 response = xudStub.Ban(request)
 print(response)
@@ -322,7 +322,7 @@ Bans a node and immediately disconnects from it. This can be used to prevent any
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
-node_pub_key | string | The node pub key of the node to ban.
+node_identifier | string | The node pub key or alias of the node to ban.
 ### Response
 This response has no parameters.
 ## Connect
@@ -361,7 +361,7 @@ This response has no parameters.
 ## DiscoverNodes
 ```javascript
 var request = {
-  peerPubKey: <string>,
+  nodeIdentifier: <string>,
 };
 
 xudClient.discoverNodes(request, function(err, response) {
@@ -378,7 +378,7 @@ xudClient.discoverNodes(request, function(err, response) {
 ```
 ```python
 request = xud.DiscoverNodesRequest(
-  peer_pub_key=<string>,
+  node_identifier=<string>,
 )
 response = xudStub.DiscoverNodes(request)
 print(response)
@@ -391,7 +391,7 @@ Discover nodes from a specific peer and apply new connections
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
-peer_pub_key | string | The node pub key of the peer to discover nodes from.
+node_identifier | string | The node pub key or alias of the peer to discover nodes from.
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -505,7 +505,7 @@ pending_swap_hashes | string array |
 ## GetNodeInfo
 ```javascript
 var request = {
-  nodePubKey: <string>,
+  nodeIdentifier: <string>,
 };
 
 xudClient.getNodeInfo(request, function(err, response) {
@@ -523,7 +523,7 @@ xudClient.getNodeInfo(request, function(err, response) {
 ```
 ```python
 request = xud.GetNodeInfoRequest(
-  node_pub_key=<string>,
+  node_identifier=<string>,
 )
 response = xudStub.GetNodeInfo(request)
 print(response)
@@ -540,7 +540,7 @@ Gets general information about a node.
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
-node_pub_key | string | The node pub key of the node for which to get information.
+node_identifier | string | The node pub key or alias of the node for which to get information.
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -742,7 +742,7 @@ trades | [Trade](#trade) array |
 ## OpenChannel
 ```javascript
 var request = {
-  nodePubKey: <string>,
+  nodeIdentifier: <string>,
   currency: <string>,
   amount: <int64>,
 };
@@ -758,7 +758,7 @@ xudClient.openChannel(request, function(err, response) {
 ```
 ```python
 request = xud.OpenChannelRequest(
-  node_pub_key=<string>,
+  node_identifier=<string>,
   currency=<string>,
   amount=<int64>,
 )
@@ -773,7 +773,7 @@ Opens a payment channel to a peer with the given node pub key for the specified 
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
-node_pub_key | string | The node pub key of the peer with which to open channel with.
+node_identifier | string | The node pub key or alias of the peer with which to open channel with.
 currency | string | The ticker symbol of the currency to open the channel for.
 amount | int64 | The amount of the channel denominated in satoshis.
 ### Response
@@ -1353,7 +1353,7 @@ limits | map&lt;string, [TradingLimits](#tradinglimits)&gt; | A map between curr
 ## Unban
 ```javascript
 var request = {
-  nodePubKey: <string>,
+  nodeIdentifier: <string>,
   reconnect: <bool>,
 };
 
@@ -1368,7 +1368,7 @@ xudClient.unban(request, function(err, response) {
 ```
 ```python
 request = xud.UnbanRequest(
-  node_pub_key=<string>,
+  node_identifier=<string>,
   reconnect=<bool>,
 )
 response = xudStub.Unban(request)
@@ -1382,7 +1382,7 @@ Removes a ban from a node manually and, optionally, attempts to connect to it.
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
-node_pub_key | string | The node pub key of the peer to unban.
+node_identifier | string | The node pub key or alias of the peer to unban.
 reconnect | bool | Whether to attempt to connect to the peer after it is unbanned.
 ### Response
 This response has no parameters.
@@ -1408,7 +1408,7 @@ unconfirmed_wallet_balance | uint64 | Unconfirmed wallet balance in satoshis.
 ## BanRequest
 Parameter | Type | Description
 --------- | ---- | -----------
-node_pub_key | string | The node pub key of the node to ban.
+node_identifier | string | The node pub key or alias of the node to ban.
 ## BanResponse
 This message has no parameters.
 ## Chain
@@ -1449,7 +1449,7 @@ decimal_places | uint32 | The number of places to the right of the decimal point
 ## DiscoverNodesRequest
 Parameter | Type | Description
 --------- | ---- | -----------
-peer_pub_key | string | The node pub key of the peer to discover nodes from.
+node_identifier | string | The node pub key or alias of the peer to discover nodes from.
 ## DiscoverNodesResponse
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1488,7 +1488,7 @@ pending_swap_hashes | string array |
 ## GetNodeInfoRequest
 Parameter | Type | Description
 --------- | ---- | -----------
-node_pub_key | string | The node pub key of the node for which to get information.
+node_identifier | string | The node pub key or alias of the node for which to get information.
 ## GetNodeInfoResponse
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1543,7 +1543,7 @@ alias | string |
 ## OpenChannelRequest
 Parameter | Type | Description
 --------- | ---- | -----------
-node_pub_key | string | The node pub key of the peer with which to open channel with.
+node_identifier | string | The node pub key or alias of the peer with which to open channel with.
 currency | string | The ticker symbol of the currency to open the channel for.
 amount | int64 | The amount of the channel denominated in satoshis.
 ## OpenChannelResponse
@@ -1595,6 +1595,7 @@ pairs | string array | A list of trading pair tickers supported by this peer.
 xud_version | string | The version of xud being used by the peer.
 seconds_connected | uint32 | The time in seconds that we have been connected to this peer.
 raiden_address | string | The raiden address for this peer
+alias | string | The alias for this peer's public key
 ## PlaceOrderRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1722,7 +1723,7 @@ limits | map&lt;string, [TradingLimits](#tradinglimits)&gt; | A map between curr
 ## UnbanRequest
 Parameter | Type | Description
 --------- | ---- | -----------
-node_pub_key | string | The node pub key of the peer to unban.
+node_identifier | string | The node pub key or alias of the peer to unban.
 reconnect | bool | Whether to attempt to connect to the peer after it is unbanned.
 ## UnbanResponse
 This message has no parameters.
