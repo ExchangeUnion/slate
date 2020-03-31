@@ -928,7 +928,7 @@
 <h3 id='response-5'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='ban'>Ban</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">nodePubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">nodeIdentifier</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
 
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">ban</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
@@ -940,7 +940,7 @@
 <span class="p">});</span>
 <span class="c1">// Output: {}</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">BanRequest</span><span class="p">(</span>
-  <span class="n">node_pub_key</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">node_identifier</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">Ban</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
@@ -957,9 +957,9 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>node_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the node to ban.</td>
+<td>The node pub key or alias of the node to ban.</td>
 </tr>
 </tbody></table>
 <h3 id='response-6'>Response</h3>
@@ -1002,7 +1002,7 @@
 <h3 id='response-7'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='discovernodes'>DiscoverNodes</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">peerPubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">nodeIdentifier</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
 
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">discoverNodes</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
@@ -1017,7 +1017,7 @@
 <span class="c1">//  "numNodes": &lt;uint32&gt;</span>
 <span class="c1">// }</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">DiscoverNodesRequest</span><span class="p">(</span>
-  <span class="n">peer_pub_key</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">node_identifier</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">DiscoverNodes</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
@@ -1036,9 +1036,9 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>peer_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the peer to discover nodes from.</td>
+<td>The node pub key or alias of the peer to discover nodes from.</td>
 </tr>
 </tbody></table>
 <h3 id='response-8'>Response</h3>
@@ -1220,7 +1220,7 @@
 </tr>
 </tbody></table>
 <h2 id='getnodeinfo'>GetNodeInfo</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">nodePubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">nodeIdentifier</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
 
 <span class="nx">xudClient</span><span class="p">.</span><span class="nx">getNodeInfo</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
@@ -1236,7 +1236,7 @@
 <span class="c1">//  "banned": &lt;bool&gt;</span>
 <span class="c1">// }</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">GetNodeInfoRequest</span><span class="p">(</span>
-  <span class="n">node_pub_key</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">node_identifier</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">GetNodeInfo</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
@@ -1257,9 +1257,9 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>node_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the node for which to get information.</td>
+<td>The node pub key or alias of the node for which to get information.</td>
 </tr>
 </tbody></table>
 <h3 id='response-11'>Response</h3>
@@ -1523,7 +1523,7 @@
 </tr>
 </tbody></table>
 <h2 id='openchannel'>OpenChannel</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">nodePubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">nodeIdentifier</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">amount</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">int64</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
@@ -1537,7 +1537,7 @@
 <span class="p">});</span>
 <span class="c1">// Output: {}</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">OpenChannelRequest</span><span class="p">(</span>
-  <span class="n">node_pub_key</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">node_identifier</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">currency</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">amount</span><span class="o">=&lt;</span><span class="n">int64</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
@@ -1556,9 +1556,9 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>node_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the peer with which to open channel with.</td>
+<td>The node pub key or alias of the peer with which to open channel with.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -2474,7 +2474,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </tbody></table>
 <h2 id='unban'>Unban</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">nodePubKey</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">nodeIdentifier</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">reconnect</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
 
@@ -2487,7 +2487,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="p">});</span>
 <span class="c1">// Output: {}</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">UnbanRequest</span><span class="p">(</span>
-  <span class="n">node_pub_key</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">node_identifier</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">reconnect</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">Unban</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
@@ -2505,9 +2505,9 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>node_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the peer to unban.</td>
+<td>The node pub key or alias of the peer to unban.</td>
 </tr>
 <tr>
 <td>reconnect</td>
@@ -2588,9 +2588,9 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>node_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the node to ban.</td>
+<td>The node pub key or alias of the node to ban.</td>
 </tr>
 </tbody></table>
 <h2 id='banresponse'>BanResponse</h2>
@@ -2735,9 +2735,9 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>peer_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the peer to discover nodes from.</td>
+<td>The node pub key or alias of the peer to discover nodes from.</td>
 </tr>
 </tbody></table>
 <h2 id='discovernodesresponse'>DiscoverNodesResponse</h2>
@@ -2886,9 +2886,9 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>node_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the node for which to get information.</td>
+<td>The node pub key or alias of the node for which to get information.</td>
 </tr>
 </tbody></table>
 <h2 id='getnodeinforesponse'>GetNodeInfoResponse</h2>
@@ -3077,9 +3077,9 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>node_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the peer with which to open channel with.</td>
+<td>The node pub key or alias of the peer with which to open channel with.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -3291,6 +3291,11 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>raiden_address</td>
 <td>string</td>
 <td>The raiden address for this peer</td>
+</tr>
+<tr>
+<td>alias</td>
+<td>string</td>
+<td>The alias for this peer&#39;s public key</td>
 </tr>
 </tbody></table>
 <h2 id='placeorderrequest'>PlaceOrderRequest</h2>
@@ -3782,9 +3787,9 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </tr>
 </thead><tbody>
 <tr>
-<td>node_pub_key</td>
+<td>node_identifier</td>
 <td>string</td>
-<td>The node pub key of the peer to unban.</td>
+<td>The node pub key or alias of the peer to unban.</td>
 </tr>
 <tr>
 <td>reconnect</td>
