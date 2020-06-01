@@ -316,13 +316,52 @@ print(response)
 # Output: {}
 ```
 ```shell
-  xucli ban <node_key>
+  xucli ban <node_identifier>
   ```
 Bans a node and immediately disconnects from it. This can be used to prevent any connections to a specific node.
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
 node_identifier | string | The node pub key or alias of the node to ban.
+### Response
+This response has no parameters.
+## CloseChannel
+```javascript
+var request = {
+  nodeIdentifier: <string>,
+  currency: <string>,
+  force: <bool>,
+};
+
+xudClient.closeChannel(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output: {}
+```
+```python
+request = xud.CloseChannelRequest(
+  node_identifier=<string>,
+  currency=<string>,
+  force=<bool>,
+)
+response = xudStub.CloseChannel(request)
+print(response)
+# Output: {}
+```
+```shell
+  xucli closechannel <node_identifier> <currency> [--force]
+  ```
+Closes any existing payment channels with a peer for the specified currency.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+node_identifier | string | The node pub key or alias of the peer with which to close any channels with.
+currency | string | The ticker symbol of the currency of the channel to close.
+force | bool | Whether to force close the channel in case the peer is offline or unresponsive.
 ### Response
 This response has no parameters.
 ## Connect
@@ -358,6 +397,47 @@ Parameter | Type | Description
 node_uri | string | The uri of the node to connect to in "[nodePubKey]@[host]:[port]" format.
 ### Response
 This response has no parameters.
+## Deposit
+```javascript
+var request = {
+  currency: <string>,
+};
+
+xudClient.deposit(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "address": <string>
+// }
+```
+```python
+request = xud.DepositRequest(
+  currency=<string>,
+)
+response = xudStub.Deposit(request)
+print(response)
+# Output:
+# {
+#  "address": <string>
+# }
+```
+```shell
+  xucli deposit <currency>
+  ```
+Gets an address to deposit a given currency into the xud wallets.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+currency | string | The ticker symbol of the currency to deposit.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+address | string | The address to use to deposit funds.
 ## DiscoverNodes
 ```javascript
 var request = {
@@ -460,7 +540,8 @@ xudClient.getInfo(request, function(err, response) {
 //  "raiden": <RaidenInfo>,
 //  "alias": <string>,
 //  "network": <string>,
-//  "pendingSwapHashes": <string[]>
+//  "pendingSwapHashes": <string[]>,
+//  "connext": <ConnextInfo>
 // }
 ```
 ```python
@@ -479,7 +560,8 @@ print(response)
 #  "raiden": <RaidenInfo>,
 #  "alias": <string>,
 #  "network": <string>,
-#  "pending_swap_hashes": <string[]>
+#  "pending_swap_hashes": <string[]>,
+#  "connext": <ConnextInfo>
 # }
 ```
 ```shell
@@ -502,6 +584,7 @@ raiden | [RaidenInfo](#raideninfo) |
 alias | string | The alias of this instance of xud.
 network | string | The network of this node.
 pending_swap_hashes | string array | 
+connext | [ConnextInfo](#connextinfo) | 
 ## GetNodeInfo
 ```javascript
 var request = {
@@ -534,7 +617,7 @@ print(response)
 # }
 ```
 ```shell
-  xucli getnodeinfo <node_key>
+  xucli getnodeinfo <node_identifier>
   ```
 Gets general information about a node.
 ### Request
@@ -552,6 +635,7 @@ var request = {
   pairId: <string>,
   owner: <Owner>,
   limit: <uint32>,
+  includeAliases: <bool>,
 };
 
 xudClient.listOrders(request, function(err, response) {
@@ -571,6 +655,7 @@ request = xud.ListOrdersRequest(
   pair_id=<string>,
   owner=<Owner>,
   limit=<uint32>,
+  include_aliases=<bool>,
 )
 response = xudStub.ListOrders(request)
 print(response)
@@ -589,6 +674,7 @@ Parameter | Type | Description
 pair_id | string | The trading pair for which to retrieve orders.
 owner | [Owner](#owner) | Whether only own, only peer or both orders should be included in result.
 limit | uint32 | The maximum number of orders to return from each side of the order book.
+include_aliases | bool | Whether to include the node aliases of owners of the orders.
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -698,53 +784,13 @@ This request has no parameters.
 Parameter | Type | Description
 --------- | ---- | -----------
 peers | [Peer](#peer) array | The list of connected peers.
-## ListTrades
-```javascript
-var request = {
-  limit: <int32>,
-};
-
-xudClient.listTrades(request, function(err, response) {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log(response);
-  }
-});
-// Output:
-// {
-//  "trades": <Trade[]>
-// }
-```
-```python
-request = xud.ListTradesRequest(
-  limit=<int32>,
-)
-response = xudStub.ListTrades(request)
-print(response)
-# Output:
-# {
-#  "trades": <Trade[]>
-# }
-```
-```shell
-  xucli listtrades [limit]
-  ```
-Gets a list of completed trades.
-### Request
-Parameter | Type | Description
---------- | ---- | -----------
-limit | int32 | The maximum number of trades to return
-### Response
-Parameter | Type | Description
---------- | ---- | -----------
-trades | [Trade](#trade) array | 
 ## OpenChannel
 ```javascript
 var request = {
   nodeIdentifier: <string>,
   currency: <string>,
-  amount: <int64>,
+  amount: <uint64>,
+  pushAmount: <uint64>,
 };
 
 xudClient.openChannel(request, function(err, response) {
@@ -760,22 +806,24 @@ xudClient.openChannel(request, function(err, response) {
 request = xud.OpenChannelRequest(
   node_identifier=<string>,
   currency=<string>,
-  amount=<int64>,
+  amount=<uint64>,
+  push_amount=<uint64>,
 )
 response = xudStub.OpenChannel(request)
 print(response)
 # Output: {}
 ```
 ```shell
-  xucli openchannel <node_key> <currency> <amount>
+  xucli openchannel <node_identifier> <currency> <amount>
   ```
-Opens a payment channel to a peer with the given node pub key for the specified amount and currency.
+Opens a payment channel to a peer for the specified amount and currency.
 ### Request
 Parameter | Type | Description
 --------- | ---- | -----------
 node_identifier | string | The node pub key or alias of the peer with which to open channel with.
 currency | string | The ticker symbol of the currency to open the channel for.
-amount | int64 | The amount of the channel denominated in satoshis.
+amount | uint64 | The amount to be deposited into the channel denominated in satoshis.
+push_amount | uint64 | The balance amount to be pushed to the remote side of the channel denominated in satoshis.
 ### Response
 This response has no parameters.
 ## PlaceOrder
@@ -802,7 +850,7 @@ call.on('end', function () {
 });
 // Output:
 // {
-//  "internalMatch": <Order>,
+//  "match": <Order>,
 //  "swapSuccess": <SwapSuccess>,
 //  "remainingOrder": <Order>,
 //  "swapFailure": <SwapFailure>
@@ -822,7 +870,7 @@ for response in stub.PlaceOrder(request):
   print(response)
 # Output:
 # {
-#  "internal_match": <Order>,
+#  "match": <Order>,
 #  "swap_success": <SwapSuccess>,
 #  "remaining_order": <Order>,
 #  "swap_failure": <SwapFailure>
@@ -842,7 +890,7 @@ immediate_or_cancel | bool | Whether the order must be filled immediately and no
 ### Response (Streaming)
 Parameter | Type | Description
 --------- | ---- | -----------
-internal_match | [Order](#order) | An own order (or portion thereof) that matched the newly placed order.
+match | [Order](#order) | An order (or portion thereof) that matched the newly placed order.
 swap_success | [SwapSuccess](#swapsuccess) | A successful swap of a peer order that matched the newly placed order.
 remaining_order | [Order](#order) | The remaining portion of the order, after matches, that enters the order book.
 swap_failure | [SwapFailure](#swapfailure) | A swap attempt that failed.
@@ -1309,6 +1357,47 @@ pair_id | string | The trading pair that the swap is for.
 quantity | uint64 | The order quantity that was attempted to be swapped.
 peer_pub_key | string | The node pub key of the peer that we attempted to swap with.
 failure_reason | string | The reason why the swap failed.
+## TradeHistory
+```javascript
+var request = {
+  limit: <uint32>,
+};
+
+xudClient.tradeHistory(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "trades": <Trade[]>
+// }
+```
+```python
+request = xud.TradeHistoryRequest(
+  limit=<uint32>,
+)
+response = xudStub.TradeHistory(request)
+print(response)
+# Output:
+# {
+#  "trades": <Trade[]>
+# }
+```
+```shell
+  xucli tradehistory [limit]
+  ```
+Gets a list of completed trades.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+limit | uint32 | The maximum number of trades to return
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+trades | [Trade](#trade) array | 
 ## TradingLimits
 ```javascript
 var request = {
@@ -1376,7 +1465,7 @@ print(response)
 # Output: {}
 ```
 ```shell
-  xucli unban <node_key> [reconnect]
+  xucli unban <node_identifier> [reconnect]
   ```
 Removes a ban from a node manually and, optionally, attempts to connect to it.
 ### Request
@@ -1386,6 +1475,59 @@ node_identifier | string | The node pub key or alias of the peer to unban.
 reconnect | bool | Whether to attempt to connect to the peer after it is unbanned.
 ### Response
 This response has no parameters.
+## Withdraw
+```javascript
+var request = {
+  currency: <string>,
+  destination: <string>,
+  amount: <uint64>,
+  all: <bool>,
+  fee: <uint32>,
+};
+
+xudClient.withdraw(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "transactionId": <string>
+// }
+```
+```python
+request = xud.WithdrawRequest(
+  currency=<string>,
+  destination=<string>,
+  amount=<uint64>,
+  all=<bool>,
+  fee=<uint32>,
+)
+response = xudStub.Withdraw(request)
+print(response)
+# Output:
+# {
+#  "transaction_id": <string>
+# }
+```
+```shell
+  xucli withdraw <amount> <currency> <destination> [fee]
+  ```
+Withdraws a given currency from the xud wallets to a specified address.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+currency | string | The ticker symbol of the currency to withdraw.
+destination | string | The address to withdraw funds to.
+amount | uint64 | The amount to withdraw denominated in satoshis
+all | bool | Whether to withdraw all available funds for this currency. If true, the amount field is ignored.
+fee | uint32 | The fee to use for the withdrawal transaction denominated in satoshis per byte.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+transaction_id | string | The id of the withdrawal transaction.
 # Messages
 ## AddCurrencyResponse
 This message has no parameters.
@@ -1423,6 +1565,14 @@ active | uint32 | The number of active/online channels for this lnd instance tha
 inactive | uint32 | The number of inactive/offline channels for this lnd instance.
 pending | uint32 | The number of channels that are pending on-chain confirmation before they can be used.
 closed | uint32 | The number of channels that have been closed.
+## CloseChannelRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+node_identifier | string | The node pub key or alias of the peer with which to close any channels with.
+currency | string | The ticker symbol of the currency of the channel to close.
+force | bool | Whether to force close the channel in case the peer is offline or unresponsive.
+## CloseChannelResponse
+This message has no parameters.
 ## ConnectRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1446,6 +1596,14 @@ currency | string | The ticker symbol for this currency such as BTC, LTC, ETH, e
 swap_client | [SwapClient](#swapclient) | The payment channel network client to use for executing swaps.
 token_address | string | The contract address for layered tokens such as ERC20.
 decimal_places | uint32 | The number of places to the right of the decimal point of the smallest subunit of the currency. For example, BTC, LTC, and others where the smallest subunits (satoshis) are 0.00000001 full units (bitcoins) have 8 decimal places. ETH has 18. This can be thought of as the base 10 exponent of the smallest subunit expressed as a positive integer. A default value of 8 is used if unspecified.
+## DepositRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+currency | string | The ticker symbol of the currency to deposit.
+## DepositResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+address | string | The address to use to deposit funds.
 ## DiscoverNodesRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1485,6 +1643,7 @@ raiden | [RaidenInfo](#raideninfo) |
 alias | string | The alias of this instance of xud.
 network | string | The network of this node.
 pending_swap_hashes | string array | 
+connext | [ConnextInfo](#connextinfo) | 
 ## GetNodeInfoRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1506,6 +1665,7 @@ Parameter | Type | Description
 pair_id | string | The trading pair for which to retrieve orders.
 owner | [Owner](#owner) | Whether only own, only peer or both orders should be included in result.
 limit | uint32 | The maximum number of orders to return from each side of the order book.
+include_aliases | bool | Whether to include the node aliases of owners of the orders.
 ## ListOrdersResponse
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1522,14 +1682,6 @@ This message has no parameters.
 Parameter | Type | Description
 --------- | ---- | -----------
 peers | [Peer](#peer) array | The list of connected peers.
-## ListTradesRequest
-Parameter | Type | Description
---------- | ---- | -----------
-limit | int32 | The maximum number of trades to return
-## ListTradesResponse
-Parameter | Type | Description
---------- | ---- | -----------
-trades | [Trade](#trade) array | 
 ## LndInfo
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1540,12 +1692,18 @@ blockheight | uint32 |
 uris | string array | 
 version | string | 
 alias | string | 
+## NodeIdentifier
+Parameter | Type | Description
+--------- | ---- | -----------
+node_pub_key | string | The pub key of this node
+alias | string | An alias for this node deterministically generated from the pub key
 ## OpenChannelRequest
 Parameter | Type | Description
 --------- | ---- | -----------
 node_identifier | string | The node pub key or alias of the peer with which to open channel with.
 currency | string | The ticker symbol of the currency to open the channel for.
-amount | int64 | The amount of the channel denominated in satoshis.
+amount | uint64 | The amount to be deposited into the channel denominated in satoshis.
+push_amount | uint64 | The balance amount to be pushed to the remote side of the channel denominated in satoshis.
 ## OpenChannelResponse
 This message has no parameters.
 ## Order
@@ -1555,9 +1713,9 @@ price | double | The price of the order.
 quantity | uint64 | The quantity of the order in satoshis.
 pair_id | string | The trading pair that this order is for.
 id | string | A UUID for this order.
-peer_pub_key | string | The node pub key of the peer that created this order.
-local_id | string | The local id for this order.
-created_at | uint64 | The epoch time when this order was created.
+node_identifier | [NodeIdentifier](#nodeidentifier) | The identifier of the node that created this order.
+local_id | string | The local id for this order, if applicable.
+created_at | uint64 | The epoch time in milliseconds when this order was created.
 side | [OrderSide](#orderside) | Whether this order is a buy or sell
 is_own_order | bool | Whether this order is a local own order or a remote peer order.
 hold | uint64 | The quantity on hold pending swap execution.
@@ -1616,7 +1774,7 @@ swap_failures | [SwapFailure](#swapfailure) array | A list of swap attempts that
 ## PlaceOrderEvent
 Parameter | Type | Description
 --------- | ---- | -----------
-internal_match | [Order](#order) | An own order (or portion thereof) that matched the newly placed order.
+match | [Order](#order) | An order (or portion thereof) that matched the newly placed order.
 swap_success | [SwapSuccess](#swapsuccess) | A successful swap of a peer order that matched the newly placed order.
 remaining_order | [Order](#order) | The remaining portion of the order, after matches, that enters the order book.
 swap_failure | [SwapFailure](#swapfailure) | A swap attempt that failed.
@@ -1626,6 +1784,13 @@ Parameter | Type | Description
 status | string | 
 address | string | 
 channels | [Channels](#channels) | 
+version | string | 
+chain | string | 
+## ConnextInfo
+Parameter | Type | Description
+--------- | ---- | -----------
+status | string | 
+address | string | 
 version | string | 
 chain | string | 
 ## RemoveCurrencyRequest
@@ -1699,19 +1864,32 @@ currency_received | string | The ticker symbol of the currency received.
 currency_sent | string | The ticker symbol of the currency sent.
 r_preimage | string | The hex-encoded preimage.
 price | double | The price used for the swap.
+## Trade
+Parameter | Type | Description
+--------- | ---- | -----------
+maker_order | [Order](#order) | The maker order involved in this trade.
+taker_order | [Order](#order) | The taker order involved in this trade. Note that when a trade occurs from a remote peer filling one of our orders, we do not receive the order (only a swap request) and this field will be empty.
+r_hash | string | The payment hash involved in this trade.
+quantity | uint64 | The quantity transacted in this trade.
+pair_id | string | The trading pair for this trade.
+price | double | The price used for the trade.
+role | [Role](#role) | Our role in the trade.
+executed_at | uint64 | The epoch time in milliseconds that this trade was executed
+side | [OrderSide](#orderside) | Whether this node was on the buy or sell side of the trade - or both in case of internal trades.
+counterparty | [NodeIdentifier](#nodeidentifier) | The counterparty to this trade, if applicable.
+## TradeHistoryRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+limit | uint32 | The maximum number of trades to return
+## TradeHistoryResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+trades | [Trade](#trade) array | 
 ## TradingLimits
 Parameter | Type | Description
 --------- | ---- | -----------
 MaxSell | uint64 | Max outbound capacity for a distinct channel denominated in satoshis.
 MaxBuy | uint64 | Max inbound capacity for a distinct channel denominated in satoshis.
-## Trade
-Parameter | Type | Description
---------- | ---- | -----------
-maker_order | [Order](#order) | The maker order involved in this trade.
-taker_order | [Order](#order) | The taker order involved in this trade.
-r_hash | string | The payment hash involved in this trade.
-quantity | int64 | The quantity transacted in this trade.
-pair_id | string | The trading pair for this trade.
 ## TradingLimitsRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1737,12 +1915,31 @@ Parameter | Type | Description
 unlocked_lnds | string array | The list of lnd clients that were unlocked.
 unlocked_raiden | bool | Whether raiden was unlocked.
 locked_lnds | string array | The list of lnd clients that could not be unlocked.
+## WithdrawRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+currency | string | The ticker symbol of the currency to withdraw.
+destination | string | The address to withdraw funds to.
+amount | uint64 | The amount to withdraw denominated in satoshis
+all | bool | Whether to withdraw all available funds for this currency. If true, the amount field is ignored.
+fee | uint32 | The fee to use for the withdrawal transaction denominated in satoshis per byte.
+## WithdrawResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+transaction_id | string | The id of the withdrawal transaction.
 # Enums
 ## OrderSide
 Enumeration | Value | Description
 ----------- | ----- | -----------
 BUY | 0 |
 SELL | 1 |
+BOTH | 2 |
+## Role
+Enumeration | Value | Description
+----------- | ----- | -----------
+TAKER | 0 |
+MAKER | 1 |
+INTERNAL | 2 |
 ## SwapClient
 Enumeration | Value | Description
 ----------- | ----- | -----------
@@ -1754,8 +1951,3 @@ Enumeration | Value | Description
 BOTH | 0 |
 OWN | 1 |
 PEER | 2 |
-## Role
-Enumeration | Value | Description
------------ | ----- | -----------
-TAKER | 0 |
-MAKER | 1 |
