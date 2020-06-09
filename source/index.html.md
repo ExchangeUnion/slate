@@ -331,6 +331,8 @@ var request = {
   nodeIdentifier: <string>,
   currency: <string>,
   force: <bool>,
+  destination: <string>,
+  amount: <uint64>,
 };
 
 xudClient.closeChannel(request, function(err, response) {
@@ -347,13 +349,15 @@ request = xud.CloseChannelRequest(
   node_identifier=<string>,
   currency=<string>,
   force=<bool>,
+  destination=<string>,
+  amount=<uint64>,
 )
 response = xudStub.CloseChannel(request)
 print(response)
 # Output: {}
 ```
 ```shell
-  xucli closechannel <node_identifier> <currency> [--force]
+  xucli closechannel <currency> [node_identifier ] [--force]
   ```
 Closes any existing payment channels with a peer for the specified currency.
 ### Request
@@ -362,6 +366,8 @@ Parameter | Type | Description
 node_identifier | string | The node pub key or alias of the peer with which to close any channels with.
 currency | string | The ticker symbol of the currency of the channel to close.
 force | bool | Whether to force close the channel in case the peer is offline or unresponsive.
+destination | string | The on-chain address to send funds extracted from the channel. If unspecified, the funds return to the default wallet for the client closing the channel.
+amount | uint64 | For Connext only - the amount to extract from the channel. If 0 or unspecified, the entire off-chain balance for the specified currency will be extracted.
 ### Response
 This response has no parameters.
 ## Connect
@@ -397,13 +403,13 @@ Parameter | Type | Description
 node_uri | string | The uri of the node to connect to in "[nodePubKey]@[host]:[port]" format.
 ### Response
 This response has no parameters.
-## Deposit
+## WalletDeposit
 ```javascript
 var request = {
   currency: <string>,
 };
 
-xudClient.deposit(request, function(err, response) {
+xudClient.walletDeposit(request, function(err, response) {
   if (err) {
     console.error(err);
   } else {
@@ -419,7 +425,7 @@ xudClient.deposit(request, function(err, response) {
 request = xud.DepositRequest(
   currency=<string>,
 )
-response = xudStub.Deposit(request)
+response = xudStub.WalletDeposit(request)
 print(response)
 # Output:
 # {
@@ -427,7 +433,7 @@ print(response)
 # }
 ```
 ```shell
-  xucli deposit <currency>
+  xucli walletdeposit <currency>
   ```
 Gets an address to deposit a given currency into the xud wallets.
 ### Request
@@ -814,7 +820,7 @@ print(response)
 # Output: {}
 ```
 ```shell
-  xucli openchannel <node_identifier> <currency> <amount>
+  xucli openchannel <currency> <amount> [node_identifier] [push_amount]
   ```
 Opens a payment channel to a peer for the specified amount and currency.
 ### Request
@@ -1475,7 +1481,7 @@ node_identifier | string | The node pub key or alias of the peer to unban.
 reconnect | bool | Whether to attempt to connect to the peer after it is unbanned.
 ### Response
 This response has no parameters.
-## Withdraw
+## WalletWithdraw
 ```javascript
 var request = {
   currency: <string>,
@@ -1485,7 +1491,7 @@ var request = {
   fee: <uint32>,
 };
 
-xudClient.withdraw(request, function(err, response) {
+xudClient.walletWithdraw(request, function(err, response) {
   if (err) {
     console.error(err);
   } else {
@@ -1505,7 +1511,7 @@ request = xud.WithdrawRequest(
   all=<bool>,
   fee=<uint32>,
 )
-response = xudStub.Withdraw(request)
+response = xudStub.WalletWithdraw(request)
 print(response)
 # Output:
 # {
@@ -1513,7 +1519,7 @@ print(response)
 # }
 ```
 ```shell
-  xucli withdraw <amount> <currency> <destination> [fee]
+  xucli withdraw [amount] [currency] <destination> [fee]
   ```
 Withdraws a given currency from the xud wallets to a specified address.
 ### Request
@@ -1571,6 +1577,8 @@ Parameter | Type | Description
 node_identifier | string | The node pub key or alias of the peer with which to close any channels with.
 currency | string | The ticker symbol of the currency of the channel to close.
 force | bool | Whether to force close the channel in case the peer is offline or unresponsive.
+destination | string | The on-chain address to send funds extracted from the channel. If unspecified, the funds return to the default wallet for the client closing the channel.
+amount | uint64 | For Connext only - the amount to extract from the channel. If 0 or unspecified, the entire off-chain balance for the specified currency will be extracted.
 ## CloseChannelResponse
 This message has no parameters.
 ## ConnectRequest
