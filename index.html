@@ -307,10 +307,13 @@
                     <a href="#subscribeorders" class="toc-h2 toc-link" data-title="SubscribeOrders">SubscribeOrders</a>
                   </li>
                   <li>
+                    <a href="#subscribeswapfailures" class="toc-h2 toc-link" data-title="SubscribeSwapFailures">SubscribeSwapFailures</a>
+                  </li>
+                  <li>
                     <a href="#subscribeswaps" class="toc-h2 toc-link" data-title="SubscribeSwaps">SubscribeSwaps</a>
                   </li>
                   <li>
-                    <a href="#subscribeswapfailures" class="toc-h2 toc-link" data-title="SubscribeSwapFailures">SubscribeSwapFailures</a>
+                    <a href="#subscribeswapsaccepted" class="toc-h2 toc-link" data-title="SubscribeSwapsAccepted">SubscribeSwapsAccepted</a>
                   </li>
                   <li>
                     <a href="#tradehistory" class="toc-h2 toc-link" data-title="TradeHistory">TradeHistory</a>
@@ -510,7 +513,13 @@
                     <a href="#subscribeordersrequest" class="toc-h2 toc-link" data-title="SubscribeOrdersRequest">SubscribeOrdersRequest</a>
                   </li>
                   <li>
+                    <a href="#subscribeswapsacceptedrequest" class="toc-h2 toc-link" data-title="SubscribeSwapsAcceptedRequest">SubscribeSwapsAcceptedRequest</a>
+                  </li>
+                  <li>
                     <a href="#subscribeswapsrequest" class="toc-h2 toc-link" data-title="SubscribeSwapsRequest">SubscribeSwapsRequest</a>
+                  </li>
+                  <li>
+                    <a href="#swapaccepted" class="toc-h2 toc-link" data-title="SwapAccepted">SwapAccepted</a>
                   </li>
                   <li>
                     <a href="#swapfailure" class="toc-h2 toc-link" data-title="SwapFailure">SwapFailure</a>
@@ -2311,6 +2320,91 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>An order (or portion thereof) that was removed from the order book.</td>
 </tr>
 </tbody></table>
+<h2 id='subscribeswapfailures'>SubscribeSwapFailures</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">includeTaker</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">subscribeSwapFailures</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// the streaming call has been ended by the server</span>
+<span class="p">});</span>
+<span class="c1">// Output:</span>
+<span class="c1">// {</span>
+<span class="c1">//  "orderId": &lt;string&gt;,</span>
+<span class="c1">//  "pairId": &lt;string&gt;,</span>
+<span class="c1">//  "quantity": &lt;uint64&gt;,</span>
+<span class="c1">//  "peerPubKey": &lt;string&gt;,</span>
+<span class="c1">//  "failureReason": &lt;string&gt;</span>
+<span class="c1">// }</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">SubscribeSwapsRequest</span><span class="p">(</span>
+  <span class="n">include_taker</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">stub</span><span class="o">.</span><span class="n">SubscribeSwapFailures</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output:</span>
+<span class="c"># {</span>
+<span class="c">#  "order_id": &lt;string&gt;,</span>
+<span class="c">#  "pair_id": &lt;string&gt;,</span>
+<span class="c">#  "quantity": &lt;uint64&gt;,</span>
+<span class="c">#  "peer_pub_key": &lt;string&gt;,</span>
+<span class="c">#  "failure_reason": &lt;string&gt;</span>
+<span class="c"># }</span>
+</code></pre>
+<p>Subscribes to failed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when swap attempts are failing. It can be used for status monitoring, debugging, and testing purposes.</p>
+<h3 id='request-27'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>include_taker</td>
+<td>bool</td>
+<td>Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.</td>
+</tr>
+</tbody></table>
+<h3 id='response-streaming-3'>Response (Streaming)</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>The global UUID for the order that failed the swap.</td>
+</tr>
+<tr>
+<td>pair_id</td>
+<td>string</td>
+<td>The trading pair that the swap is for.</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>uint64</td>
+<td>The order quantity that was attempted to be swapped.</td>
+</tr>
+<tr>
+<td>peer_pub_key</td>
+<td>string</td>
+<td>The node pub key of the peer that we attempted to swap with.</td>
+</tr>
+<tr>
+<td>failure_reason</td>
+<td>string</td>
+<td>The reason why the swap failed.</td>
+</tr>
+</tbody></table>
 <h2 id='subscribeswaps'>SubscribeSwaps</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">includeTaker</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
@@ -2364,7 +2458,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c"># }</span>
 </code></pre>
 <p>Subscribes to completed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when its orders are filled by a peer. It can be used for tracking order executions, updating balances, and informing a trader when one of their orders is settled through the Exchange Union network.</p>
-<h3 id='request-27'>Request</h3>
+<h3 id='request-28'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2378,7 +2472,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.</td>
 </tr>
 </tbody></table>
-<h3 id='response-streaming-3'>Response (Streaming)</h3>
+<h3 id='response-streaming-4'>Response (Streaming)</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2452,11 +2546,9 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The price used for the swap.</td>
 </tr>
 </tbody></table>
-<h2 id='subscribeswapfailures'>SubscribeSwapFailures</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">includeTaker</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">};</span>
+<h2 id='subscribeswapsaccepted'>SubscribeSwapsAccepted</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{};</span>
 
-<span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">subscribeSwapFailures</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">call</span> <span class="o">=</span> <span class="nx">xudClient</span><span class="p">.</span><span class="nx">subscribeSwapsAccepted</span><span class="p">(</span><span class="nx">request</span><span class="p">);</span>
 <span class="nx">call</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'data'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
 <span class="p">});</span>
@@ -2469,41 +2561,39 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c1">// Output:</span>
 <span class="c1">// {</span>
 <span class="c1">//  "orderId": &lt;string&gt;,</span>
+<span class="c1">//  "localId": &lt;string&gt;,</span>
 <span class="c1">//  "pairId": &lt;string&gt;,</span>
 <span class="c1">//  "quantity": &lt;uint64&gt;,</span>
+<span class="c1">//  "price": &lt;double&gt;,</span>
 <span class="c1">//  "peerPubKey": &lt;string&gt;,</span>
-<span class="c1">//  "failureReason": &lt;string&gt;</span>
+<span class="c1">//  "rHash": &lt;string&gt;,</span>
+<span class="c1">//  "amountReceiving": &lt;uint64&gt;,</span>
+<span class="c1">//  "amountSending": &lt;uint64&gt;,</span>
+<span class="c1">//  "currencyReceiving": &lt;string&gt;,</span>
+<span class="c1">//  "currencySending": &lt;string&gt;</span>
 <span class="c1">// }</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">SubscribeSwapsRequest</span><span class="p">(</span>
-  <span class="n">include_taker</span><span class="o">=&lt;</span><span class="nb">bool</span><span class="o">&gt;</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">stub</span><span class="o">.</span><span class="n">SubscribeSwapFailures</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">SubscribeSwapsAcceptedRequest</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">response</span> <span class="ow">in</span> <span class="n">stub</span><span class="o">.</span><span class="n">SubscribeSwapsAccepted</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
   <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="c"># Output:</span>
 <span class="c"># {</span>
 <span class="c">#  "order_id": &lt;string&gt;,</span>
+<span class="c">#  "local_id": &lt;string&gt;,</span>
 <span class="c">#  "pair_id": &lt;string&gt;,</span>
 <span class="c">#  "quantity": &lt;uint64&gt;,</span>
+<span class="c">#  "price": &lt;double&gt;,</span>
 <span class="c">#  "peer_pub_key": &lt;string&gt;,</span>
-<span class="c">#  "failure_reason": &lt;string&gt;</span>
+<span class="c">#  "r_hash": &lt;string&gt;,</span>
+<span class="c">#  "amount_receiving": &lt;uint64&gt;,</span>
+<span class="c">#  "amount_sending": &lt;uint64&gt;,</span>
+<span class="c">#  "currency_receiving": &lt;string&gt;,</span>
+<span class="c">#  "currency_sending": &lt;string&gt;</span>
 <span class="c"># }</span>
 </code></pre>
-<p>Subscribes to failed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when swap attempts are failing. It can be used for status monitoring, debugging, and testing purposes.</p>
-<h3 id='request-28'>Request</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>include_taker</td>
-<td>bool</td>
-<td>Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.</td>
-</tr>
-</tbody></table>
-<h3 id='response-streaming-4'>Response (Streaming)</h3>
+<p>Subscribes to accepted swaps. This stream emits a message when the local xud node accepts a swap request from a peer, but before the swap has actually succeeded.</p>
+<h3 id='request-29'>Request</h3>
+<p>This request has no parameters.</p>
+<h3 id='response-streaming-5'>Response (Streaming)</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2514,7 +2604,12 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>order_id</td>
 <td>string</td>
-<td>The global UUID for the order that failed the swap.</td>
+<td>The global UUID for the order that was accepted to be swapped.</td>
+</tr>
+<tr>
+<td>local_id</td>
+<td>string</td>
+<td>The local id for the order that was accepted to be swapped.</td>
 </tr>
 <tr>
 <td>pair_id</td>
@@ -2524,17 +2619,42 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>quantity</td>
 <td>uint64</td>
-<td>The order quantity that was attempted to be swapped.</td>
+<td>The order quantity that was accepted to be swapped.</td>
+</tr>
+<tr>
+<td>price</td>
+<td>double</td>
+<td>The price for the swap.</td>
 </tr>
 <tr>
 <td>peer_pub_key</td>
 <td>string</td>
-<td>The node pub key of the peer that we attempted to swap with.</td>
+<td>The node pub key of the peer that executed this order.</td>
 </tr>
 <tr>
-<td>failure_reason</td>
+<td>r_hash</td>
 <td>string</td>
-<td>The reason why the swap failed.</td>
+<td>The hex-encoded payment hash for the swap.</td>
+</tr>
+<tr>
+<td>amount_receiving</td>
+<td>uint64</td>
+<td>The amount received denominated in satoshis.</td>
+</tr>
+<tr>
+<td>amount_sending</td>
+<td>uint64</td>
+<td>The amount sent denominated in satoshis.</td>
+</tr>
+<tr>
+<td>currency_receiving</td>
+<td>string</td>
+<td>The ticker symbol of the currency received.</td>
+</tr>
+<tr>
+<td>currency_sending</td>
+<td>string</td>
+<td>The ticker symbol of the currency sent.</td>
 </tr>
 </tbody></table>
 <h2 id='tradehistory'>TradeHistory</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
@@ -2564,7 +2684,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli tradehistory <span class="o">[</span>limit]
 </code></pre>
 <p>Gets a list of completed trades.</p>
-<h3 id='request-29'>Request</h3>
+<h3 id='request-30'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2619,7 +2739,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli tradinglimits <span class="o">[</span>currency]
 </code></pre>
 <p>Gets the trading limits for one or all currencies.</p>
-<h3 id='request-30'>Request</h3>
+<h3 id='request-31'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2670,7 +2790,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli unban &lt;node_identifier&gt; <span class="o">[</span>reconnect]
 </code></pre>
 <p>Removes a ban from a node manually and, optionally, attempts to connect to it.</p>
-<h3 id='request-31'>Request</h3>
+<h3 id='request-32'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2726,7 +2846,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli withdraw <span class="o">[</span>amount] <span class="o">[</span>currency] &lt;destination&gt; <span class="o">[</span>fee]
 </code></pre>
 <p>Withdraws a given currency from the xud wallets to a specified address.</p>
-<h3 id='request-32'>Request</h3>
+<h3 id='request-33'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3931,6 +4051,8 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>Whether to transmit all existing active orders upon establishing the stream.</td>
 </tr>
 </tbody></table>
+<h2 id='subscribeswapsacceptedrequest'>SubscribeSwapsAcceptedRequest</h2>
+<p>This message has no parameters.</p>
 <h2 id='subscribeswapsrequest'>SubscribeSwapsRequest</h2>
 <table><thead>
 <tr>
@@ -3943,6 +4065,70 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>include_taker</td>
 <td>bool</td>
 <td>Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.</td>
+</tr>
+</tbody></table>
+<h2 id='swapaccepted'>SwapAccepted</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>string</td>
+<td>The global UUID for the order that was accepted to be swapped.</td>
+</tr>
+<tr>
+<td>local_id</td>
+<td>string</td>
+<td>The local id for the order that was accepted to be swapped.</td>
+</tr>
+<tr>
+<td>pair_id</td>
+<td>string</td>
+<td>The trading pair that the swap is for.</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>uint64</td>
+<td>The order quantity that was accepted to be swapped.</td>
+</tr>
+<tr>
+<td>price</td>
+<td>double</td>
+<td>The price for the swap.</td>
+</tr>
+<tr>
+<td>peer_pub_key</td>
+<td>string</td>
+<td>The node pub key of the peer that executed this order.</td>
+</tr>
+<tr>
+<td>r_hash</td>
+<td>string</td>
+<td>The hex-encoded payment hash for the swap.</td>
+</tr>
+<tr>
+<td>amount_receiving</td>
+<td>uint64</td>
+<td>The amount received denominated in satoshis.</td>
+</tr>
+<tr>
+<td>amount_sending</td>
+<td>uint64</td>
+<td>The amount sent denominated in satoshis.</td>
+</tr>
+<tr>
+<td>currency_receiving</td>
+<td>string</td>
+<td>The ticker symbol of the currency received.</td>
+</tr>
+<tr>
+<td>currency_sending</td>
+<td>string</td>
+<td>The ticker symbol of the currency sent.</td>
 </tr>
 </tbody></table>
 <h2 id='swapfailure'>SwapFailure</h2>
