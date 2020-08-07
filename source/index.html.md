@@ -1233,6 +1233,59 @@ Parameter | Type | Description
 --------- | ---- | -----------
 order | [Order](#order) | An order that was added to the order book.
 order_removal | [OrderRemoval](#orderremoval) | An order (or portion thereof) that was removed from the order book.
+## SubscribeSwapFailures
+```javascript
+var request = {
+  includeTaker: <bool>,
+};
+
+var call = xudClient.subscribeSwapFailures(request);
+call.on('data', function (response) {
+  console.log(response);
+});
+call.on('error', function (err) {
+  console.error(err);
+});
+call.on('end', function () {
+  // the streaming call has been ended by the server
+});
+// Output:
+// {
+//  "orderId": <string>,
+//  "pairId": <string>,
+//  "quantity": <uint64>,
+//  "peerPubKey": <string>,
+//  "failureReason": <string>
+// }
+```
+```python
+request = xud.SubscribeSwapsRequest(
+  include_taker=<bool>,
+)
+for response in stub.SubscribeSwapFailures(request):
+  print(response)
+# Output:
+# {
+#  "order_id": <string>,
+#  "pair_id": <string>,
+#  "quantity": <uint64>,
+#  "peer_pub_key": <string>,
+#  "failure_reason": <string>
+# }
+```
+Subscribes to failed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when swap attempts are failing. It can be used for status monitoring, debugging, and testing purposes.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+include_taker | bool | Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.
+### Response (Streaming)
+Parameter | Type | Description
+--------- | ---- | -----------
+order_id | string | The global UUID for the order that failed the swap.
+pair_id | string | The trading pair that the swap is for.
+quantity | uint64 | The order quantity that was attempted to be swapped.
+peer_pub_key | string | The node pub key of the peer that we attempted to swap with.
+failure_reason | string | The reason why the swap failed.
 ## SubscribeSwaps
 ```javascript
 var request = {
@@ -1310,13 +1363,11 @@ currency_received | string | The ticker symbol of the currency received.
 currency_sent | string | The ticker symbol of the currency sent.
 r_preimage | string | The hex-encoded preimage.
 price | double | The price used for the swap.
-## SubscribeSwapFailures
+## SubscribeSwapsAccepted
 ```javascript
-var request = {
-  includeTaker: <bool>,
-};
+var request = {};
 
-var call = xudClient.subscribeSwapFailures(request);
+var call = xudClient.subscribeSwapsAccepted(request);
 call.on('data', function (response) {
   console.log(response);
 });
@@ -1329,40 +1380,54 @@ call.on('end', function () {
 // Output:
 // {
 //  "orderId": <string>,
+//  "localId": <string>,
 //  "pairId": <string>,
 //  "quantity": <uint64>,
+//  "price": <double>,
 //  "peerPubKey": <string>,
-//  "failureReason": <string>
+//  "rHash": <string>,
+//  "amountReceiving": <uint64>,
+//  "amountSending": <uint64>,
+//  "currencyReceiving": <string>,
+//  "currencySending": <string>
 // }
 ```
 ```python
-request = xud.SubscribeSwapsRequest(
-  include_taker=<bool>,
-)
-for response in stub.SubscribeSwapFailures(request):
+request = xud.SubscribeSwapsAcceptedRequest()
+for response in stub.SubscribeSwapsAccepted(request):
   print(response)
 # Output:
 # {
 #  "order_id": <string>,
+#  "local_id": <string>,
 #  "pair_id": <string>,
 #  "quantity": <uint64>,
+#  "price": <double>,
 #  "peer_pub_key": <string>,
-#  "failure_reason": <string>
+#  "r_hash": <string>,
+#  "amount_receiving": <uint64>,
+#  "amount_sending": <uint64>,
+#  "currency_receiving": <string>,
+#  "currency_sending": <string>
 # }
 ```
-Subscribes to failed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when swap attempts are failing. It can be used for status monitoring, debugging, and testing purposes.
+Subscribes to accepted swaps. This stream emits a message when the local xud node accepts a swap request from a peer, but before the swap has actually succeeded.
 ### Request
-Parameter | Type | Description
---------- | ---- | -----------
-include_taker | bool | Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.
+This request has no parameters.
 ### Response (Streaming)
 Parameter | Type | Description
 --------- | ---- | -----------
-order_id | string | The global UUID for the order that failed the swap.
+order_id | string | The global UUID for the order that was accepted to be swapped.
+local_id | string | The local id for the order that was accepted to be swapped.
 pair_id | string | The trading pair that the swap is for.
-quantity | uint64 | The order quantity that was attempted to be swapped.
-peer_pub_key | string | The node pub key of the peer that we attempted to swap with.
-failure_reason | string | The reason why the swap failed.
+quantity | uint64 | The order quantity that was accepted to be swapped.
+price | double | The price for the swap.
+peer_pub_key | string | The node pub key of the peer that executed this order.
+r_hash | string | The hex-encoded payment hash for the swap.
+amount_receiving | uint64 | The amount received denominated in satoshis.
+amount_sending | uint64 | The amount sent denominated in satoshis.
+currency_receiving | string | The ticker symbol of the currency received.
+currency_sending | string | The ticker symbol of the currency sent.
 ## TradeHistory
 ```javascript
 var request = {
@@ -1844,10 +1909,26 @@ This message has no parameters.
 Parameter | Type | Description
 --------- | ---- | -----------
 existing | bool | Whether to transmit all existing active orders upon establishing the stream.
+## SubscribeSwapsAcceptedRequest
+This message has no parameters.
 ## SubscribeSwapsRequest
 Parameter | Type | Description
 --------- | ---- | -----------
 include_taker | bool | Whether to include the results for swaps initiated via the PlaceOrder or ExecuteSwap calls. These swap results are also returned in the responses for the respective calls.
+## SwapAccepted
+Parameter | Type | Description
+--------- | ---- | -----------
+order_id | string | The global UUID for the order that was accepted to be swapped.
+local_id | string | The local id for the order that was accepted to be swapped.
+pair_id | string | The trading pair that the swap is for.
+quantity | uint64 | The order quantity that was accepted to be swapped.
+price | double | The price for the swap.
+peer_pub_key | string | The node pub key of the peer that executed this order.
+r_hash | string | The hex-encoded payment hash for the swap.
+amount_receiving | uint64 | The amount received denominated in satoshis.
+amount_sending | uint64 | The amount sent denominated in satoshis.
+currency_receiving | string | The ticker symbol of the currency received.
+currency_sending | string | The ticker symbol of the currency sent.
 ## SwapFailure
 Parameter | Type | Description
 --------- | ---- | -----------
