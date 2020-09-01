@@ -474,9 +474,6 @@
                     <a href="#placeorderevent" class="toc-h2 toc-link" data-title="PlaceOrderEvent">PlaceOrderEvent</a>
                   </li>
                   <li>
-                    <a href="#raideninfo" class="toc-h2 toc-link" data-title="RaidenInfo">RaidenInfo</a>
-                  </li>
-                  <li>
                     <a href="#connextinfo" class="toc-h2 toc-link" data-title="ConnextInfo">ConnextInfo</a>
                   </li>
                   <li>
@@ -625,8 +622,7 @@
 <span class="c1">// Output:</span>
 <span class="c1">// {</span>
 <span class="c1">//  "seedMnemonic": &lt;string[]&gt;,</span>
-<span class="c1">//  "initializedLnds": &lt;string[]&gt;,</span>
-<span class="c1">//  "initializedRaiden": &lt;bool&gt;</span>
+<span class="c1">//  "initializedLnds": &lt;string[]&gt;</span>
 <span class="c1">// }</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xudinit</span><span class="o">.</span><span class="n">CreateNodeRequest</span><span class="p">(</span>
   <span class="n">password</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
@@ -636,8 +632,7 @@
 <span class="c"># Output:</span>
 <span class="c"># {</span>
 <span class="c">#  "seed_mnemonic": &lt;string[]&gt;,</span>
-<span class="c">#  "initialized_lnds": &lt;string[]&gt;,</span>
-<span class="c">#  "initialized_raiden": &lt;bool&gt;</span>
+<span class="c">#  "initialized_lnds": &lt;string[]&gt;</span>
 <span class="c"># }</span>
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli create
 </code></pre>
@@ -674,18 +669,11 @@
 <td>string array</td>
 <td>The list of lnd clients that were initialized.</td>
 </tr>
-<tr>
-<td>initialized_raiden</td>
-<td>bool</td>
-<td>Whether raiden was initialized.</td>
-</tr>
 </tbody></table>
 <h2 id='restorenode'>RestoreNode</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">seedMnemonic</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">lndBackups</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bytes</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="na">raidenDatabase</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bytes</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="na">raidenDatabasePath</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">xudDatabase</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bytes</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">};</span>
 
@@ -698,25 +686,21 @@
 <span class="p">});</span>
 <span class="c1">// Output:</span>
 <span class="c1">// {</span>
-<span class="c1">//  "restoredLnds": &lt;string[]&gt;,</span>
-<span class="c1">//  "restoredRaiden": &lt;bool&gt;</span>
+<span class="c1">//  "restoredLnds": &lt;string[]&gt;</span>
 <span class="c1">// }</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xudinit</span><span class="o">.</span><span class="n">RestoreNodeRequest</span><span class="p">(</span>
   <span class="n">seed_mnemonic</span><span class="o">=&lt;</span><span class="n">string</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">password</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">lnd_backups</span><span class="o">=&lt;</span><span class="nb">bytes</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="n">raiden_database</span><span class="o">=&lt;</span><span class="nb">bytes</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="n">raiden_database_path</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="n">xud_database</span><span class="o">=&lt;</span><span class="nb">bytes</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">xudinitStub</span><span class="o">.</span><span class="n">RestoreNode</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 <span class="c"># Output:</span>
 <span class="c"># {</span>
-<span class="c">#  "restored_lnds": &lt;string[]&gt;,</span>
-<span class="c">#  "restored_raiden": &lt;bool&gt;</span>
+<span class="c">#  "restored_lnds": &lt;string[]&gt;</span>
 <span class="c"># }</span>
-</code></pre><pre class="highlight shell tab-shell"><code>  xucli restore <span class="o">[</span>backup_directory] <span class="o">[</span>raiden_database_path]
+</code></pre><pre class="highlight shell tab-shell"><code>  xucli restore <span class="o">[</span>backup_directory]
 </code></pre>
 <p>Restores an xud instance and underlying wallets from a seed.</p>
 <h3 id='request-2'>Request</h3>
@@ -743,16 +727,6 @@
 <td>A map between the currency of the LND and its multi channel SCB</td>
 </tr>
 <tr>
-<td>raiden_database</td>
-<td>bytes</td>
-<td>The Raiden database backup</td>
-</tr>
-<tr>
-<td>raiden_database_path</td>
-<td>string</td>
-<td>Path to where the Raiden database backup should be written</td>
-</tr>
-<tr>
 <td>xud_database</td>
 <td>bytes</td>
 <td>The XUD database backup</td>
@@ -771,11 +745,6 @@
 <td>string array</td>
 <td>The list of lnd clients that were initialized.</td>
 </tr>
-<tr>
-<td>restored_raiden</td>
-<td>bool</td>
-<td>Whether raiden was initialized.</td>
-</tr>
 </tbody></table>
 <h2 id='unlocknode'>UnlockNode</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">password</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
@@ -791,7 +760,6 @@
 <span class="c1">// Output:</span>
 <span class="c1">// {</span>
 <span class="c1">//  "unlockedLnds": &lt;string[]&gt;,</span>
-<span class="c1">//  "unlockedRaiden": &lt;bool&gt;,</span>
 <span class="c1">//  "lockedLnds": &lt;string[]&gt;</span>
 <span class="c1">// }</span>
 </code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xudinit</span><span class="o">.</span><span class="n">UnlockNodeRequest</span><span class="p">(</span>
@@ -802,7 +770,6 @@
 <span class="c"># Output:</span>
 <span class="c"># {</span>
 <span class="c">#  "unlocked_lnds": &lt;string[]&gt;,</span>
-<span class="c">#  "unlocked_raiden": &lt;bool&gt;,</span>
 <span class="c">#  "locked_lnds": &lt;string[]&gt;</span>
 <span class="c"># }</span>
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli unlock
@@ -834,11 +801,6 @@
 <td>unlocked_lnds</td>
 <td>string array</td>
 <td>The list of lnd clients that were unlocked.</td>
-</tr>
-<tr>
-<td>unlocked_raiden</td>
-<td>bool</td>
-<td>Whether raiden was unlocked.</td>
 </tr>
 <tr>
 <td>locked_lnds</td>
@@ -1290,7 +1252,6 @@
 <span class="c1">//  "numPairs": &lt;uint32&gt;,</span>
 <span class="c1">//  "orders": &lt;OrdersCount&gt;,</span>
 <span class="c1">//  "lnd": &lt;LndInfo&gt;,</span>
-<span class="c1">//  "raiden": &lt;RaidenInfo&gt;,</span>
 <span class="c1">//  "alias": &lt;string&gt;,</span>
 <span class="c1">//  "network": &lt;string&gt;,</span>
 <span class="c1">//  "pendingSwapHashes": &lt;string[]&gt;,</span>
@@ -1308,7 +1269,6 @@
 <span class="c">#  "num_pairs": &lt;uint32&gt;,</span>
 <span class="c">#  "orders": &lt;OrdersCount&gt;,</span>
 <span class="c">#  "lnd": &lt;LndInfo&gt;,</span>
-<span class="c">#  "raiden": &lt;RaidenInfo&gt;,</span>
 <span class="c">#  "alias": &lt;string&gt;,</span>
 <span class="c">#  "network": &lt;string&gt;,</span>
 <span class="c">#  "pending_swap_hashes": &lt;string[]&gt;,</span>
@@ -1360,11 +1320,6 @@
 <tr>
 <td>lnd</td>
 <td>map&lt;string, <a href="#lndinfo">LndInfo</a>&gt;</td>
-<td></td>
-</tr>
-<tr>
-<td>raiden</td>
-<td><a href="#raideninfo">RaidenInfo</a></td>
 <td></td>
 </tr>
 <tr>
@@ -3104,11 +3059,6 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>string array</td>
 <td>The list of lnd clients that were initialized.</td>
 </tr>
-<tr>
-<td>initialized_raiden</td>
-<td>bool</td>
-<td>Whether raiden was initialized.</td>
-</tr>
 </tbody></table>
 <h2 id='currency'>Currency</h2>
 <table><thead>
@@ -3295,11 +3245,6 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <tr>
 <td>lnd</td>
 <td>map&lt;string, <a href="#lndinfo">LndInfo</a>&gt;</td>
-<td></td>
-</tr>
-<tr>
-<td>raiden</td>
-<td><a href="#raideninfo">RaidenInfo</a></td>
 <td></td>
 </tr>
 <tr>
@@ -3735,11 +3680,6 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The time in seconds that we have been connected to this peer.</td>
 </tr>
 <tr>
-<td>raiden_address</td>
-<td>string</td>
-<td>The raiden address for this peer</td>
-</tr>
-<tr>
 <td>alias</td>
 <td>string</td>
 <td>The alias for this peer&#39;s public key</td>
@@ -3845,40 +3785,6 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>swap_failure</td>
 <td><a href="#swapfailure">SwapFailure</a></td>
 <td>A swap attempt that failed.</td>
-</tr>
-</tbody></table>
-<h2 id='raideninfo'>RaidenInfo</h2>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>status</td>
-<td>string</td>
-<td></td>
-</tr>
-<tr>
-<td>address</td>
-<td>string</td>
-<td></td>
-</tr>
-<tr>
-<td>channels</td>
-<td><a href="#channels">Channels</a></td>
-<td></td>
-</tr>
-<tr>
-<td>version</td>
-<td>string</td>
-<td></td>
-</tr>
-<tr>
-<td>chain</td>
-<td>string</td>
-<td></td>
 </tr>
 </tbody></table>
 <h2 id='connextinfo'>ConnextInfo</h2>
@@ -3999,16 +3905,6 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>A map between the currency of the LND and its multi channel SCB</td>
 </tr>
 <tr>
-<td>raiden_database</td>
-<td>bytes</td>
-<td>The Raiden database backup</td>
-</tr>
-<tr>
-<td>raiden_database_path</td>
-<td>string</td>
-<td>Path to where the Raiden database backup should be written</td>
-</tr>
-<tr>
 <td>xud_database</td>
 <td>bytes</td>
 <td>The XUD database backup</td>
@@ -4026,11 +3922,6 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>restored_lnds</td>
 <td>string array</td>
 <td>The list of lnd clients that were initialized.</td>
-</tr>
-<tr>
-<td>restored_raiden</td>
-<td>bool</td>
-<td>Whether raiden was initialized.</td>
 </tr>
 </tbody></table>
 <h2 id='shutdownrequest'>ShutdownRequest</h2>
@@ -4422,11 +4313,6 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The list of lnd clients that were unlocked.</td>
 </tr>
 <tr>
-<td>unlocked_raiden</td>
-<td>bool</td>
-<td>Whether raiden was unlocked.</td>
-</tr>
-<tr>
 <td>locked_lnds</td>
 <td>string array</td>
 <td>The list of lnd clients that could not be unlocked.</td>
@@ -4542,7 +4428,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td></td>
 </tr>
 <tr>
-<td>RAIDEN</td>
+<td>CONNEXT</td>
 <td>1</td>
 <td></td>
 </tr>
