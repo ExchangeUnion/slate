@@ -53,7 +53,7 @@ xudinitClient.createNode(request, function(err, response) {
 // {
 //  "seedMnemonic": <string[]>,
 //  "initializedLnds": <string[]>,
-//  "initializedRaiden": <bool>
+//  "initializedConnext": <bool>
 // }
 ```
 ```python
@@ -66,7 +66,7 @@ print(response)
 # {
 #  "seed_mnemonic": <string[]>,
 #  "initialized_lnds": <string[]>,
-#  "initialized_raiden": <bool>
+#  "initialized_connext": <bool>
 # }
 ```
 ```shell
@@ -82,15 +82,13 @@ Parameter | Type | Description
 --------- | ---- | -----------
 seed_mnemonic | string array | The 24 word mnemonic to recover the xud identity key and underlying wallets
 initialized_lnds | string array | The list of lnd clients that were initialized.
-initialized_raiden | bool | Whether raiden was initialized.
+initialized_connext | bool | Whether the connext wallet was initialized.
 ## RestoreNode
 ```javascript
 var request = {
   seedMnemonic: <string[]>,
   password: <string>,
   lndBackups: <bytes>,
-  raidenDatabase: <bytes>,
-  raidenDatabasePath: <string>,
   xudDatabase: <bytes>,
 };
 
@@ -104,7 +102,7 @@ xudinitClient.restoreNode(request, function(err, response) {
 // Output:
 // {
 //  "restoredLnds": <string[]>,
-//  "restoredRaiden": <bool>
+//  "restoredConnext": <bool>
 // }
 ```
 ```python
@@ -112,8 +110,6 @@ request = xudinit.RestoreNodeRequest(
   seed_mnemonic=<string[]>,
   password=<string>,
   lnd_backups=<bytes>,
-  raiden_database=<bytes>,
-  raiden_database_path=<string>,
   xud_database=<bytes>,
 )
 response = xudinitStub.RestoreNode(request)
@@ -121,11 +117,11 @@ print(response)
 # Output:
 # {
 #  "restored_lnds": <string[]>,
-#  "restored_raiden": <bool>
+#  "restored_connext": <bool>
 # }
 ```
 ```shell
-  xucli restore [backup_directory] [raiden_database_path]
+  xucli restore [backup_directory]
   ```
 Restores an xud instance and underlying wallets from a seed.
 ### Request
@@ -134,14 +130,12 @@ Parameter | Type | Description
 seed_mnemonic | string array | The 24 word mnemonic to recover the xud identity key and underlying wallets
 password | string | The password in utf-8 with which to encrypt the restored xud node key as well as any restored underlying wallets.
 lnd_backups | map&lt;string, bytes&gt; | A map between the currency of the LND and its multi channel SCB
-raiden_database | bytes | The Raiden database backup
-raiden_database_path | string | Path to where the Raiden database backup should be written
 xud_database | bytes | The XUD database backup
 ### Response
 Parameter | Type | Description
 --------- | ---- | -----------
 restored_lnds | string array | The list of lnd clients that were initialized.
-restored_raiden | bool | Whether raiden was initialized.
+restored_connext | bool | Whether the connext wallet was initialized.
 ## UnlockNode
 ```javascript
 var request = {
@@ -158,7 +152,6 @@ xudinitClient.unlockNode(request, function(err, response) {
 // Output:
 // {
 //  "unlockedLnds": <string[]>,
-//  "unlockedRaiden": <bool>,
 //  "lockedLnds": <string[]>
 // }
 ```
@@ -171,7 +164,6 @@ print(response)
 # Output:
 # {
 #  "unlocked_lnds": <string[]>,
-#  "unlocked_raiden": <bool>,
 #  "locked_lnds": <string[]>
 # }
 ```
@@ -187,7 +179,6 @@ password | string | The password in utf-8 with which to unlock an existing xud n
 Parameter | Type | Description
 --------- | ---- | -----------
 unlocked_lnds | string array | The list of lnd clients that were unlocked.
-unlocked_raiden | bool | Whether raiden was unlocked.
 locked_lnds | string array | The list of lnd clients that could not be unlocked.
 # Xud Service
 ```javascript
@@ -333,6 +324,7 @@ var request = {
   force: <bool>,
   destination: <string>,
   amount: <uint64>,
+  fee: <uint64>,
 };
 
 xudClient.closeChannel(request, function(err, response) {
@@ -342,7 +334,10 @@ xudClient.closeChannel(request, function(err, response) {
     console.log(response);
   }
 });
-// Output: {}
+// Output:
+// {
+//  "transactionIds": <string[]>
+// }
 ```
 ```python
 request = xud.CloseChannelRequest(
@@ -351,10 +346,14 @@ request = xud.CloseChannelRequest(
   force=<bool>,
   destination=<string>,
   amount=<uint64>,
+  fee=<uint64>,
 )
 response = xudStub.CloseChannel(request)
 print(response)
-# Output: {}
+# Output:
+# {
+#  "transaction_ids": <string[]>
+# }
 ```
 ```shell
   xucli closechannel <currency> [node_identifier ] [--force]
@@ -368,8 +367,11 @@ currency | string | The ticker symbol of the currency of the channel to close.
 force | bool | Whether to force close the channel in case the peer is offline or unresponsive.
 destination | string | The on-chain address to send funds extracted from the channel. If unspecified, the funds return to the default wallet for the client closing the channel.
 amount | uint64 | For Connext only - the amount to extract from the channel. If 0 or unspecified, the entire off-chain balance for the specified currency will be extracted.
+fee | uint64 | A manual fee rate set in sat/byte that should be used when crafting the closure transaction.
 ### Response
-This response has no parameters.
+Parameter | Type | Description
+--------- | ---- | -----------
+transaction_ids | string array | The id of the transaction per channel close.
 ## Connect
 ```javascript
 var request = {
@@ -543,7 +545,6 @@ xudClient.getInfo(request, function(err, response) {
 //  "numPairs": <uint32>,
 //  "orders": <OrdersCount>,
 //  "lnd": <LndInfo>,
-//  "raiden": <RaidenInfo>,
 //  "alias": <string>,
 //  "network": <string>,
 //  "pendingSwapHashes": <string[]>,
@@ -563,7 +564,6 @@ print(response)
 #  "num_pairs": <uint32>,
 #  "orders": <OrdersCount>,
 #  "lnd": <LndInfo>,
-#  "raiden": <RaidenInfo>,
 #  "alias": <string>,
 #  "network": <string>,
 #  "pending_swap_hashes": <string[]>,
@@ -586,7 +586,6 @@ num_peers | uint32 | The number of currently connected peers.
 num_pairs | uint32 | The number of supported trading pairs.
 orders | [OrdersCount](#orderscount) | The number of active, standing orders in the order book.
 lnd | map&lt;string, [LndInfo](#lndinfo)&gt; | 
-raiden | [RaidenInfo](#raideninfo) | 
 alias | string | The alias of this instance of xud.
 network | string | The network of this node.
 pending_swap_hashes | string array | 
@@ -797,6 +796,7 @@ var request = {
   currency: <string>,
   amount: <uint64>,
   pushAmount: <uint64>,
+  fee: <uint64>,
 };
 
 xudClient.openChannel(request, function(err, response) {
@@ -806,7 +806,10 @@ xudClient.openChannel(request, function(err, response) {
     console.log(response);
   }
 });
-// Output: {}
+// Output:
+// {
+//  "transactionId": <string>
+// }
 ```
 ```python
 request = xud.OpenChannelRequest(
@@ -814,10 +817,14 @@ request = xud.OpenChannelRequest(
   currency=<string>,
   amount=<uint64>,
   push_amount=<uint64>,
+  fee=<uint64>,
 )
 response = xudStub.OpenChannel(request)
 print(response)
-# Output: {}
+# Output:
+# {
+#  "transaction_id": <string>
+# }
 ```
 ```shell
   xucli openchannel <currency> <amount> [node_identifier] [push_amount]
@@ -830,8 +837,11 @@ node_identifier | string | The node pub key or alias of the peer with which to o
 currency | string | The ticker symbol of the currency to open the channel for.
 amount | uint64 | The amount to be deposited into the channel denominated in satoshis.
 push_amount | uint64 | The balance amount to be pushed to the remote side of the channel denominated in satoshis.
+fee | uint64 | The manual fee rate set in sat/byte that should be used when crafting the funding transaction in the channel.
 ### Response
-This response has no parameters.
+Parameter | Type | Description
+--------- | ---- | -----------
+transaction_id | string | The id of the transaction that opened the channel.
 ## PlaceOrder
 ```javascript
 var request = {
@@ -1644,8 +1654,11 @@ currency | string | The ticker symbol of the currency of the channel to close.
 force | bool | Whether to force close the channel in case the peer is offline or unresponsive.
 destination | string | The on-chain address to send funds extracted from the channel. If unspecified, the funds return to the default wallet for the client closing the channel.
 amount | uint64 | For Connext only - the amount to extract from the channel. If 0 or unspecified, the entire off-chain balance for the specified currency will be extracted.
+fee | uint64 | A manual fee rate set in sat/byte that should be used when crafting the closure transaction.
 ## CloseChannelResponse
-This message has no parameters.
+Parameter | Type | Description
+--------- | ---- | -----------
+transaction_ids | string array | The id of the transaction per channel close.
 ## ConnectRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1661,7 +1674,7 @@ Parameter | Type | Description
 --------- | ---- | -----------
 seed_mnemonic | string array | The 24 word mnemonic to recover the xud identity key and underlying wallets
 initialized_lnds | string array | The list of lnd clients that were initialized.
-initialized_raiden | bool | Whether raiden was initialized.
+initialized_connext | bool | Whether the connext wallet was initialized.
 ## Currency
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1712,7 +1725,6 @@ num_peers | uint32 | The number of currently connected peers.
 num_pairs | uint32 | The number of supported trading pairs.
 orders | [OrdersCount](#orderscount) | The number of active, standing orders in the order book.
 lnd | map&lt;string, [LndInfo](#lndinfo)&gt; | 
-raiden | [RaidenInfo](#raideninfo) | 
 alias | string | The alias of this instance of xud.
 network | string | The network of this node.
 pending_swap_hashes | string array | 
@@ -1777,8 +1789,11 @@ node_identifier | string | The node pub key or alias of the peer with which to o
 currency | string | The ticker symbol of the currency to open the channel for.
 amount | uint64 | The amount to be deposited into the channel denominated in satoshis.
 push_amount | uint64 | The balance amount to be pushed to the remote side of the channel denominated in satoshis.
+fee | uint64 | The manual fee rate set in sat/byte that should be used when crafting the funding transaction in the channel.
 ## OpenChannelResponse
-This message has no parameters.
+Parameter | Type | Description
+--------- | ---- | -----------
+transaction_id | string | The id of the transaction that opened the channel.
 ## Order
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1825,7 +1840,6 @@ inbound | bool | Indicates whether this peer was connected inbound.
 pairs | string array | A list of trading pair tickers supported by this peer.
 xud_version | string | The version of xud being used by the peer.
 seconds_connected | uint32 | The time in seconds that we have been connected to this peer.
-raiden_address | string | The raiden address for this peer
 alias | string | The alias for this peer's public key
 ## PlaceOrderRequest
 Parameter | Type | Description
@@ -1851,14 +1865,6 @@ match | [Order](#order) | An order (or portion thereof) that matched the newly p
 swap_success | [SwapSuccess](#swapsuccess) | A successful swap of a peer order that matched the newly placed order.
 remaining_order | [Order](#order) | The remaining portion of the order, after matches, that enters the order book.
 swap_failure | [SwapFailure](#swapfailure) | A swap attempt that failed.
-## RaidenInfo
-Parameter | Type | Description
---------- | ---- | -----------
-status | string | 
-address | string | 
-channels | [Channels](#channels) | 
-version | string | 
-chain | string | 
 ## ConnextInfo
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1893,14 +1899,12 @@ Parameter | Type | Description
 seed_mnemonic | string array | The 24 word mnemonic to recover the xud identity key and underlying wallets
 password | string | The password in utf-8 with which to encrypt the restored xud node key as well as any restored underlying wallets.
 lnd_backups | map&lt;string, bytes&gt; | A map between the currency of the LND and its multi channel SCB
-raiden_database | bytes | The Raiden database backup
-raiden_database_path | string | Path to where the Raiden database backup should be written
 xud_database | bytes | The XUD database backup
 ## RestoreNodeResponse
 Parameter | Type | Description
 --------- | ---- | -----------
 restored_lnds | string array | The list of lnd clients that were initialized.
-restored_raiden | bool | Whether raiden was initialized.
+restored_connext | bool | Whether the connext wallet was initialized.
 ## ShutdownRequest
 This message has no parameters.
 ## ShutdownResponse
@@ -2002,7 +2006,6 @@ password | string | The password in utf-8 with which to unlock an existing xud n
 Parameter | Type | Description
 --------- | ---- | -----------
 unlocked_lnds | string array | The list of lnd clients that were unlocked.
-unlocked_raiden | bool | Whether raiden was unlocked.
 locked_lnds | string array | The list of lnd clients that could not be unlocked.
 ## WithdrawRequest
 Parameter | Type | Description
@@ -2033,7 +2036,7 @@ INTERNAL | 2 |
 Enumeration | Value | Description
 ----------- | ----- | -----------
 LND | 0 |
-RAIDEN | 1 |
+CONNEXT | 1 |
 ## Owner
 Enumeration | Value | Description
 ----------- | ----- | -----------
