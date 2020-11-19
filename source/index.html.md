@@ -1111,7 +1111,10 @@ xudClient.removeOrder(request, function(err, response) {
 });
 // Output:
 // {
-//  "quantityOnHold": <uint64>
+//  "quantityOnHold": <uint64>,
+//  "remainingQuantity": <uint64>,
+//  "removedQuantity": <uint64>,
+//  "pairId": <string>
 // }
 ```
 ```python
@@ -1123,7 +1126,10 @@ response = xudStub.RemoveOrder(request)
 print(response)
 # Output:
 # {
-#  "quantity_on_hold": <uint64>
+#  "quantity_on_hold": <uint64>,
+#  "remaining_quantity": <uint64>,
+#  "removed_quantity": <uint64>,
+#  "pair_id": <string>
 # }
 ```
 ```shell
@@ -1139,6 +1145,47 @@ quantity | uint64 | The quantity to remove from the order denominated in satoshi
 Parameter | Type | Description
 --------- | ---- | -----------
 quantity_on_hold | uint64 | Any portion of the order that was on hold due to ongoing swaps at the time of the request and could not be removed until after the swaps finish.
+remaining_quantity | uint64 | Remaining portion of the order if it was a partial removal.
+removed_quantity | uint64 | Successfully removed portion of the order.
+pair_id | string | Removed order's pairId. (e.g. ETH/BTC)
+## RemoveAllOrders
+```javascript
+var request = {};
+
+xudClient.removeAllOrders(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "removedOrderIds": <string[]>,
+//  "onHoldOrderIds": <string[]>
+// }
+```
+```python
+request = xud.RemoveAllOrdersRequest()
+response = xudStub.RemoveAllOrders(request)
+print(response)
+# Output:
+# {
+#  "removed_order_ids": <string[]>,
+#  "on_hold_order_ids": <string[]>
+# }
+```
+```shell
+  xucli removeallorders
+  ```
+Removes all orders from the order book. Removed orders become immediately unavailable for swaps, and peers are notified that the orders are no longer valid. Any portion of the orders that is on hold due to ongoing swaps will not be removed until after the swap attempts complete.
+### Request
+This request has no parameters.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+removed_order_ids | string array | The local order ids that were successfully removed.
+on_hold_order_ids | string array | The local order ids that were on hold and failed to be removed.
 ## RemovePair
 ```javascript
 var request = {
@@ -1170,6 +1217,39 @@ Removes a trading pair from the list of currently supported trading pair. This c
 Parameter | Type | Description
 --------- | ---- | -----------
 pair_id | string | The trading pair ticker to remove in a format such as "LTC/BTC".
+### Response
+This response has no parameters.
+## SetLogLevel
+```javascript
+var request = {
+  logLevel: <LogLevel>,
+};
+
+xudClient.setLogLevel(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output: {}
+```
+```python
+request = xud.SetLogLevelRequest(
+  log_level=<LogLevel>,
+)
+response = xudStub.SetLogLevel(request)
+print(response)
+# Output: {}
+```
+```shell
+  xucli loglevel <level>
+  ```
+Set the logging level.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+log_level | [LogLevel](#loglevel) | 
 ### Response
 This response has no parameters.
 ## Shutdown
@@ -1887,6 +1967,16 @@ quantity | uint64 | The quantity to remove from the order denominated in satoshi
 Parameter | Type | Description
 --------- | ---- | -----------
 quantity_on_hold | uint64 | Any portion of the order that was on hold due to ongoing swaps at the time of the request and could not be removed until after the swaps finish.
+remaining_quantity | uint64 | Remaining portion of the order if it was a partial removal.
+removed_quantity | uint64 | Successfully removed portion of the order.
+pair_id | string | Removed order's pairId. (e.g. ETH/BTC)
+## RemoveAllOrdersRequest
+This message has no parameters.
+## RemoveAllOrdersResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+removed_order_ids | string array | The local order ids that were successfully removed.
+on_hold_order_ids | string array | The local order ids that were on hold and failed to be removed.
 ## RemovePairRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -1905,6 +1995,12 @@ Parameter | Type | Description
 --------- | ---- | -----------
 restored_lnds | string array | The list of lnd clients that were initialized.
 restored_connext | bool | Whether the connext wallet was initialized.
+## SetLogLevelRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+log_level | [LogLevel](#loglevel) | 
+## SetLogLevelResponse
+This message has no parameters.
 ## ShutdownRequest
 This message has no parameters.
 ## ShutdownResponse
@@ -1981,8 +2077,10 @@ trades | [Trade](#trade) array |
 ## TradingLimits
 Parameter | Type | Description
 --------- | ---- | -----------
-MaxSell | uint64 | Max outbound capacity for a distinct channel denominated in satoshis.
-MaxBuy | uint64 | Max inbound capacity for a distinct channel denominated in satoshis.
+max_sell | uint64 | Maximum outbound limit for a sell order denominated in satoshis.
+max_buy | uint64 | Maximum inbound limit for a buy order denominated in satoshis.
+reserved_sell | uint64 | The outbound amount reserved for open sell orders.
+reserved_buy | uint64 | The inbound amount reserved for open buy orders.
 ## TradingLimitsRequest
 Parameter | Type | Description
 --------- | ---- | -----------
@@ -2032,6 +2130,16 @@ Enumeration | Value | Description
 TAKER | 0 |
 MAKER | 1 |
 INTERNAL | 2 |
+## LogLevel
+Enumeration | Value | Description
+----------- | ----- | -----------
+ALERT | 0 |
+ERROR | 1 |
+WARN | 2 |
+INFO | 3 |
+VERBOSE | 4 |
+DEBUG | 5 |
+TRACE | 6 |
 ## SwapClient
 Enumeration | Value | Description
 ----------- | ----- | -----------
