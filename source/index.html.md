@@ -590,6 +590,41 @@ alias | string | The alias of this instance of xud.
 network | string | The network of this node.
 pending_swap_hashes | string array | 
 connext | [ConnextInfo](#connextinfo) | 
+## GetMnemonic
+```javascript
+var request = {};
+
+xudClient.getMnemonic(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output:
+// {
+//  "seedMnemonic": <string[]>
+// }
+```
+```python
+request = xud.GetMnemonicRequest()
+response = xudStub.GetMnemonic(request)
+print(response)
+# Output:
+# {
+#  "seed_mnemonic": <string[]>
+# }
+```
+```shell
+  xucli getnemonic
+  ```
+Gets the master seed mnemonic .
+### Request
+This request has no parameters.
+### Response
+Parameter | Type | Description
+--------- | ---- | -----------
+seed_mnemonic | string array | 
 ## GetNodeInfo
 ```javascript
 var request = {
@@ -1809,6 +1844,12 @@ alias | string | The alias of this instance of xud.
 network | string | The network of this node.
 pending_swap_hashes | string array | 
 connext | [ConnextInfo](#connextinfo) | 
+## GetMnemonicRequest
+This message has no parameters.
+## GetMnemonicResponse
+Parameter | Type | Description
+--------- | ---- | -----------
+seed_mnemonic | string array | 
 ## GetNodeInfoRequest
 Parameter | Type | Description
 --------- | ---- | -----------
