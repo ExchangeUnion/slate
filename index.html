@@ -247,6 +247,9 @@
                     <a href="#ban" class="toc-h2 toc-link" data-title="Ban">Ban</a>
                   </li>
                   <li>
+                    <a href="#changepassword" class="toc-h2 toc-link" data-title="ChangePassword">ChangePassword</a>
+                  </li>
+                  <li>
                     <a href="#closechannel" class="toc-h2 toc-link" data-title="CloseChannel">CloseChannel</a>
                   </li>
                   <li>
@@ -364,6 +367,12 @@
                   </li>
                   <li>
                     <a href="#channels" class="toc-h2 toc-link" data-title="Channels">Channels</a>
+                  </li>
+                  <li>
+                    <a href="#changepasswordrequest" class="toc-h2 toc-link" data-title="ChangePasswordRequest">ChangePasswordRequest</a>
+                  </li>
+                  <li>
+                    <a href="#changepasswordresponse" class="toc-h2 toc-link" data-title="ChangePasswordResponse">ChangePasswordResponse</a>
                   </li>
                   <li>
                     <a href="#closechannelrequest" class="toc-h2 toc-link" data-title="CloseChannelRequest">CloseChannelRequest</a>
@@ -1012,6 +1021,50 @@
 </tbody></table>
 <h3 id='response-6'>Response</h3>
 <p>This response has no parameters.</p>
+<h2 id='changepassword'>ChangePassword</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">newPassword</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="na">oldPassword</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">};</span>
+
+<span class="nx">xudClient</span><span class="p">.</span><span class="nx">changePassword</span><span class="p">(</span><span class="nx">request</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// Output: {}</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="n">request</span> <span class="o">=</span> <span class="n">xud</span><span class="o">.</span><span class="n">ChangePasswordRequest</span><span class="p">(</span>
+  <span class="n">new_password</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="n">old_password</span><span class="o">=&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">xudStub</span><span class="o">.</span><span class="n">ChangePassword</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<span class="c"># Output: {}</span>
+</code></pre><pre class="highlight shell tab-shell"><code>  xucli changepass
+</code></pre>
+<p>Changes the xud master password, including the wallet passwords for any underlying clients.</p>
+<h3 id='request-7'>Request</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>new_password</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>old_password</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id='response-7'>Response</h3>
+<p>This response has no parameters.</p>
 <h2 id='closechannel'>CloseChannel</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">nodeIdentifier</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
   <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
@@ -1049,7 +1102,7 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli closechannel &lt;currency&gt; <span class="o">[</span>node_identifier <span class="o">]</span> <span class="o">[</span>--force]
 </code></pre>
 <p>Closes any existing payment channels with a peer for the specified currency.</p>
-<h3 id='request-7'>Request</h3>
+<h3 id='request-8'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1088,7 +1141,7 @@
 <td>A manual fee rate set in sat/byte that should be used when crafting the closure transaction.</td>
 </tr>
 </tbody></table>
-<h3 id='response-7'>Response</h3>
+<h3 id='response-8'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1123,7 +1176,7 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli connect &lt;node_uri&gt;
 </code></pre>
 <p>Attempts to connect to a node. Once connected, the node is added to the list of peers and becomes available for swaps and trading. A handshake exchanges information about the peer&#39;s supported trading and swap clients. Orders will be shared with the peer upon connection and upon new order placements.</p>
-<h3 id='request-8'>Request</h3>
+<h3 id='request-9'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1137,7 +1190,7 @@
 <td>The uri of the node to connect to in &quot;[nodePubKey]@[host]:[port]&quot; format.</td>
 </tr>
 </tbody></table>
-<h3 id='response-8'>Response</h3>
+<h3 id='response-9'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='walletdeposit'>WalletDeposit</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
@@ -1166,7 +1219,7 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli walletdeposit &lt;currency&gt;
 </code></pre>
 <p>Gets an address to deposit a given currency into the xud wallets.</p>
-<h3 id='request-9'>Request</h3>
+<h3 id='request-10'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1180,7 +1233,7 @@
 <td>The ticker symbol of the currency to deposit.</td>
 </tr>
 </tbody></table>
-<h3 id='response-9'>Response</h3>
+<h3 id='response-10'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1220,7 +1273,7 @@
 <span class="c"># }</span>
 </code></pre>
 <p>Discover nodes from a specific peer and apply new connections</p>
-<h3 id='request-10'>Request</h3>
+<h3 id='request-11'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1234,7 +1287,7 @@
 <td>The node pub key or alias of the peer to discover nodes from.</td>
 </tr>
 </tbody></table>
-<h3 id='response-10'>Response</h3>
+<h3 id='response-11'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1275,7 +1328,7 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli getbalance <span class="o">[</span>currency]
 </code></pre>
 <p>Gets the total balance available across all payment channels and wallets for one or all currencies.</p>
-<h3 id='request-11'>Request</h3>
+<h3 id='request-12'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1289,7 +1342,7 @@
 <td>The ticker symbol of the currency to query for, if unspecified then balances for all supported currencies are queried.</td>
 </tr>
 </tbody></table>
-<h3 id='response-11'>Response</h3>
+<h3 id='response-12'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1346,9 +1399,9 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli getinfo
 </code></pre>
 <p>Gets general information about this node.</p>
-<h3 id='request-12'>Request</h3>
+<h3 id='request-13'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-12'>Response</h3>
+<h3 id='response-13'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1435,9 +1488,9 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli getnemonic
 </code></pre>
 <p>Gets the master seed mnemonic .</p>
-<h3 id='request-13'>Request</h3>
+<h3 id='request-14'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-13'>Response</h3>
+<h3 id='response-14'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1480,7 +1533,7 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli getnodeinfo &lt;node_identifier&gt;
 </code></pre>
 <p>Gets general information about a node.</p>
-<h3 id='request-14'>Request</h3>
+<h3 id='request-15'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1494,7 +1547,7 @@
 <td>The node pub key or alias of the node for which to get information.</td>
 </tr>
 </tbody></table>
-<h3 id='response-14'>Response</h3>
+<h3 id='response-15'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1546,7 +1599,7 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli listorders <span class="o">[</span>pair_id] <span class="o">[</span>include_own_orders] <span class="o">[</span>limit]
 </code></pre>
 <p>Gets orders from the order book. This call returns the state of the order book at a given point in time, although it is not guaranteed to still be vaild by the time a response is received and processed by a client. It accepts an optional trading pair id parameter. If specified, only orders for that particular trading pair are returned. Otherwise, all orders are returned. Orders are separated into buys and sells for each trading pair, but unsorted.</p>
-<h3 id='request-15'>Request</h3>
+<h3 id='request-16'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1575,7 +1628,7 @@
 <td>Whether to include the node aliases of owners of the orders.</td>
 </tr>
 </tbody></table>
-<h3 id='response-15'>Response</h3>
+<h3 id='response-16'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1612,9 +1665,9 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli listcurrencies
 </code></pre>
 <p>Gets a list of this node&#39;s supported currencies.</p>
-<h3 id='request-16'>Request</h3>
+<h3 id='request-17'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-16'>Response</h3>
+<h3 id='response-17'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1651,9 +1704,9 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli listpairs
 </code></pre>
 <p>Gets a list of this nodes suported trading pairs.</p>
-<h3 id='request-17'>Request</h3>
+<h3 id='request-18'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-17'>Response</h3>
+<h3 id='response-18'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1690,9 +1743,9 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli listpeers
 </code></pre>
 <p>Gets a list of connected peers.</p>
-<h3 id='request-18'>Request</h3>
+<h3 id='request-19'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-18'>Response</h3>
+<h3 id='response-19'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1741,7 +1794,7 @@
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli openchannel &lt;currency&gt; &lt;amount&gt; <span class="o">[</span>node_identifier] <span class="o">[</span>push_amount]
 </code></pre>
 <p>Opens a payment channel to a peer for the specified amount and currency.</p>
-<h3 id='request-19'>Request</h3>
+<h3 id='request-20'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1775,7 +1828,7 @@
 <td>The manual fee rate set in sat/byte that should be used when crafting the funding transaction in the channel.</td>
 </tr>
 </tbody></table>
-<h3 id='response-19'>Response</h3>
+<h3 id='response-20'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1836,7 +1889,7 @@
 <span class="c"># }</span>
 </code></pre>
 <p>Adds an order to the order book. If price is zero or unspecified a market order will get added.</p>
-<h3 id='request-20'>Request</h3>
+<h3 id='request-21'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1955,7 +2008,7 @@
 xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</span>order_id] <span class="o">[</span>stream]
 </code></pre>
 <p>The synchronous, non-streaming version of PlaceOrder.</p>
-<h3 id='request-21'>Request</h3>
+<h3 id='request-22'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1999,7 +2052,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>Whether the order must be filled immediately and not allowed to enter the order book.</td>
 </tr>
 </tbody></table>
-<h3 id='response-20'>Response</h3>
+<h3 id='response-21'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2084,7 +2137,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c"># }</span>
 </code></pre>
 <p>Executes a swap on a maker peer order.</p>
-<h3 id='request-22'>Request</h3>
+<h3 id='request-23'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2113,7 +2166,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The quantity to swap denominated in satoshis. The whole order will be swapped if unspecified.</td>
 </tr>
 </tbody></table>
-<h3 id='response-21'>Response</h3>
+<h3 id='response-22'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2208,7 +2261,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli removecurrency &lt;currency&gt;
 </code></pre>
 <p>Removes a currency from the list of supported currencies. Only currencies that are not in use for any currently supported trading pairs may be removed. Once removed, the currency can no longer be used for any supported trading pairs.</p>
-<h3 id='request-23'>Request</h3>
+<h3 id='request-24'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2222,7 +2275,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The ticker symbol for this currency such as BTC, LTC, ETH, etc...</td>
 </tr>
 </tbody></table>
-<h3 id='response-22'>Response</h3>
+<h3 id='response-23'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='removeorder'>RemoveOrder</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">orderId</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
@@ -2259,7 +2312,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli removeorder &lt;order_id&gt; <span class="o">[</span>quantity]
 </code></pre>
 <p>Removes an order from the order book by its local id. This should be called when an order is canceled or filled outside of xud. Removed orders become immediately unavailable for swaps, and peers are notified that the order is no longer valid. Any portion of the order that is on hold due to ongoing swaps will not be removed until after the swap attempts complete.</p>
-<h3 id='request-24'>Request</h3>
+<h3 id='request-25'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2278,7 +2331,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The quantity to remove from the order denominated in satoshis. If zero or unspecified then the entire order is removed.</td>
 </tr>
 </tbody></table>
-<h3 id='response-23'>Response</h3>
+<h3 id='response-24'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2332,9 +2385,9 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli removeallorders
 </code></pre>
 <p>Removes all orders from the order book. Removed orders become immediately unavailable for swaps, and peers are notified that the orders are no longer valid. Any portion of the orders that is on hold due to ongoing swaps will not be removed until after the swap attempts complete.</p>
-<h3 id='request-25'>Request</h3>
+<h3 id='request-26'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-24'>Response</h3>
+<h3 id='response-25'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2374,7 +2427,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli removepair &lt;pair_id&gt;
 </code></pre>
 <p>Removes a trading pair from the list of currently supported trading pair. This call will effectively cancel any standing orders for that trading pair. Peers are informed when a pair is no longer supported so that they will know to stop sending orders for it.</p>
-<h3 id='request-26'>Request</h3>
+<h3 id='request-27'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2388,7 +2441,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The trading pair ticker to remove in a format such as &quot;LTC/BTC&quot;.</td>
 </tr>
 </tbody></table>
-<h3 id='response-25'>Response</h3>
+<h3 id='response-26'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='setloglevel'>SetLogLevel</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">logLevel</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">LogLevel</span><span class="o">&gt;</span><span class="p">,</span>
@@ -2411,7 +2464,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli loglevel &lt;level&gt;
 </code></pre>
 <p>Set the logging level.</p>
-<h3 id='request-27'>Request</h3>
+<h3 id='request-28'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2425,7 +2478,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td></td>
 </tr>
 </tbody></table>
-<h3 id='response-26'>Response</h3>
+<h3 id='response-27'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='shutdown'>Shutdown</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{};</span>
 
@@ -2444,9 +2497,9 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli shutdown
 </code></pre>
 <p>Begin gracefully shutting down xud.</p>
-<h3 id='request-28'>Request</h3>
+<h3 id='request-29'>Request</h3>
 <p>This request has no parameters.</p>
-<h3 id='response-27'>Response</h3>
+<h3 id='response-28'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='subscribeorders'>SubscribeOrders</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">existing</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">bool</span><span class="o">&gt;</span><span class="p">,</span>
@@ -2479,7 +2532,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c"># }</span>
 </code></pre>
 <p>Subscribes to orders being added to and removed from the order book. This call allows the client to maintain an up-to-date view of the order book. For example, an exchange that wants to show its users a real time view of the orders available to them would subscribe to this streaming call to be alerted as new orders are added and expired orders are removed.</p>
-<h3 id='request-29'>Request</h3>
+<h3 id='request-30'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2549,7 +2602,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c"># }</span>
 </code></pre>
 <p>Subscribes to failed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when swap attempts are failing. It can be used for status monitoring, debugging, and testing purposes.</p>
-<h3 id='request-30'>Request</h3>
+<h3 id='request-31'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2650,7 +2703,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c"># }</span>
 </code></pre>
 <p>Subscribes to completed swaps. By default, only swaps that are initiated by a remote peer are transmitted unless a flag is set to include swaps initiated by the local node. This call allows the client to get real-time notifications when its orders are filled by a peer. It can be used for tracking order executions, updating balances, and informing a trader when one of their orders is settled through the Exchange Union network.</p>
-<h3 id='request-31'>Request</h3>
+<h3 id='request-32'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2783,7 +2836,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <span class="c"># }</span>
 </code></pre>
 <p>Subscribes to accepted swaps. This stream emits a message when the local xud node accepts a swap request from a peer, but before the swap has actually succeeded.</p>
-<h3 id='request-32'>Request</h3>
+<h3 id='request-33'>Request</h3>
 <p>This request has no parameters.</p>
 <h3 id='response-streaming-5'>Response (Streaming)</h3>
 <table><thead>
@@ -2876,7 +2929,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli tradehistory <span class="o">[</span>limit]
 </code></pre>
 <p>Gets a list of completed trades.</p>
-<h3 id='request-33'>Request</h3>
+<h3 id='request-34'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2890,7 +2943,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The maximum number of trades to return</td>
 </tr>
 </tbody></table>
-<h3 id='response-28'>Response</h3>
+<h3 id='response-29'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2931,7 +2984,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli tradinglimits <span class="o">[</span>currency]
 </code></pre>
 <p>Gets the trading limits for one or all currencies.</p>
-<h3 id='request-34'>Request</h3>
+<h3 id='request-35'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2945,7 +2998,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The ticker symbol of the currency to query for, if unspecified then trading limits for all supported currencies are queried.</td>
 </tr>
 </tbody></table>
-<h3 id='response-29'>Response</h3>
+<h3 id='response-30'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2982,7 +3035,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli unban &lt;node_identifier&gt; <span class="o">[</span>reconnect]
 </code></pre>
 <p>Removes a ban from a node manually and, optionally, attempts to connect to it.</p>
-<h3 id='request-35'>Request</h3>
+<h3 id='request-36'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3001,7 +3054,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>Whether to attempt to connect to the peer after it is unbanned.</td>
 </tr>
 </tbody></table>
-<h3 id='response-30'>Response</h3>
+<h3 id='response-31'>Response</h3>
 <p>This response has no parameters.</p>
 <h2 id='walletwithdraw'>WalletWithdraw</h2><pre class="highlight javascript tab-javascript"><code><span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">currency</span><span class="p">:</span> <span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">,</span>
@@ -3038,7 +3091,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 </code></pre><pre class="highlight shell tab-shell"><code>  xucli withdraw <span class="o">[</span>amount] <span class="o">[</span>currency] &lt;destination&gt; <span class="o">[</span>fee]
 </code></pre>
 <p>Withdraws a given currency from the xud wallets to a specified address.</p>
-<h3 id='request-36'>Request</h3>
+<h3 id='request-37'>Request</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3072,7 +3125,7 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The fee to use for the withdrawal transaction denominated in satoshis per byte.</td>
 </tr>
 </tbody></table>
-<h3 id='response-31'>Response</h3>
+<h3 id='response-32'>Response</h3>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3212,6 +3265,27 @@ xucli sell &lt;quantity&gt; &lt;pair_id&gt; &lt;price&gt; <span class="o">[</spa
 <td>The number of channels that have been closed.</td>
 </tr>
 </tbody></table>
+<h2 id='changepasswordrequest'>ChangePasswordRequest</h2>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>new_password</td>
+<td>string</td>
+<td></td>
+</tr>
+<tr>
+<td>old_password</td>
+<td>string</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id='changepasswordresponse'>ChangePasswordResponse</h2>
+<p>This message has no parameters.</p>
 <h2 id='closechannelrequest'>CloseChannelRequest</h2>
 <table><thead>
 <tr>
