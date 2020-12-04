@@ -316,6 +316,42 @@ Parameter | Type | Description
 node_identifier | string | The node pub key or alias of the node to ban.
 ### Response
 This response has no parameters.
+## ChangePassword
+```javascript
+var request = {
+  newPassword: <string>,
+  oldPassword: <string>,
+};
+
+xudClient.changePassword(request, function(err, response) {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(response);
+  }
+});
+// Output: {}
+```
+```python
+request = xud.ChangePasswordRequest(
+  new_password=<string>,
+  old_password=<string>,
+)
+response = xudStub.ChangePassword(request)
+print(response)
+# Output: {}
+```
+```shell
+  xucli changepass
+  ```
+Changes the xud master password, including the wallet passwords for any underlying clients.
+### Request
+Parameter | Type | Description
+--------- | ---- | -----------
+new_password | string | 
+old_password | string | 
+### Response
+This response has no parameters.
 ## CloseChannel
 ```javascript
 var request = {
@@ -1761,6 +1797,13 @@ active | uint32 | The number of active/online channels for this lnd instance tha
 inactive | uint32 | The number of inactive/offline channels for this lnd instance.
 pending | uint32 | The number of channels that are pending on-chain confirmation before they can be used.
 closed | uint32 | The number of channels that have been closed.
+## ChangePasswordRequest
+Parameter | Type | Description
+--------- | ---- | -----------
+new_password | string | 
+old_password | string | 
+## ChangePasswordResponse
+This message has no parameters.
 ## CloseChannelRequest
 Parameter | Type | Description
 --------- | ---- | -----------
